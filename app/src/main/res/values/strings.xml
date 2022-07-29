@@ -13,4 +13,9 @@
     <string name="se_connecter">Se connecter</string>
     <string name="creer_compte">Si vous n\'avez pas de compte</string>
     <string name="s_inscrire">S\'inscrire</string>
+    <string name="msg_de_bienvenue">Bienvenue sur votre plateforme de suivi de consommation d\'eau et de signalisation de fuites d\'eau</string>
+    <string name="inscription">Inscription</string>
+    <string name="confirmez_le_mot_de_passe">Confirmez le mot de passe</string>
+    <string name="nom_et_prenoms">Nom et prénoms</string>
+    <string name="confirmer_le_mot_de_passe">Confirmer le mot de passe</string>
 </resources>

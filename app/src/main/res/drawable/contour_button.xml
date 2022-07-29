@@ -12,7 +12,7 @@
      <solid
          android:color="@color/buttonColor"/>
     <stroke
-        android:color="#1ec66c"
+        android:color="#1eb6c6"
         android:width="2dp"/>
 
     <padding

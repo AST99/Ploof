@@ -2,40 +2,41 @@ package com.astdev.ploof;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.Button;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class ConnexionPage extends AppCompatActivity {
+public class InscriptionPage extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private Button btnConnexion, btnInscription;
-    private TextInputEditText editTxtPhone_mail, editTxtPassWrd;
+    private Button btnInscription;
+    private TextInputEditText editTxtNomPrenom, editTxtPhone_mail, editTxtPassWrd, confirmeditTxtPassWrd;
     private TextInputLayout editTxtTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connexion);
+        setContentView(R.layout.activity_inscription_page);
 
-        this.tabLayout = findViewById(R.id.tabLayout);
-        this.btnConnexion = findViewById(R.id.btnConnecter);
-        this.btnInscription = findViewById(R.id.btnInscription);
-        this.editTxtPhone_mail = findViewById(R.id.phoneOrMail);
-        this.editTxtPassWrd = findViewById(R.id.passWrd);
-        this.editTxtTitle = findViewById(R.id.titleEdit);
+        this.tabLayout = findViewById(R.id.tabLayoutInscription);
+        this.editTxtNomPrenom = findViewById(R.id.InscriptionNomPrenom);
+        this.editTxtPhone_mail = findViewById(R.id.phoneOrMailInscription);
+        this.editTxtPassWrd = findViewById(R.id.passWrdInscription);
+        this.confirmeditTxtPassWrd = findViewById(R.id.passWrdConfirm);
+        this.btnInscription =findViewById(R.id.btnInscrire);
+        this.editTxtTitle = findViewById(R.id.titlePhoneOrMail);
+
 
         selectedTab();
 
-        btnInscription.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),InscriptionPage.class)));
     }
 
+
     private void selectedTab(){
-        editTxtTitle.setHint("Numéro de téléphone");
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -68,4 +69,5 @@ public class ConnexionPage extends AppCompatActivity {
             }
         });
     }
+
 }
