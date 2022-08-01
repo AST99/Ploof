@@ -113,6 +113,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
+            app:placeholderText="Ali Touré"
+            app:placeholderTextColor="#a2b5bb"
             android:hint="@string/nom_et_prenoms">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -124,26 +126,6 @@
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/mailTitle"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:hint="E-mail"
-            app:endIconDrawable="@drawable/ic_email"
-            app:endIconMode="custom">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Mail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:inputType="textEmailAddress"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout> -->
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/titlePhoneOrMail"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -152,7 +134,8 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:hint="@string/phoneNumber"
-            app:endIconDrawable="@drawable/ic_phone"
+            app:placeholderText="05000000"
+            app:placeholderTextColor="#a2b5bb"
             app:endIconMode="custom">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -161,7 +144,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:inputType="phone"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:maxLength="8"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

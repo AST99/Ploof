@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -35,7 +38,6 @@ public class ConnexionPage extends AppCompatActivity {
     }
 
     private void selectedTab(){
-        editTxtTitle.setHint("Numéro de téléphone");
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -44,27 +46,27 @@ public class ConnexionPage extends AppCompatActivity {
                     case 0:
                         editTxtTitle.setHint("Numéro de téléphone");
                         editTxtTitle.setEndIconDrawable(R.drawable.ic_phone);
-                        //editTxtPhone_mail.setHint("77777777");
+                        editTxtTitle.setPlaceholderText("05000000");
                         editTxtPhone_mail.setInputType(InputType.TYPE_CLASS_PHONE);
+                        editTxtPhone_mail.setText("");
                         break;
                     case 1:
                         editTxtTitle.setHint("E-mail");
                         editTxtTitle.setEndIconDrawable(R.drawable.ic_email);
-                        //editTxtPhone_mail.setHint("exemple@ploof.com");
+                        editTxtTitle.setPlaceholderText("exemple@ploof.com");
                         editTxtPhone_mail.setInputType(InputType.TYPE_CLASS_TEXT|
                                 InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                        editTxtPhone_mail.setText("");
                         break;
                 }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
     }

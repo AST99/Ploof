@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable-anydpi/ic_name.xml" value="0.1565" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable-anydpi/ic_phone.xml" value="0.1565" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable/contour_button.xml" value="0.1565" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable/contoure_button_outlined.xml" value="0.1565" />
-        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_connexion.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_connexion.xml" value="0.25" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_inscription_page.xml" value="0.19953703703703704" />
       </map>
     </option>
