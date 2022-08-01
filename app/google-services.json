@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "84106521954",
+    "project_id": "ploof-b3988",
+    "storage_bucket": "ploof-b3988.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84106521954:android:74001709155579a3b9903b",
+        "android_client_info": {
+          "package_name": "com.astdev.ploof"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "84106521954-uphhiav6q109uali96hp4pv2ol7rf1sh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ_CUi2TsPnTgNgGN_9fGZGpkGWjjTqSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "84106521954-uphhiav6q109uali96hp4pv2ol7rf1sh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

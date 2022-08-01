@@ -2,9 +2,12 @@ package com.astdev.ploof;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -12,6 +15,9 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 public class ConnexionPage extends AppCompatActivity {
 
@@ -20,10 +26,17 @@ public class ConnexionPage extends AppCompatActivity {
     private TextInputEditText editTxtPhone_mail, editTxtPassWrd;
     private TextInputLayout editTxtTitle;
 
+    private FirebaseAuth mAuth;
+    private String choix="tel";
+    private String phone, mail, passWrd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connexion);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
 
         this.tabLayout = findViewById(R.id.tabLayout);
         this.btnConnexion = findViewById(R.id.btnConnecter);
@@ -34,6 +47,12 @@ public class ConnexionPage extends AppCompatActivity {
 
         selectedTab();
 
+        btnConnexion.setOnClickListener(view -> {
+            textBoxError();
+            if (choix.equals("mail"))
+                mailAndPassWrdConnexion();
+            //else if (choix.equals("tel"))
+        });
         btnInscription.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),InscriptionPage.class)));
     }
 
@@ -49,6 +68,7 @@ public class ConnexionPage extends AppCompatActivity {
                         editTxtTitle.setPlaceholderText("05000000");
                         editTxtPhone_mail.setInputType(InputType.TYPE_CLASS_PHONE);
                         editTxtPhone_mail.setText("");
+                        choix = "tel";
                         break;
                     case 1:
                         editTxtTitle.setHint("E-mail");
@@ -57,6 +77,7 @@ public class ConnexionPage extends AppCompatActivity {
                         editTxtPhone_mail.setInputType(InputType.TYPE_CLASS_TEXT|
                                 InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                         editTxtPhone_mail.setText("");
+                        choix = "mail";
                         break;
                 }
             }
@@ -70,4 +91,71 @@ public class ConnexionPage extends AppCompatActivity {
             }
         });
     }
+
+    /******************************Connexion avec le mail et le mot de passe***************************/
+    private void mailAndPassWrdConnexion(){
+        ProgressDialog progressDialog = new ProgressDialog(ConnexionPage.this, R.style.MyAlertDialogStyle);
+        progressDialog.setMessage("Connexion en cours...!");
+        progressDialog.setCanceledOnTouchOutside(false);
+
+        progressDialog.show();
+        mAuth.signInWithEmailAndPassword(mail, passWrd).addOnCompleteListener(task -> {
+
+            if (task.isSuccessful()){
+                progressDialog.dismiss();
+                startActivity(new Intent(getApplicationContext(),Home.class));
+            }
+            else {
+                progressDialog.dismiss();
+                Toast.makeText(ConnexionPage.this,"La connexion a échouer !\n Vérifiez vos" +
+                        " informations.", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    /****************************Gestion des erreurs au niveau des champs de saisie******************/
+    private void textBoxError(){
+        try {
+            if (choix.equals("mail")){
+                if (TextUtils.isEmpty(editTxtPhone_mail.getText())){
+                    editTxtPhone_mail.setError("Votre e-mail est requis!");
+                    editTxtPhone_mail.requestFocus();
+                    return;
+                }
+                else mail = Objects.requireNonNull(editTxtPhone_mail.getText()).toString().trim();
+
+                if (!Patterns.EMAIL_ADDRESS.matcher(Objects.requireNonNull(editTxtPhone_mail.getText()).
+                        toString().trim()).matches()){
+                    editTxtPhone_mail.setError("Merci de fournir un email valide!");
+                    editTxtPhone_mail.requestFocus();
+                    return;
+                }
+            }
+
+            if (choix.equals("tel")){
+                if (TextUtils.isEmpty(editTxtPhone_mail.getText())){
+                    editTxtPhone_mail.setError("Votre numéro de téléphone est requis!");
+                    editTxtPhone_mail.requestFocus();
+                    return;
+                }
+                else phone = Objects.requireNonNull(editTxtPhone_mail.getText()).toString().trim();
+            }
+
+            if (TextUtils.isEmpty(editTxtPassWrd.getText())){
+                editTxtPassWrd.setError("Veuillez saisir un mot de passe!");
+                editTxtPassWrd.requestFocus();
+                return;
+            }
+            else passWrd = Objects.requireNonNull(editTxtPassWrd.getText()).toString().trim();
+            if (editTxtPassWrd.length()<5){
+                editTxtPassWrd.setError("La longueur minimale du mot de passe doit être de 5 caractères");
+                editTxtPassWrd.requestFocus();
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
