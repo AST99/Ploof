@@ -182,6 +182,7 @@ public class InscriptionPage extends AppCompatActivity {
             ProgressDialog progressDialog = new ProgressDialog(InscriptionPage.this, R.style.MyAlertDialogStyle);
             progressDialog.setMessage("Inscription en cours...!");
             progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
 
             mAuth.createUserWithEmailAndPassword(m,p).addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
