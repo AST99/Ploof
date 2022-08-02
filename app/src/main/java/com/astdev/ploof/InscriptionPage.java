@@ -1,5 +1,6 @@
 package com.astdev.ploof;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -40,6 +41,9 @@ public class InscriptionPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscription_page);
 
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
         mAuth = FirebaseAuth.getInstance();
 
         this.tabLayout = findViewById(R.id.tabLayoutInscription);

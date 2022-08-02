@@ -1,5 +1,6 @@
 package com.astdev.ploof;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -35,8 +36,12 @@ public class ConnexionPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connexion);
 
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
+
         mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
+        //mAuth.signOut();
 
         this.tabLayout = findViewById(R.id.tabLayout);
         this.btnConnexion = findViewById(R.id.btnConnecter);

@@ -4,6 +4,178 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home">
+    tools:context=".Home"
+    tools:ignore="MissingDefaultResource">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:columnOrderPreserved="false"
+        android:rowCount="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewConso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardCornerRadius="12dp"
+
+            app:cardElevation="7dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F1FDFE"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    app:srcCompat="@drawable/conso"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/TxtViewConso"
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Ma conso d'eau"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewFuite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="7dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F1FDFE"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    app:srcCompat="@drawable/fuite"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/btnCondensateur"
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Signaler une fuite"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewPlombier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="7dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F1FDFE"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    app:srcCompat="@drawable/plombier"
+                    tools:ignore="ContentDescription" />
+
+
+                <TextView
+                    android:id="@+id/btnInducteur"
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Un plombier"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewAlerte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="7dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F1FDFE"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    app:srcCompat="@drawable/conso"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/btnImpedance"
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Mes alertes"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

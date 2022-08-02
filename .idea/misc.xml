@@ -7,8 +7,11 @@
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable-anydpi/ic_phone.xml" value="0.1565" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable/contour_button.xml" value="0.1565" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable/contoure_button_outlined.xml" value="0.1565" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable/entete.xml" value="0.127" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_connexion.xml" value="0.25" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_home.xml" value="0.1925925925925926" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_inscription_page.xml" value="0.17314814814814813" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_suivi_conso.xml" value="0.25" />
       </map>
     </option>
   </component>
