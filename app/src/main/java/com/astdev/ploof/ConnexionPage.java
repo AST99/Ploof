@@ -54,8 +54,9 @@ public class ConnexionPage extends AppCompatActivity {
 
         btnConnexion.setOnClickListener(view -> {
             textBoxError();
-            if (choix.equals("mail"))
-                mailAndPassWrdConnexion();
+            startActivity(new Intent(getApplicationContext(), Home.class));
+            /*if (choix.equals("mail"))
+                mailAndPassWrdConnexion();*/
             //else if (choix.equals("tel"))
         });
         btnInscription.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),InscriptionPage.class)));

@@ -27,11 +27,11 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/logo"
-                app:srcCompat="@mipmap/logocircle" />
+                app:srcCompat="@drawable/logo_rond" />
 
             <TextView
                 android:layout_width="wrap_content"

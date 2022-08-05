@@ -4,82 +4,183 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home"
-    tools:ignore="MissingDefaultResource">
+    tools:context=".SuiviConso">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="396dp"
+        android:layout_height="255dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/water"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tabLayoutConso" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutConso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorColor="#5ccff9"
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/TextTabBar">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:layout_weight="1"
-                android:text="Ma consommation"
-                android:textColor="#7eaab4"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/todayTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/aujourd_hui" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#7eaab4"
-                android:layout_marginTop="20dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginEnd="15dp"
-                tools:text="Aujourd'hui,26/07/2022" />
-        </LinearLayout>
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/hierTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hier" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayoutInscription"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/weekTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cette_semaine" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+
+
+
+    <!-- Card view for displaying the -->
+    <!-- Pie chart and details of pie chart -->
+
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="53dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="1"
+        android:columnOrderPreserved="false"
+        android:rowCount="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gifImageView">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewPlombier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="15dp"
-            app:tabIndicatorColor="#5ccff9"
-            app:tabTextAppearance="@style/TextTabBar">
+            android:layout_margin="6dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="7dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
 
-            <com.google.android.material.tabs.TabItem
+            <TextView
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aujourd'hui"
-                android:textAllCaps="false" />
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/r_sum_de_votre_consommation_d_eau"
+                android:textColor="#000000" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hier"
-                android:textAllCaps="false" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cette semaine" />
+                <org.eazegraph.lib.charts.PieChart
+                    android:id="@+id/piechart"
+                    android:layout_width="150dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="6dp"
+                    tools:ignore="MissingClass" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ce mois" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical">
 
-        </com.google.android.material.tabs.TabLayout>
+                        <!--View to display the yellow color icon-->
+                        <View
+                            android:id="@+id/view1"
+                            android:layout_width="15dp"
+                            android:layout_height="match_parent"
+                            android:background="#FFA726" />
 
-    </LinearLayout>
+                        <!--Text view to display R -->
+                        <TextView
+                            android:id="@+id/tvR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="10dp" />
+
+                    </LinearLayout>
+
+                    <!--Linear layout to display Python-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="5dp">
+
+                        <!--View to display the green color icon-->
+                        <View
+                            android:id="@+id/view2"
+                            android:layout_width="15dp"
+                            android:layout_height="match_parent"
+
+                            android:background="#66BB6A" />
+
+                        <!--Text view to display python text -->
+                        <TextView
+                            android:id="@+id/tvPython"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="10dp" />
+
+                    </LinearLayout>
+
+                    <!--Linear layout to display C++-->
+
+                    <!--Linear layout to display Java-->
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="300ml"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/gifImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/gifImageView"
+        app:layout_constraintTop_toTopOf="@+id/gifImageView"
+        app:layout_constraintVertical_bias="0.333" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

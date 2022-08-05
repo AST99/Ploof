@@ -18,4 +18,8 @@
     <string name="confirmez_le_mot_de_passe">Confirmez le mot de passe</string>
     <string name="nom_et_prenoms">Nom et prénoms</string>
     <string name="confirmer_le_mot_de_passe">Confirmer le mot de passe</string>
+    <string name="aujourd_hui">Aujourd\'hui</string>
+    <string name="hier">Hier</string>
+    <string name="cette_semaine">Cette semaine</string>
+    <string name="r_sum_de_votre_consommation_d_eau">Résumé de votre consommation d\'eau</string>
 </resources>
