@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SuiviConso">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="396dp"
+        android:layout_height="255dp"
+        android:layout_marginTop="58dp"
+        android:src="@drawable/water"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="53dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="1"
+        android:columnOrderPreserved="false"
+        android:rowCount="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gifImageView">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewServices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="7dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/r_sum_de_votre_consommation_d_eau"
+                android:textColor="#000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <org.eazegraph.lib.charts.PieChart
+                    android:id="@+id/piechart"
+                    android:layout_width="150dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="6dp"
+                    tools:ignore="MissingClass" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical">
+
+                        <!--View to display the yellow color icon-->
+                        <View
+                            android:id="@+id/view1"
+                            android:layout_width="15dp"
+                            android:layout_height="match_parent"
+                            android:background="#FFA726" />
+
+                        <!--Text view to display R -->
+                        <TextView
+                            android:id="@+id/tvR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="10dp" />
+
+                    </LinearLayout>
+
+                    <!--Linear layout to display Python-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="5dp">
+
+                        <!--View to display the green color icon-->
+                        <View
+                            android:id="@+id/view2"
+                            android:layout_width="15dp"
+                            android:layout_height="match_parent"
+
+                            android:background="#66BB6A" />
+
+                        <!--Text view to display python text -->
+                        <TextView
+                            android:id="@+id/tvPython"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="10dp" />
+
+                    </LinearLayout>
+
+                    <!--Linear layout to display C++-->
+
+                    <!--Linear layout to display Java-->
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="300ml"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/gifImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/gifImageView"
+        app:layout_constraintTop_toTopOf="@+id/gifImageView"
+        app:layout_constraintVertical_bias="0.333" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,9 +6,12 @@
 
     <item
         android:id="@+id/action_home"
-        android:title="icon"
-        android:icon="@drawable/ic_profile"
-        android:contentDescription="profile"
-        app:showAsAction="ifRoom" />
+        android:title="Mon compte"
+        android:contentDescription="Mon compte"/>
+
+    <item
+        android:id="@+id/action_logOut"
+        android:title="Me déconnecter"
+        android:contentDescription="Me déconnecter"/>
 
 </menu>

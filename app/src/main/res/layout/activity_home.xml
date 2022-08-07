@@ -16,38 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <!-- ToolBar widget -->
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:title="@string/app_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:titleTextColor="#ffff" />
-
-
-
-
-            <!-- Right most ImageView -->
-            <ImageView
-                android:id="@+id/imgViewProfil"
-                android:layout_width="50dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="9dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/toolbar"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_profile" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
    <!-- <LinearLayout
@@ -139,7 +108,7 @@
                     android:id="@+id/TxtViewConso"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
                     android:text="Ma conso d'eau"
                     android:textAllCaps="false"
@@ -177,7 +146,7 @@
                     android:id="@+id/btnCondensateur"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
                     android:text="Signaler une fuite"
                     android:textAllCaps="false"
@@ -188,7 +157,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewPlombier"
+            android:id="@+id/cardViewServices"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
@@ -215,7 +184,7 @@
                     android:id="@+id/btnInducteur"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
                     android:text="Nos services"
                     android:textAllCaps="false"
@@ -246,14 +215,14 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="128dp"
-                    app:srcCompat="@drawable/conso"
+                    app:srcCompat="@drawable/notifs"
                     tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/btnImpedance"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
                     android:text="Mes alertes"
                     android:textAllCaps="false"
