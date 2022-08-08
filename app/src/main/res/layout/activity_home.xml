@@ -19,32 +19,30 @@
 
 
     </com.google.android.material.appbar.AppBarLayout>
-   <!-- <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#5ccff9"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="90dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/logo_rond" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="90dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_profile" />
-    </LinearLayout> -->
+    <!-- <LinearLayout
+         android:id="@+id/linearLayout3"
+         android:layout_width="match_parent"
+         android:layout_height="60dp"
+         android:background="#5ccff9"
+         android:orientation="horizontal"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent">
+         <ImageView
+             android:id="@+id/imageView2"
+             android:layout_width="90dp"
+             android:layout_height="45dp"
+             android:layout_gravity="center"
+             android:layout_weight="1"
+             app:srcCompat="@drawable/logo_rond" />
+         <ImageView
+             android:id="@+id/imageView"
+             android:layout_width="90dp"
+             android:layout_height="45dp"
+             android:layout_gravity="center"
+             android:layout_weight="1"
+             app:srcCompat="@drawable/ic_profile" />
+     </LinearLayout> -->
 
     <TextView
         android:id="@+id/textView"
@@ -85,8 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             app:cardCornerRadius="12dp"
-
-            app:cardElevation="7dp"
+            app:cardElevation="3dp"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
 
@@ -100,17 +97,16 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="128dp"
-                    app:srcCompat="@drawable/conso"
+                    android:layout_height="130dp"
+                    app:srcCompat="@drawable/conso1"
                     tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/TxtViewConso"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="Ma conso d'eau"
+                    android:text="@string/ma_conso_d_eau"
                     android:textAllCaps="false"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -124,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="7dp"
+            app:cardElevation="3dp"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
 
@@ -138,7 +134,7 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="128dp"
+                    android:layout_height="130dp"
                     app:srcCompat="@drawable/fuite"
                     tools:ignore="ContentDescription" />
 
@@ -146,9 +142,8 @@
                     android:id="@+id/btnCondensateur"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="Signaler une fuite"
+                    android:text="@string/signaler_une_fuite"
                     android:textAllCaps="false"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -162,7 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="7dp"
+            app:cardElevation="3dp"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
 
@@ -176,7 +171,7 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="128dp"
+                    android:layout_height="130dp"
                     app:srcCompat="@drawable/plombier"
                     tools:ignore="ContentDescription" />
 
@@ -184,9 +179,8 @@
                     android:id="@+id/btnInducteur"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="Nos services"
+                    android:text="@string/nos_services"
                     android:textAllCaps="false"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -200,7 +194,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="7dp"
+            app:cardElevation="3dp"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
 
@@ -214,7 +208,7 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="128dp"
+                    android:layout_height="130dp"
                     app:srcCompat="@drawable/notifs"
                     tools:ignore="ContentDescription" />
 
@@ -222,9 +216,8 @@
                     android:id="@+id/btnImpedance"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="Mes alertes"
+                    android:text="@string/mes_notifications"
                     android:textAllCaps="false"
                     android:textColor="#000000"
                     android:textSize="16sp"

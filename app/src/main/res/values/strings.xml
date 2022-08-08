@@ -31,4 +31,8 @@
     <string name="title_activity_test">test</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="mes_notifications">Mes notifications</string>
+    <string name="nos_services">Nos services</string>
+    <string name="ma_conso_d_eau">Ma conso d\'eau</string>
+    <string name="signaler_une_fuite">Signaler une fuite</string>
 </resources>
