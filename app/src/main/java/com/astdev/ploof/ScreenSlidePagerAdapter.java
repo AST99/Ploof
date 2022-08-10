@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.astdev.ploof.fragments.*;
+
 class ScreenSlidePagerAdapter extends FragmentStateAdapter {
     public ScreenSlidePagerAdapter(AppCompatActivity fa) {
         super(fa);

@@ -5,12 +5,12 @@
     tools:ignore="MissingDefaultResource">
 
     <item
-        android:id="@+id/action_home"
+        android:id="@+id/action_Compte"
         android:title="Mon compte"
         android:contentDescription="Mon compte"/>
 
     <item
-        android:id="@+id/action_logOut"
+        android:id="@+id/action_deconnexion"
         android:title="Me déconnecter"
         android:contentDescription="Me déconnecter"/>
 

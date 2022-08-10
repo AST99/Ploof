@@ -3,6 +3,7 @@ package com.astdev.ploof;
 public class UsersModel {
 
     String nomPrenom, mail, phone, passWrd;
+    boolean isConnected;
 
     public UsersModel() {
     }
@@ -12,6 +13,18 @@ public class UsersModel {
         this.mail = mail;
         this.phone = phone;
         this.passWrd = passWrd;
+    }
+
+    public UsersModel(boolean isConnected) {
+        this.isConnected = isConnected;
+    }
+
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    public void setConnected(boolean isConnected) {
+        this.isConnected = isConnected;
     }
 
     public String getNomPrenom() {

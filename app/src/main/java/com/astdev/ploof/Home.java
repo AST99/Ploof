@@ -1,8 +1,5 @@
 package com.astdev.ploof;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +8,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import com.google.firebase.auth.FirebaseAuth;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -66,17 +65,17 @@ public class Home extends AppCompatActivity {
     //gère le click sur une action de l'ActionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_home) {
-            Intent activityHome = new Intent(getApplicationContext(), Home.class);
-            startActivity(activityHome);
+        if (item.getItemId() == R.id.action_Compte) {
+            startActivity(new Intent(getApplicationContext(), Home.class));
             this.finish();
             return true;
         }
-
-        //Rédirige vers le site https://passivecomponents.me/
-        /*if (item.getItemId() == R.id.savoir_plus){
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://passivecomponents.me/")));
-        }*/
+        if (item.getItemId() == R.id.action_deconnexion) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getApplicationContext(), ConnexionPage.class));
+            this.finish();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

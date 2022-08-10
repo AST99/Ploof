@@ -38,6 +38,24 @@
 
     </com.google.android.material.tabs.TabLayout>
 
+
+   <!-- <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/extended_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/contour_button"
+        android:contentDescription="Signaler une fuite d'eau"
+        android:padding="14dp"
+        android:text="Signaler une fuite d'eau"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="RtlHardcoded" /> -->
+
     <!--  <GridLayout
           android:id="@+id/gridLayout"
           android:layout_width="match_parent"
@@ -175,5 +193,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayoutConso" />
+
+
+  <!--  <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/extended_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="Signaler une fuite d'eau"
+        android:padding="14dp"
+        android:text="Signaler une fuite d'eau"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        app:icon="@drawable/ic_exfab"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="RtlHardcoded" /> -->
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/Fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#ff0000"
+        android:clickable="true"
+        android:contentDescription="Signaler une fuite"
+        android:focusable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_exfab" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

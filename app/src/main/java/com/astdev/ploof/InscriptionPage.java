@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
@@ -190,13 +191,15 @@ public class InscriptionPage extends AppCompatActivity {
 
             mAuth.createUserWithEmailAndPassword(m,p).addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
-                    UsersModel agent = new UsersModel(n, m, t, p);
+                    UsersModel user = new UsersModel(n, m, t, p);
                     FirebaseDatabase.getInstance().getReference("Users")
                             .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).
-                                    getUid()).setValue(agent).addOnCompleteListener(task1 -> {
+                                    getUid()).setValue(user).addOnCompleteListener(task1 -> {
                                 if(task1.isSuccessful()){
                                     Toast.makeText(InscriptionPage.this,"Vous compte a bien été enregistré !",
                                             Toast.LENGTH_LONG).show();
+                                    FirebaseUser userFirebase = mAuth.getCurrentUser();
+                                    updateUI(userFirebase);
                                     startActivity(new Intent(getApplicationContext(),ConnexionPage.class));
                                     progressDialog.dismiss();
                                 }
@@ -214,6 +217,9 @@ public class InscriptionPage extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void updateUI(FirebaseUser user) {
     }
 
 }

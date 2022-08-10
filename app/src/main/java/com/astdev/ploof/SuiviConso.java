@@ -4,18 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SuiviConso extends AppCompatActivity {
 
     ViewPager2 viewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,28 +67,30 @@ public class SuiviConso extends AppCompatActivity {
             }
             return false;
         });
-
     }
 
 
-/************************Gère le menu du toolbar (Menu en haut de la page***************************/
+/************************Gère le menu du toolbar (Menu en haut de la page)***************************/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //ajoute les entrées de toolbar_menu à l'ActionBar
-        getMenuInflater().inflate(R.menu.home_toolbar, menu);
-        return true;
-    }
+    //ajoute les entrées de toolbar_menu à l'ActionBar
+    getMenuInflater().inflate(R.menu.home_toolbar, menu);
+    return true;
+}
 
     //gère le click sur une action de l'ActionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_accueil) {
+        if (item.getItemId() == R.id.action_Compte) {
             startActivity(new Intent(getApplicationContext(), Home.class));
             this.finish();
             return true;
         }
-        if (item.getItemId() == R.id.action_services) {
-            Toast.makeText(getApplicationContext(), "Services", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.action_deconnexion) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getApplicationContext(), ConnexionPage.class));
+            this.finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

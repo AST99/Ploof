@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,161 +7,171 @@
     tools:context=".SuiviConso">
 
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:layout_margin="16dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="64dp"
-        android:foregroundGravity="center"
-        app:cardCornerRadius="160dp"
-        app:cardElevation="7dp"
-        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- simple image view -->
-        <pl.droidsonroids.gif.GifImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="center"
-            android:src="@drawable/water" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="70dp"
-            android:gravity="center_horizontal"
-            android:text="300 Litres"
-            android:textColor="#000000"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-    </androidx.cardview.widget.CardView>
-
-    <GridLayout
-        android:id="@+id/gridLayout"
-        android:layout_width="330dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="36dp"
-        android:alignmentMode="alignMargins"
-        android:columnCount="1"
-        android:columnOrderPreserved="false"
-        android:rowCount="2"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewServices"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="6dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="3dp"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1">
+            android:layout_width="300dp"
+            android:layout_height="255dp"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="50dp"
+            android:foregroundGravity="center"
+            app:cardCornerRadius="160dp"
+            app:cardElevation="7dp">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/r_sum_de_votre_consommation_d_eau"
-                android:textColor="#000000" />
-
-            <LinearLayout
+            <!-- simple image view -->
+            <pl.droidsonroids.gif.GifImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:scaleType="center"
+                android:src="@drawable/water" />
 
-                <org.eazegraph.lib.charts.PieChart
-                    android:id="@+id/piechart"
-                    android:layout_width="150dp"
-                    android:layout_height="110dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginBottom="15dp"
-                    android:padding="6dp"
-                    tools:ignore="MissingClass" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="15dp"
-                        android:layout_gravity="center_vertical">
-
-                        <!--View to display the yellow color icon-->
-                        <View
-                            android:id="@+id/view1"
-                            android:layout_width="15dp"
-                            android:layout_height="match_parent"
-                            android:background="#FFA726" />
-
-                        <!--Text view to display R -->
-                        <TextView
-                            android:id="@+id/tvR"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="10dp" />
-
-                    </LinearLayout>
-
-                    <!--Linear layout to display Python-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="15dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginTop="5dp">
-
-                        <!--View to display the green color icon-->
-                        <View
-                            android:id="@+id/view2"
-                            android:layout_width="15dp"
-                            android:layout_height="match_parent"
-
-                            android:background="#66BB6A" />
-
-                        <!--Text view to display python text -->
-                        <TextView
-                            android:id="@+id/tvPython"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="10dp" />
-
-                    </LinearLayout>
-
-                    <!--Linear layout to display C++-->
-
-                    <!--Linear layout to display Java-->
-
-                </LinearLayout>
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="70dp"
+                android:gravity="center_horizontal"
+                android:text="300 Litres"
+                android:textColor="#000000"
+                android:textSize="28sp"
+                android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
-    </GridLayout>
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:alignmentMode="alignMargins"
+            android:columnCount="1"
+            android:columnOrderPreserved="false"
+            android:rowCount="2">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewServices"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/r_sum_de_votre_consommation_d_eau"
+                    android:textColor="#000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <org.eazegraph.lib.charts.PieChart
+                        android:id="@+id/piechart"
+                        android:layout_width="150dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="15dp"
+                        android:padding="6dp"
+                        tools:ignore="MissingClass" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center_vertical">
+
+                            <!--View to display the yellow color icon-->
+                            <View
+                                android:id="@+id/view1"
+                                android:layout_width="15dp"
+                                android:layout_height="match_parent"
+                                android:background="#FFA726" />
+
+                            <!--Text view to display R -->
+                            <TextView
+                                android:id="@+id/tvR"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="10dp"
+                                tools:ignore="RtlSymmetry" />
+
+                        </LinearLayout>
+
+                        <!--Linear layout to display Python-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp">
+
+                            <!--View to display the green color icon-->
+                            <View
+                                android:id="@+id/view2"
+                                android:layout_width="15dp"
+                                android:layout_height="match_parent"
+
+                                android:background="#66BB6A" />
+
+                            <!--Text view to display python text -->
+                            <TextView
+                                android:id="@+id/tvPython"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="10dp"
+                                tools:ignore="RtlSymmetry" />
+
+                        </LinearLayout>
+
+                        <!--Linear layout to display C++-->
+
+                        <!--Linear layout to display Java-->
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </GridLayout>
+
+        <!-- <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+             android:id="@+id/extended_fab"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="bottom|right"
+             android:layout_marginTop="16dp"
+             android:layout_marginEnd="35dp"
+             android:background="@drawable/contour_button"
+             android:textAllCaps="false"
+             android:padding="14dp"
+             android:contentDescription="Signaler une fuite d'eau"
+             android:text="Signaler une fuite d'eau"
+             android:textColor="#ffffff"
+             tools:ignore="RtlHardcoded" /> -->
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

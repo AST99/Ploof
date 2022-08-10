@@ -1,23 +1,20 @@
 package com.astdev.ploof;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-
+import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 public class ConnexionPage extends AppCompatActivity {
@@ -41,7 +38,6 @@ public class ConnexionPage extends AppCompatActivity {
         actionBar.hide();
 
         mAuth = FirebaseAuth.getInstance();
-        //mAuth.signOut();
 
         this.tabLayout = findViewById(R.id.tabLayout);
         this.btnConnexion = findViewById(R.id.btnConnecter);
@@ -110,11 +106,14 @@ public class ConnexionPage extends AppCompatActivity {
             if (task.isSuccessful()){
                 progressDialog.dismiss();
                 startActivity(new Intent(getApplicationContext(),Home.class));
+                editTxtPassWrd.setText("");
+                editTxtPhone_mail.setText("");
+                this.finish();
             }
             else {
                 progressDialog.dismiss();
                 Toast.makeText(ConnexionPage.this,"La connexion a échouer !\n Vérifiez vos" +
-                        " informations.", Toast.LENGTH_LONG).show();
+                        " informations ou créez un compte !", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -164,4 +163,17 @@ public class ConnexionPage extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+       if (currentUser != null)
+           reload();
+    }
+
+    private void reload() { }
+
+    private void updateUI(FirebaseUser user) {
+
+    }
 }

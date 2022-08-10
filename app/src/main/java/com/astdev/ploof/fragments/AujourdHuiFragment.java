@@ -1,4 +1,4 @@
-package com.astdev.ploof;
+package com.astdev.ploof.fragments;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.astdev.ploof.R;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
