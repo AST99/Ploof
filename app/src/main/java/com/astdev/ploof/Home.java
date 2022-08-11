@@ -1,18 +1,24 @@
 package com.astdev.ploof;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class Home extends AppCompatActivity {
 
@@ -23,6 +29,10 @@ public class Home extends AppCompatActivity {
     String dateTime24h, dateTime12h;
     Calendar calendar;
     SimpleDateFormat heureFormat24h, heureFormat12h;
+
+    private CheckBox atHome, outsideHome;
+
+    private Dialog dialog; //l'utilisateur choisie le lieux de la fuite (à domicile ou  dans la rue
 
     @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
     @Override
@@ -36,6 +46,19 @@ public class Home extends AppCompatActivity {
         this.cardViewServices = findViewById(R.id.cardViewServices);
         this.cvAlerte = findViewById(R.id.cardViewAlerte);
 
+
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.layout_dialog);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setGravity(Gravity.TOP);
+        dialog.setCanceledOnTouchOutside(true);
+
+        this.atHome = dialog.findViewById(R.id.checkBoxDomicile);
+        //atHome.setOnCheckedChangeListener(this);
+        this.outsideHome = dialog.findViewById(R.id.checkBoxHorsDomicile);
+        //outsideHome.setOnCheckedChangeListener(this);
+
         calendar = Calendar.getInstance();
         heureFormat24h = new SimpleDateFormat("HH:mm");
         heureFormat12h = new SimpleDateFormat("KK:mm aaa");
@@ -46,8 +69,13 @@ public class Home extends AppCompatActivity {
 
         cvConso.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),SuiviConso.class)));
 
-        cvFuite.setOnClickListener(view -> Toast.makeText(this, "Signaler une fuite d'eau", Toast.LENGTH_SHORT).show());
-
+        cvFuite.setOnClickListener(view -> {
+            try {
+                dialog.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         cardViewServices.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),Services.class)));
 
         cvAlerte.setOnClickListener(view -> Toast.makeText(this, "Mes alertes", Toast.LENGTH_SHORT).show());
@@ -65,11 +93,6 @@ public class Home extends AppCompatActivity {
     //gère le click sur une action de l'ActionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_Compte) {
-            startActivity(new Intent(getApplicationContext(), Home.class));
-            this.finish();
-            return true;
-        }
         if (item.getItemId() == R.id.action_deconnexion) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getApplicationContext(), ConnexionPage.class));

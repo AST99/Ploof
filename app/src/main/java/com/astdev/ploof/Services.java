@@ -21,11 +21,11 @@ public class Services extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_services);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.action_accueil){
+           /* if (item.getItemId() == R.id.action_accueil){
                 startActivity(new Intent(getApplicationContext(),Home.class));
                 overridePendingTransition(0,0);
                 return true;
-            }
+            }*/
             if (item.getItemId() == R.id.action_conso){
                 startActivity(new Intent(getApplicationContext(), SuiviConso.class));
                 overridePendingTransition(0,0);
@@ -46,7 +46,7 @@ public class Services extends AppCompatActivity {
     //gère le click sur une action de l'ActionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_Compte) {
+        if (item.getItemId() == R.id.action_home) {
             startActivity(new Intent(getApplicationContext(), Home.class));
             this.finish();
             return true;

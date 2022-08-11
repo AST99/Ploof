@@ -26,6 +26,11 @@
     <string name="accueil">Accueil</string>
     <string name="services">Services</string>
     <string name="profil">Profil</string>
+
+    <string name="fuite_d_eau_domicile">à domicile</string>
+    <string name="fuite_d_eau_hors_domicile">dans la rue</string>
+    <string name="num_ro_de_votre_compteur">Numéro de votre compteur</string>
+    <string name="la_fuite_d_eau_que_je_signale_se_trouve">La fuite d\'eau que je signale se trouve :</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_test">test</string>

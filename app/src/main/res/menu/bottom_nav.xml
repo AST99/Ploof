@@ -10,17 +10,17 @@
         app:showAsAction="collapseActionView"/>
 
     <item
-        android:id="@+id/action_accueil"
-        android:title="@string/accueil"
-        android:enabled="true"
-        android:icon="@drawable/ic_home"
-        app:showAsAction="collapseActionView"/>
-
-    <item
         android:id="@+id/action_services"
         android:title="@string/services"
         android:enabled="true"
         android:icon="@drawable/ic_service"
+        app:showAsAction="collapseActionView"/>
+
+    <item
+        android:id="@+id/action_profil"
+        android:title="Profil"
+        android:enabled="true"
+        android:icon="@drawable/ic_profil"
         app:showAsAction="collapseActionView"/>
 
 </menu>

@@ -5,13 +5,16 @@
     tools:ignore="MissingDefaultResource">
 
     <item
-        android:id="@+id/action_Compte"
-        android:title="Mon compte"
-        android:contentDescription="Mon compte"/>
+        android:id="@+id/action_home"
+        android:title="Accueil"
+        android:contentDescription="Accueil"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_deconnexion"
         android:title="Me déconnecter"
-        android:contentDescription="Me déconnecter"/>
+        android:contentDescription="Me déconnecter"
+        />
 
 </menu>
