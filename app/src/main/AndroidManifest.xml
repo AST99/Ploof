@@ -17,10 +17,15 @@
         android:theme="@style/Theme.OTech"
         tools:targetApi="31">
         <activity
+            android:name=".SignalerFuite"
+            android:exported="false"
+            android:label="@string/signaler_une_fuite"
+            android:parentActivityName=".Home"/>
+        <activity
             android:name=".Services"
             android:exported="false"
             android:label="Nos services"
-            android:parentActivityName=".Home"/>
+            android:parentActivityName=".Home" />
         <activity
             android:name=".SuiviConso"
             android:exported="false"

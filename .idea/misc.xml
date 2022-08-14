@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable-anydpi/background_dialog.xml" value="0.126" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable-anydpi/ic_add_location.xml" value="0.126" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable-anydpi/ic_add_photo.xml" value="0.126" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable-anydpi/ic_home.xml" value="0.126" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable-anydpi/ic_name.xml" value="0.1565" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable-anydpi/ic_phone.xml" value="0.1565" />
@@ -15,6 +17,7 @@
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable/contoure_button_outlined.xml" value="0.1565" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable/dim_overlay.xml" value="0.15" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable/entete.xml" value="0.127" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable/logout.xml" value="0.126" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable/refs.xml" value="0.15" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/drawable/selector.xml" value="0.144" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_connexion.xml" value="0.19953703703703704" />
@@ -23,20 +26,27 @@
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_pie_chart_test.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_pie_chart_test2.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_services.xml" value="0.19953703703703704" />
-        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_suivi_conso.xml" value="0.19074074074074074" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_signaler_fuite.xml" value="0.19074074074074074" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_suivi_conso.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/activity_test_fab.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/content_test_responsive.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/fragment_aujourd_hui.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/fragment_cette_semaine.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/fragment_fuite_dialog.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/fragment_hier.xml" value="0.18703703703703703" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/fragment_services.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/fragment_test.xml" value="0.19907407407407407" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/fragment_transform.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/item_transform.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/layout_dialog.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/switch_item.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/layout/test.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/menu/bottom_nav.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/menu/bottom_navigation.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/menu/conso_toolbar.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/menu/home_toolbar.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/menu/navigation_drawer.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/menu/overflow.xml" value="0.19953703703703704" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/menu/toolbar.xml" value="0.1925925925925926" />
         <entry key="..\:/Users/AST/AndroidStudioProjects/Ploof/app/src/main/res/menu/toolbar_menu.xml" value="0.19953703703703704" />
       </map>

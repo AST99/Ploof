@@ -17,6 +17,14 @@
         app:showAsAction="collapseActionView"/>
 
     <item
+        android:id="@+id/action_home"
+        android:title="Accueil"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="collapseActionView"/>
+
+
+    <item
         android:id="@+id/action_profil"
         android:title="Profil"
         android:enabled="true"

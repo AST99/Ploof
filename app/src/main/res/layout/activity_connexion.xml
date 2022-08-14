@@ -27,8 +27,8 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="95dp"
-                android:layout_height="95dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/logo"
                 app:srcCompat="@drawable/logo_rond" />
@@ -167,7 +167,7 @@
             android:background="@drawable/contour_button"
             android:text="@string/se_connecter"
             android:textAllCaps="false"
-            android:textColor="#ffffff"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <LinearLayout

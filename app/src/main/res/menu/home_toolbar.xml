@@ -14,6 +14,8 @@
     <item
         android:id="@+id/action_deconnexion"
         android:title="Me déconnecter"
+        android:icon="@drawable/logout"
+        app:showAsAction="ifRoom"
         android:contentDescription="Me déconnecter"
         />
 

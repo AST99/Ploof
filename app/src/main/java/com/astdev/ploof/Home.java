@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,21 +21,23 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
 
     private CardView cvConso, cvFuite, cardViewServices, cvAlerte;
     private ImageView imgProfil;
     private TextView txtView;
 
+
+
     String dateTime24h, dateTime12h;
     Calendar calendar;
     SimpleDateFormat heureFormat24h, heureFormat12h;
 
-    private CheckBox atHome, outsideHome;
+    public static CheckBox atHome, outsideHome;
 
     private Dialog dialog; //l'utilisateur choisie le lieux de la fuite (à domicile ou  dans la rue
 
-    @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
+    @SuppressLint({"SimpleDateFormat", "SetTextI18n", "UseCompatLoadingForDrawables"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,9 +58,9 @@ public class Home extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(true);
 
         this.atHome = dialog.findViewById(R.id.checkBoxDomicile);
-        //atHome.setOnCheckedChangeListener(this);
+        atHome.setOnCheckedChangeListener(this);
         this.outsideHome = dialog.findViewById(R.id.checkBoxHorsDomicile);
-        //outsideHome.setOnCheckedChangeListener(this);
+        outsideHome.setOnCheckedChangeListener(this);
 
         calendar = Calendar.getInstance();
         heureFormat24h = new SimpleDateFormat("HH:mm");
@@ -80,6 +83,40 @@ public class Home extends AppCompatActivity {
 
         cvAlerte.setOnClickListener(view -> Toast.makeText(this, "Mes alertes", Toast.LENGTH_SHORT).show());
     }
+
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+        switch (compoundButton.getId()){
+            case R.id.checkBoxDomicile:
+                if (isChecked) {
+
+                    try {
+                        //imgView.setImageDrawable(getDrawable(R.drawable.maison));
+                        outsideHome.setChecked(false);
+                        //lieu.setAtHome("yes");
+                        startActivity(new Intent(getApplicationContext(), SignalerFuite.class));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }break;
+
+            case R.id.checkBoxHorsDomicile:
+                //lieu.setAtHome("no");
+                if (isChecked) {
+                    try {
+                        //imgView.setImageDrawable(getDrawable(R.drawable.rue));
+                        atHome.setChecked(false);
+                        startActivity(new Intent(getApplicationContext(), SignalerFuite.class));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }break;
+            default:break;
+        }
+    }
+
 
 
     @Override
