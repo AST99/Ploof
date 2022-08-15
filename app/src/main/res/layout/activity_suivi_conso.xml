@@ -1,218 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SuiviConso">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayoutConso"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorColor="#5ccff9"
-        app:tabMode="fixed"
-        android:elevation="2dp"
-        app:tabTextAppearance="@style/TextTabBar">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/todayTab"
-            android:layout_width="wrap_content"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayoutConso"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/aujourd_hui" />
+            android:elevation="2dp"
+            app:tabIndicatorColor="#5ccff9"
+            app:tabMode="fixed"
+            app:tabTextAppearance="@style/TextTabBar">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/hierTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hier" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/todayTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/aujourd_hui" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/weekTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cette_semaine" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/hierTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hier" />
 
-    </com.google.android.material.tabs.TabLayout>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/weekTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cette_semaine" />
 
+        </com.google.android.material.tabs.TabLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-   <!-- <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/extended_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="26dp"
-        android:background="@drawable/contour_button"
-        android:contentDescription="Signaler une fuite d'eau"
-        android:padding="14dp"
-        android:text="Signaler une fuite d'eau"
-        android:textAllCaps="false"
-        android:textColor="#ffffff"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="RtlHardcoded" /> -->
-
-    <!--  <GridLayout
-          android:id="@+id/gridLayout"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_marginTop="53dp"
-          android:layout_marginStart="20dp"
-          android:layout_marginEnd="20dp"
-          android:alignmentMode="alignMargins"
-          android:columnCount="1"
-          android:columnOrderPreserved="false"
-          android:rowCount="2"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/gifImageView">
-
-          <androidx.cardview.widget.CardView
-              android:id="@+id/cardViewServices"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="6dp"
-              app:cardCornerRadius="12dp"
-              app:cardElevation="7dp"
-              app:layout_columnWeight="1"
-              app:layout_rowWeight="1">
-
-              <TextView
-                  android:id="@+id/textView3"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginStart="18dp"
-                  android:layout_marginTop="6dp"
-                  android:layout_marginBottom="10dp"
-                  android:text="@string/r_sum_de_votre_consommation_d_eau"
-                  android:textColor="#000000" />
-
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="horizontal"
-                  android:padding="16dp">
-
-                  <org.eazegraph.lib.charts.PieChart
-                      android:id="@+id/piechart"
-                      android:layout_width="150dp"
-                      android:layout_height="110dp"
-                      android:layout_marginTop="15dp"
-                      android:layout_marginEnd="1dp"
-                      android:layout_marginBottom="15dp"
-                      android:padding="6dp"
-                      tools:ignore="MissingClass" />
-
-                  <LinearLayout
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center"
-                      android:orientation="vertical">
-
-                      <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="15dp"
-                          android:layout_gravity="center_vertical">
-
-                          <View
-                              android:id="@+id/view1"
-                              android:layout_width="15dp"
-                              android:layout_height="match_parent"
-                              android:background="#FFA726" />
-
-                          <TextView
-                              android:id="@+id/tvR"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:paddingEnd="10dp" />
-
-                      </LinearLayout>
-
-                      <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="15dp"
-                          android:layout_gravity="center_vertical"
-                          android:layout_marginTop="5dp">
-
-                          <View
-                              android:id="@+id/view2"
-                              android:layout_width="15dp"
-                              android:layout_height="match_parent"
-
-                              android:background="#66BB6A" />
-
-                          <TextView
-                              android:id="@+id/tvPython"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:paddingEnd="10dp" />
-
-                      </LinearLayout>
-                  </LinearLayout>
-
-              </LinearLayout>
-          </androidx.cardview.widget.CardView>
-
-      </GridLayout> -->
-
-      <!--   <TextView
-             android:id="@+id/textView4"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:gravity="center_horizontal"
-             android:text="300ml"
-             android:textColor="#000000"
-             android:textSize="25sp"
-             android:textStyle="bold"
-             app:layout_constraintBottom_toBottomOf="@+id/gifImageView"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintStart_toStartOf="@+id/gifImageView"
-             app:layout_constraintTop_toTopOf="@+id/gifImageView"
-             app:layout_constraintVertical_bias="0.333" />  -->
-
-       <com.google.android.material.bottomnavigation.BottomNavigationView
-           android:id="@+id/bottom_navigation"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:background="#ffffff"
-           app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:menu="@menu/bottom_nav" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewpager"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        app:menu="@menu/bottom_nav"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayoutConso" />
+        app:layout_constraintStart_toStartOf="parent">
 
-
-  <!--  <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/extended_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:contentDescription="Signaler une fuite d'eau"
-        android:padding="14dp"
-        android:text="Signaler une fuite d'eau"
-        android:textAllCaps="false"
-        android:textColor="#ffffff"
-        app:icon="@drawable/ic_exfab"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="RtlHardcoded" /> -->
-
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/Fab"
@@ -230,5 +74,14 @@
         app:layout_constraintHorizontal_bias="0.86"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_exfab" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
