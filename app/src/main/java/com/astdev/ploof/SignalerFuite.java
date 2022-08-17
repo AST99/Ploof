@@ -12,8 +12,13 @@ import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.io.ByteArrayOutputStream;
@@ -34,6 +39,8 @@ public class SignalerFuite extends AppCompatActivity {
     Uri photo;
     byte[] imgCompressed;  //L'image après l'avoir compresser
 
+    MapsFragment mFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +58,21 @@ public class SignalerFuite extends AppCompatActivity {
 
 
 
-        if (Home.atHome.isChecked()){
+
+
+        location.setOnClickListener(view ->{
+            Toast.makeText(getApplicationContext(), "Localisation", Toast.LENGTH_SHORT).show();
+            mFragment = new MapsFragment();
+            mFragment.show(getSupportFragmentManager(), "MapsFragment");
+        });
+
+
+
+        if (Home.atHome){
             imgView.setImageDrawable(getDrawable(R.drawable.maison));
             txtViewLieuF.setText("À domicile");
         }
-        if (Home.outsideHome.isChecked()){
+        if (Home.outsideHome){
             imgView.setImageDrawable(getDrawable(R.drawable.rue));
             txtViewLieuF.setText("Dans la rue");
         }

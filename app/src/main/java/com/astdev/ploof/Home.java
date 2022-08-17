@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -21,11 +23,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class Home extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
+public class Home extends AppCompatActivity{
 
     private CardView cvConso, cvFuite, cardViewServices, cvAlerte;
     private ImageView imgProfil;
-    private TextView txtView;
+    private TextView txtView, txtViewClose;
+    private Button btnDomicile, btnRue;
 
 
 
@@ -33,7 +36,7 @@ public class Home extends AppCompatActivity implements CompoundButton.OnCheckedC
     Calendar calendar;
     SimpleDateFormat heureFormat24h, heureFormat12h;
 
-    public static CheckBox atHome, outsideHome;
+    public static boolean atHome, outsideHome;
 
     private Dialog dialog; //l'utilisateur choisie le lieux de la fuite (à domicile ou  dans la rue
 
@@ -51,16 +54,29 @@ public class Home extends AppCompatActivity implements CompoundButton.OnCheckedC
 
 
         dialog = new Dialog(this);
-        dialog.setContentView(R.layout.layout_dialog);
+        dialog.setContentView(R.layout.fuitepopup);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
         dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setGravity(Gravity.TOP);
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setGravity(Gravity.CENTER);
+        dialog.setCanceledOnTouchOutside(false);
 
-        this.atHome = dialog.findViewById(R.id.checkBoxDomicile);
-        atHome.setOnCheckedChangeListener(this);
-        this.outsideHome = dialog.findViewById(R.id.checkBoxHorsDomicile);
-        outsideHome.setOnCheckedChangeListener(this);
+        this.txtViewClose = dialog.findViewById(R.id.close);
+        txtViewClose.setOnClickListener(view -> dialog.dismiss());
+
+        this.btnDomicile = dialog.findViewById(R.id.btnDomicile);
+        btnDomicile.setOnClickListener(view -> {
+            atHome = true;
+            outsideHome = false;
+            //lieu.setAtHome("yes");
+            startActivity(new Intent(getApplicationContext(), SignalerFuite.class));
+        });
+
+        this.btnRue = dialog.findViewById(R.id.btnRue);
+        btnRue.setOnClickListener(view -> {
+            outsideHome = true;
+            atHome = false;
+            startActivity(new Intent(getApplicationContext(), SignalerFuite.class));
+        });
 
         calendar = Calendar.getInstance();
         heureFormat24h = new SimpleDateFormat("HH:mm");
@@ -85,7 +101,7 @@ public class Home extends AppCompatActivity implements CompoundButton.OnCheckedC
     }
 
 
-    @SuppressLint("NonConstantResourceId")
+  /*  @SuppressLint("NonConstantResourceId")
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         switch (compoundButton.getId()){
@@ -115,7 +131,7 @@ public class Home extends AppCompatActivity implements CompoundButton.OnCheckedC
                 }break;
             default:break;
         }
-    }
+    }*/
 
 
 
@@ -138,5 +154,4 @@ public class Home extends AppCompatActivity implements CompoundButton.OnCheckedC
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

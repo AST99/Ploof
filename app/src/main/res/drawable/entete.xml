@@ -7,6 +7,6 @@ android:shape="rectangle">
     <corners
         android:topLeftRadius="0dp"
         android:topRightRadius="0dp"
-        android:bottomLeftRadius="35dp"
-        android:bottomRightRadius="35dp" />
+        android:bottomLeftRadius="30dp"
+        android:bottomRightRadius="30dp" />
 </shape>
