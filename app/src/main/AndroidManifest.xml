@@ -34,10 +34,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAQ_CUi2TsPnTgNgGN_9fGZGpkGWjjTqSU" />
 
+
         <activity
-            android:name=".MapsActivity"
-            android:exported="false"
-            android:label="activity_maps" />
+            android:name=".MapsFragment"
+            android:exported="false" />
+
         <activity
             android:name=".SignalerFuite"
             android:exported="false"

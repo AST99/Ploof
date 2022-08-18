@@ -2,55 +2,101 @@ package com.astdev.ploof;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-public class MapsFragment extends DialogFragment {
+import java.util.List;
 
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
+public class MapsFragment extends AppCompatActivity {
 
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        }
-    };
+    static SupportMapFragment supportMapFragment;
+    static FusedLocationProviderClient client;
+    private static LatLng latLng;
+    static String latitude;
+    static String longitude;
+    public List<UsersModel> usersModelList;
+    UsersModel user;
+    private ExtendedFloatingActionButton saveLocation;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_maps, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.map_popup);
+
+        this.saveLocation = findViewById(R.id.extended_fab);
+        saveLocation.setOnClickListener(view -> this.finish());
+
+        supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.GoogleMap);
+        client = LocationServices.getFusedLocationProviderClient(MapsFragment.this);
+
+        //Vérifie si l'application a accès à la localistion du téléphone. Sinon demande l'accès
+        if (ActivityCompat.checkSelfPermission(MapsFragment.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            //when permission granted, call methode
+            getCurrentLocation();
+        }else {
+            //when permission denied
+            //Request permission
+            ActivityCompat.requestPermissions(MapsFragment.this, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION},44);
+        }
+
+    }
+
+    @SuppressLint("MissingPermission")
+    public static void getCurrentLocation() {
+        try {
+            Task<Location> task = client.getLastLocation();
+            task.addOnSuccessListener(location -> {
+                if (location!=null){
+                    supportMapFragment.getMapAsync(googleMap -> {
+                        latLng=new LatLng(location.getLatitude(),location.getLongitude());
+                        //option
+                        MarkerOptions options=new MarkerOptions().position(latLng).title("C'est ici !");
+                        //zoom
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,18));
+                        //ajouter l'icon de localisation
+                        googleMap.addMarker(options);
+                        latitude = String.valueOf(location.getLatitude());
+                        longitude = String.valueOf(location.getLongitude());
+                    });
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(callback);
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 44) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getCurrentLocation();
+            }
         }
     }
 }

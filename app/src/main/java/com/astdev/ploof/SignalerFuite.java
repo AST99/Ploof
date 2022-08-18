@@ -1,24 +1,37 @@
 package com.astdev.ploof;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.io.ByteArrayOutputStream;
@@ -26,6 +39,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class SignalerFuite extends AppCompatActivity {
 
@@ -34,17 +48,30 @@ public class SignalerFuite extends AppCompatActivity {
     private Button btnPhoto, contactP;
     private TextInputEditText descFuite, location;
     private TextInputLayout test;
+    private ExtendedFloatingActionButton saveLocation;
+
+    private Dialog mapDialog;
 
     private String photoPaths; //Chemin de la photo
     Uri photo;
     byte[] imgCompressed;  //L'image après l'avoir compresser
 
-    MapsFragment mFragment;
 
+
+
+
+
+    @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signaler_fuite);
+
+
+
+
+
+
 
         this.imgView = findViewById(R.id.imgViewF);
         this.addImgF =findViewById(R.id.addPhotoFuite);
@@ -58,26 +85,50 @@ public class SignalerFuite extends AppCompatActivity {
 
 
 
+        mapDialog = new Dialog(this);
+        mapDialog.setContentView(R.layout.map_popup);
+        mapDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        mapDialog.getWindow().setGravity(Gravity.CENTER);
+        mapDialog.setCanceledOnTouchOutside(false);
+
+
+
+
+
 
 
         location.setOnClickListener(view ->{
-            Toast.makeText(getApplicationContext(), "Localisation", Toast.LENGTH_SHORT).show();
-            mFragment = new MapsFragment();
-            mFragment.show(getSupportFragmentManager(), "MapsFragment");
+            /*MapsFragment mapsFragment = new MapsFragment();
+            mapsFragment.show(getSupportFragmentManager(),"map");*/
+            mapDialog.show();
+
+
+            //Vérifie si l'application a accès à la localistion du téléphone. Sinon demande l'accès
+            if (ActivityCompat.checkSelfPermission(SignalerFuite.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                //when permission granted, call methode
+                MapsFragment.getCurrentLocation();
+            }else {
+                //when permission denied
+                //Request permission
+                ActivityCompat.requestPermissions(SignalerFuite.this, new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION},44);
+            }
+
+            //startActivity(new Intent(getApplicationContext(), MapsFragment.class));
         });
 
 
 
         if (Home.atHome){
-            imgView.setImageDrawable(getDrawable(R.drawable.maison));
-            txtViewLieuF.setText("À domicile");
+            imgView.setImageDrawable(getDrawable(R.drawable.ic_water_leak_home));
+            txtViewLieuF.setText(R.string.domicile);
         }
         if (Home.outsideHome){
             imgView.setImageDrawable(getDrawable(R.drawable.rue));
             txtViewLieuF.setText("Dans la rue");
         }
     }
-
 
     /*************************************Prendre une photo****************************************/
 

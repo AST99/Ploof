@@ -55,7 +55,7 @@ public class Home extends AppCompatActivity{
 
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.fuitepopup);
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
+        //Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
         dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setGravity(Gravity.CENTER);
         dialog.setCanceledOnTouchOutside(false);

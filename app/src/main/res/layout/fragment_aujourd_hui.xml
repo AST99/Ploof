@@ -17,8 +17,8 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="300dp"
-            android:layout_height="255dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:layout_gravity="center"
             android:layout_margin="16dp"
             android:layout_marginTop="56dp"
@@ -41,7 +41,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="70dp"
                 android:gravity="center_horizontal"
-                android:text="300 Litres"
+                android:text="30 m³"
                 android:textColor="#000000"
                 android:textSize="28sp"
                 android:textStyle="bold" />

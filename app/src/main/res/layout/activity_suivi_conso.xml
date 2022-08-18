@@ -59,21 +59,23 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/Fab"
+        android:id="@+id/extended_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#ff0000"
-        android:clickable="true"
-        android:contentDescription="Signaler une fuite"
-        android:focusable="true"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        app:backgroundTint="#91CFEA"
+        android:layout_margin="16dp"
+        android:contentDescription="Signaler une fuite"
+        android:text="Signaler une fuite"
+        android:textAllCaps="false"
+        app:icon="@drawable/ic_save_location"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_exfab" />
+        app:srcCompat="@drawable/fuite" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"

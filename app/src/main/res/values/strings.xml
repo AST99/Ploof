@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Ploof</string>
-    <string name="s_inscrire_avec">S\'inscrire avec</string>
     <string name="mot_de_passe_oubli"><u>Mot de passe oublié ?</u></string>
     <string name="logo">logo</string>
     <string name="ploof">Ploof</string>
@@ -15,7 +14,6 @@
     <string name="s_inscrire">S\'inscrire</string>
     <string name="msg_de_bienvenue">Bienvenue sur votre plateforme de suivi de consommation d\'eau et de signalisation de fuites d\'eau</string>
     <string name="inscription">Inscription</string>
-    <string name="confirmez_le_mot_de_passe">Confirmez le mot de passe</string>
     <string name="nom_et_prenoms">Nom et prénoms</string>
     <string name="confirmer_le_mot_de_passe">Confirmer le mot de passe</string>
     <string name="aujourd_hui">Aujourd\'hui</string>
@@ -23,45 +21,13 @@
     <string name="cette_semaine">Cette semaine</string>
     <string name="r_sum_de_votre_consommation_d_eau">Résumé de votre consommation d\'eau</string>
     <string name="consommation">Consommation</string>
-    <string name="accueil">Accueil</string>
     <string name="services">Services</string>
-    <string name="profil">Profil</string>
 
-    <string name="fuite_d_eau_domicile">à domicile</string>
-    <string name="fuite_d_eau_hors_domicile">dans la rue</string>
-    <string name="num_ro_de_votre_compteur">Numéro de votre compteur</string>
-    <string name="la_fuite_d_eau_que_je_signale_se_trouve">La fuite d\'eau que je signale se trouve :</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_test">test</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
     <string name="mes_notifications">Mes notifications</string>
     <string name="nos_services">Nos services</string>
     <string name="ma_conso_d_eau">Ma conso d\'eau</string>
     <string name="signaler_une_fuite">Signaler une fuite</string>
-    <string name="title_activity_test_responsive">TestResponsive</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
-    <string name="menu_transform">Transform</string>
-    <string name="menu_reflow">Reflow</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_settings">Settings</string>
-
-    <string name="lorem_ipsum_title">Lorem Ipsum"</string>
-    <string name="lorem_ipsum">Lorem Ipsum is simply placeholder text of the printing and
-        typesetting industry. Lorem Ipsum has been the industry\'s standard placeholder text ever
-        since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-        type specimen book"
-    </string>
-    <string name="fab_content_description">Represents a view to invoke an action</string>
-    <string name="image_view_item_transform_content_description">Represents an image view in the
-        item
-    </string>
-    <string name="title_activity_maps">MapsActivity</string>
+    <string name="domicile">À domicile</string>
 </resources>
