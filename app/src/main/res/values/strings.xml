@@ -30,4 +30,7 @@
     <string name="signaler_une_fuite">Signaler une fuite</string>
 
     <string name="domicile">À domicile</string>
+    <string name="ce_mois">Ce mois</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

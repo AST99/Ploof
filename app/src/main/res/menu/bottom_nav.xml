@@ -3,26 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group >
+
         <item
-            android:id="@+id/action_conso"
-            android:enabled="true"
-            android:icon="@drawable/ic_water_drop"
-            android:title="@string/consommation"
-            app:showAsAction="collapseActionView" />
-        <item
-            android:id="@+id/action_services"
-            android:enabled="true"
-            android:icon="@drawable/ic_service"
-            android:title="@string/services"
-            app:showAsAction="collapseActionView" />
-        <item
-            android:id="@+id/action_home"
+            android:id="@+id/homeFragment"
             android:enabled="true"
             android:icon="@drawable/ic_home"
             android:title="Accueil"
             app:showAsAction="collapseActionView" />
+
         <item
-            android:id="@+id/action_profil"
+            android:id="@+id/consoFragment"
+            android:enabled="true"
+            android:icon="@drawable/ic_water_drop"
+            android:title="@string/consommation" />
+        <item
+            android:id="@+id/servicesFragment"
+            android:enabled="true"
+            android:icon="@drawable/ic_service"
+            android:title="@string/services" />
+
+        <item
+            android:id="@+id/profileFragment"
             android:enabled="true"
             android:icon="@drawable/ic_profil"
             android:title="Profil"

@@ -50,7 +50,7 @@ public class ConnexionPage extends AppCompatActivity {
 
         btnConnexion.setOnClickListener(view -> {
             textBoxError();
-            startActivity(new Intent(getApplicationContext(), Home.class));
+            startActivity(new Intent(getApplicationContext(), MainFragment.class));
             /*if (choix.equals("mail"))
                 mailAndPassWrdConnexion();*/
             //else if (choix.equals("tel"))
@@ -105,7 +105,7 @@ public class ConnexionPage extends AppCompatActivity {
 
             if (task.isSuccessful()){
                 progressDialog.dismiss();
-                startActivity(new Intent(getApplicationContext(),Home.class));
+                startActivity(new Intent(getApplicationContext(), MainFragment.class));
                 editTxtPassWrd.setText("");
                 editTxtPhone_mail.setText("");
                 this.finish();

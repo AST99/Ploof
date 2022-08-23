@@ -5,10 +5,10 @@
     tools:ignore="MissingDefaultResource">
 
     <item
-        android:id="@+id/action_home"
-        android:title="Accueil"
-        android:contentDescription="Accueil"
-        android:icon="@drawable/ic_home"
+        android:id="@+id/action_notif"
+        android:title="Notification"
+        android:contentDescription="Notification"
+        android:icon="@drawable/ic_notif"
         app:showAsAction="ifRoom"/>
 
     <item

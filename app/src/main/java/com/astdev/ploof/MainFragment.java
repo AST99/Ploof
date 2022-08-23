@@ -7,23 +7,24 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class Home extends AppCompatActivity{
+public class MainFragment extends AppCompatActivity{
 
     private CardView cvConso, cvFuite, cardViewServices, cvAlerte;
     private ImageView imgProfil;
@@ -46,16 +47,14 @@ public class Home extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        this.txtView = findViewById(R.id.textView);
+        /*this.txtView = findViewById(R.id.textView);
         this.cvConso = findViewById(R.id.cardViewConso);
         this.cvFuite = findViewById(R.id.cardViewFuite);
         this.cardViewServices = findViewById(R.id.cardViewServices);
-        this.cvAlerte = findViewById(R.id.cardViewAlerte);
-
+        this.cvAlerte = findViewById(R.id.cardViewAlerte);*/
 
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.fuitepopup);
-        //Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
         dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setGravity(Gravity.CENTER);
         dialog.setCanceledOnTouchOutside(false);
@@ -78,62 +77,24 @@ public class Home extends AppCompatActivity{
             startActivity(new Intent(getApplicationContext(), SignalerFuite.class));
         });
 
-        calendar = Calendar.getInstance();
+        /*calendar = Calendar.getInstance();
         heureFormat24h = new SimpleDateFormat("HH:mm");
         heureFormat12h = new SimpleDateFormat("KK:mm aaa");
         dateTime24h = heureFormat24h.format(calendar.getTime());
         dateTime12h = heureFormat12h.format(calendar.getTime());
 
-        Toast.makeText(getApplicationContext(), String.valueOf(dateTime12h), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), String.valueOf(dateTime12h), Toast.LENGTH_SHORT).show();*/
 
-        cvConso.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),SuiviConso.class)));
-
-        cvFuite.setOnClickListener(view -> {
-            try {
-                dialog.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        cardViewServices.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),Services.class)));
-
-        cvAlerte.setOnClickListener(view -> Toast.makeText(this, "Mes alertes", Toast.LENGTH_SHORT).show());
+        //Gestion des évènements du menu de navigation du bas de page
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        NavController navController = Navigation.findNavController(MainFragment.this,R.id.fragmentContainerView);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 
 
-  /*  @SuppressLint("NonConstantResourceId")
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-        switch (compoundButton.getId()){
-            case R.id.checkBoxDomicile:
-                if (isChecked) {
-
-                    try {
-                        //imgView.setImageDrawable(getDrawable(R.drawable.maison));
-                        outsideHome.setChecked(false);
-                        //lieu.setAtHome("yes");
-                        startActivity(new Intent(getApplicationContext(), SignalerFuite.class));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }break;
-
-            case R.id.checkBoxHorsDomicile:
-                //lieu.setAtHome("no");
-                if (isChecked) {
-                    try {
-                        //imgView.setImageDrawable(getDrawable(R.drawable.rue));
-                        atHome.setChecked(false);
-                        startActivity(new Intent(getApplicationContext(), SignalerFuite.class));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }break;
-            default:break;
-        }
-    }*/
-
-
+    public void setActionBarTitle(String title){
+        Objects.requireNonNull(getSupportActionBar()).setTitle(title);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

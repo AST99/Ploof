@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OTech"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Bar"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -34,28 +36,21 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAQ_CUi2TsPnTgNgGN_9fGZGpkGWjjTqSU" />
 
-
         <activity
             android:name=".MapsFragment"
             android:exported="false" />
-
         <activity
             android:name=".SignalerFuite"
             android:exported="false"
             android:label="@string/signaler_une_fuite"
-            android:parentActivityName=".Home" />
-        <activity
-            android:name=".Services"
-            android:exported="false"
-            android:label="Nos services"
-            android:parentActivityName=".Home" />
+            android:parentActivityName=".MainFragment" />
         <activity
             android:name=".SuiviConso"
             android:exported="false"
             android:label="Ma consommation"
-            android:parentActivityName=".Home" />
+            android:parentActivityName=".MainFragment" />
         <activity
-            android:name=".Home"
+            android:name=".MainFragment"
             android:exported="false"
             android:label="Ploof" />
         <activity

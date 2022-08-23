@@ -13,18 +13,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.astdev.ploof.R;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
+import java.util.ArrayList;
+
 
 public class AujourdHuiFragment extends Fragment {
 
-    // Create the object of TextView and PieChart class
-    TextView tvR, tvPython;
-    View legendColor1, legendColor2;
-    PieChart pieChart;
-
+    BarChart barChart;
 
     public AujourdHuiFragment() {
         // Required empty public constructor
@@ -46,12 +48,7 @@ public class AujourdHuiFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        tvR = view.findViewById(R.id.tvR);
-        tvPython = view.findViewById(R.id.tvPython);
-        pieChart = view.findViewById(R.id.piechart);
-        legendColor1 = view.findViewById(R.id.view1);
-        legendColor2 = view.findViewById(R.id.view2);
-
+        barChart = view.findViewById(R.id.barChart);
         setData();
 
     }
@@ -62,18 +59,25 @@ public class AujourdHuiFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     private void setData()
     {
-        // Set the percentage of language used
-        tvR.setText(Integer.toString(0));
-        tvPython.setText(Integer.toString(0));
 
-        // Set the data and color to the pie chart
-        pieChart.addPieSlice(new PieModel("R", Integer.parseInt(tvR.getText().toString()),
-                Color.parseColor("#FFA726")));
-        pieChart.addPieSlice(new PieModel("Python", Integer.parseInt(tvPython.getText().toString()),
-                Color.parseColor("#66BB6A")));
+        ArrayList<BarEntry> visitor = new ArrayList<>();
+        visitor.add(new BarEntry(2010,10));
+        visitor.add(new BarEntry(2011,35));
+        visitor.add(new BarEntry(2012,80));
+        visitor.add(new BarEntry(2013,70));
+        visitor.add(new BarEntry(2014,20));
+        visitor.add(new BarEntry(2015,30));
+        visitor.add(new BarEntry(2016,50));
 
-        // To animate the pie chart
-        pieChart.startAnimation();
+        BarDataSet barDataSet = new BarDataSet(visitor,"Visitor");
+        //barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+        barDataSet.setValueTextSize(16f);
+        BarData barData  = new BarData(barDataSet);
+        barChart.setFitBars(true);
+        barChart.setData(barData);
+        barChart.getDescription().setText("Bar chart Exemple");
+        barChart.animateY(2000);
     }
 
 }

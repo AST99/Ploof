@@ -51,22 +51,22 @@ public class SuiviConso extends AppCompatActivity {
         viewPager.setCurrentItem(0);
 
         //Gestion des évènements du menu de navigation du bas de page
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        /*BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_conso);
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {*/
             /*if (item.getItemId() == R.id.action_accueil){
-                startActivity(new Intent(getApplicationContext(),Home.class));
+                startActivity(new Intent(getApplicationContext(),MainFragment.class));
                 overridePendingTransition(0,0);
                 return true;
             }*/
 
-            if (item.getItemId() == R.id.action_services){
+            /*if (item.getItemId() == R.id.action_services){
                 startActivity(new Intent(getApplicationContext(), Services.class));
                 overridePendingTransition(0,0);
                 return true;
             }
             return false;
-        });
+        });*/
     }
 
 
@@ -81,11 +81,11 @@ public class SuiviConso extends AppCompatActivity {
     //gère le click sur une action de l'ActionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_home) {
-            startActivity(new Intent(getApplicationContext(), Home.class));
+        /*if (item.getItemId() == R.id.action_home) {
+            startActivity(new Intent(getApplicationContext(), MainFragment.class));
             this.finish();
             return true;
-        }
+        }*/
         if (item.getItemId() == R.id.action_deconnexion) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getApplicationContext(), ConnexionPage.class));
