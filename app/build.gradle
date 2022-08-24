@@ -65,4 +65,8 @@ dependencies {
     //Map
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-location:20.0.0'
+
+    //demi cercle pour le progress bar de la consommation d'eau
+    // https://p.codekk.com/detail/Android/tankery/CircularSeekBar
+    implementation 'me.tankery.lib:circularSeekBar:1.4.1'
 }

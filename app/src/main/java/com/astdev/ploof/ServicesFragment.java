@@ -33,7 +33,7 @@ public class ServicesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((MainFragment) requireActivity()).setActionBarTitle("Services");
+        //((MainFragment) requireActivity()).setActionBarTitle("Services");
     }
 
 }

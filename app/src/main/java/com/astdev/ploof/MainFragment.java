@@ -1,5 +1,7 @@
 package com.astdev.ploof;
 
+import static com.google.android.gms.common.util.CollectionUtils.setOf;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -45,7 +49,7 @@ public class MainFragment extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_main_fragment);
 
         /*this.txtView = findViewById(R.id.textView);
         this.cvConso = findViewById(R.id.cardViewConso);
@@ -88,6 +92,11 @@ public class MainFragment extends AppCompatActivity{
         //Gestion des évènements du menu de navigation du bas de page
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         NavController navController = Navigation.findNavController(MainFragment.this,R.id.fragmentContainerView);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.homeFragment, R.id.consoFragment,
+                R.id.servicesFragment, R.id.profileFragment).build();
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 

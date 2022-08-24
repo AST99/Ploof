@@ -8,21 +8,21 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.astdev.ploof.HomeFragment"
-        android:label="fragment_home"
+        android:label="Accueil"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/consoFragment"
         android:name="com.astdev.ploof.ConsoFragment"
-        android:label="fragment_conso"
+        android:label="Ma consommation"
         tools:layout="@layout/fragment_conso" />
     <fragment
         android:id="@+id/servicesFragment"
         android:name="com.astdev.ploof.ServicesFragment"
-        android:label="fragment_services"
+        android:label="Services"
         tools:layout="@layout/fragment_services" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.astdev.ploof.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="Profil"
         tools:layout="@layout/fragment_profile" />
 </navigation>
