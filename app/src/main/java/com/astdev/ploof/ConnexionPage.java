@@ -33,9 +33,9 @@ public class ConnexionPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connexion);
 
-        ActionBar actionBar = getSupportActionBar();
+        /*ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.hide();
+        actionBar.hide();*/
 
         mAuth = FirebaseAuth.getInstance();
 

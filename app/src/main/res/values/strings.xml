@@ -20,8 +20,11 @@
     <string name="hier">Hier</string>
     <string name="cette_semaine">Cette semaine</string>
     <string name="r_sum_de_votre_consommation_d_eau">Résumé de votre consommation d\'eau</string>
-    <string name="consommation">Consommation</string>
+    <string name="consommation">Ma consommation</string>
     <string name="services">Services</string>
+
+    <string name="open_lateral_menu">Ouvrir</string>
+    <string name="close_lateral_menu">Fermer</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="mes_notifications">Mes notifications</string>

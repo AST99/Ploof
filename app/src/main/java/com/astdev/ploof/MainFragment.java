@@ -1,5 +1,6 @@
 package com.astdev.ploof;
 
+import static androidx.navigation.Navigation.findNavController;
 import static com.google.android.gms.common.util.CollectionUtils.setOf;
 
 import android.annotation.SuppressLint;
@@ -14,27 +15,44 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
+import androidx.annotation.FractionRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class MainFragment extends AppCompatActivity{
+public class MainFragment extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private CardView cvConso, cvFuite, cardViewServices, cvAlerte;
     private ImageView imgProfil;
     private TextView txtView, txtViewClose;
     private Button btnDomicile, btnRue;
 
+    DrawerLayout menu_Lateral;
+    NavigationView nav_view;
+    Toolbar toolbar;
+
+    ActionBarDrawerToggle toggle;
 
 
     String dateTime24h, dateTime12h;
@@ -43,19 +61,14 @@ public class MainFragment extends AppCompatActivity{
 
     public static boolean atHome, outsideHome;
 
+    private MaterialToolbar mToolbar;
     private Dialog dialog; //l'utilisateur choisie le lieux de la fuite (à domicile ou  dans la rue
 
-    @SuppressLint({"SimpleDateFormat", "SetTextI18n", "UseCompatLoadingForDrawables"})
+    @SuppressLint({"SimpleDateFormat", "SetTextI18n", "UseCompatLoadingForDrawables", "NonConstantResourceId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_fragment);
-
-        /*this.txtView = findViewById(R.id.textView);
-        this.cvConso = findViewById(R.id.cardViewConso);
-        this.cvFuite = findViewById(R.id.cardViewFuite);
-        this.cardViewServices = findViewById(R.id.cardViewServices);
-        this.cvAlerte = findViewById(R.id.cardViewAlerte);*/
 
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.fuitepopup);
@@ -63,8 +76,17 @@ public class MainFragment extends AppCompatActivity{
         dialog.getWindow().setGravity(Gravity.CENTER);
         dialog.setCanceledOnTouchOutside(false);
 
+        menu_Lateral = findViewById(R.id.drawerLayout);
+        nav_view = findViewById(R.id.nav_view);
+        /*androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
+
         this.txtViewClose = dialog.findViewById(R.id.close);
         txtViewClose.setOnClickListener(view -> dialog.dismiss());
+
+        this.mToolbar = findViewById(R.id.topAppBar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.btnDomicile = dialog.findViewById(R.id.btnDomicile);
         btnDomicile.setOnClickListener(view -> {
@@ -76,40 +98,85 @@ public class MainFragment extends AppCompatActivity{
 
         this.btnRue = dialog.findViewById(R.id.btnRue);
         btnRue.setOnClickListener(view -> {
-            outsideHome = true;
+            outsideHome = true; 
             atHome = false;
             startActivity(new Intent(getApplicationContext(), SignalerFuite.class));
         });
 
-        /*calendar = Calendar.getInstance();
-        heureFormat24h = new SimpleDateFormat("HH:mm");
-        heureFormat12h = new SimpleDateFormat("KK:mm aaa");
-        dateTime24h = heureFormat24h.format(calendar.getTime());
-        dateTime12h = heureFormat12h.format(calendar.getTime());
-
-        Toast.makeText(getApplicationContext(), String.valueOf(dateTime12h), Toast.LENGTH_SHORT).show();*/
-
         //Gestion des évènements du menu de navigation du bas de page
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        NavController navController = Navigation.findNavController(MainFragment.this,R.id.fragmentContainerView);
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new ConsoFragment()).commit();
+        bottomNavigationView.setSelectedItemId(R.id.consoFragment);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment fragment=null;
+            switch (item.getItemId()){
+                case R.id.consoFragment: fragment = new ConsoFragment();break;
+                case R.id.servicesFragment: fragment = new ServicesFragment();break;
+                case R.id.profileFragment: fragment = new ProfileFragment();break;
+            }
+            assert fragment != null;
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
+            return true;
+        });
 
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.homeFragment, R.id.consoFragment,
-                R.id.servicesFragment, R.id.profileFragment).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+
+        //Pour le menu lateral
+        nav_view.bringToFront();
+        toggle = new ActionBarDrawerToggle(this,menu_Lateral, R.string.open_lateral_menu,
+                R.string.close_lateral_menu);
+        menu_Lateral.addDrawerListener(toggle);
+        toggle.syncState();
+
+        nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                Fragment fragment=null;
+
+                switch (item.getItemId()){
+                    case R.id.consoFragment: fragment = new ConsoFragment();
+                    menu_Lateral.closeDrawer(GravityCompat.START);
+                    break;
+                    case R.id.deconnexion:
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(getApplicationContext(), ConnexionPage.class));break;
+                }
+
+                assert fragment != null;
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
+                return true;
+            }
+        });
+
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        menu_Lateral.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (menu_Lateral.isDrawerOpen(GravityCompat.START)) menu_Lateral.closeDrawer(GravityCompat.START);
+        else super.onBackPressed();
+    }
 
     public void setActionBarTitle(String title){
         Objects.requireNonNull(getSupportActionBar()).setTitle(title);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //ajoute les entrées de toolbar_menu à l'ActionBar
         getMenuInflater().inflate(R.menu.home_toolbar, menu);
-
         return true;
     }
 
@@ -120,6 +187,9 @@ public class MainFragment extends AppCompatActivity{
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getApplicationContext(), ConnexionPage.class));
             this.finish();
+            return true;
+        }
+        if (toggle.onOptionsItemSelected(item)){
             return true;
         }
         return super.onOptionsItemSelected(item);

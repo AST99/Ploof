@@ -39,7 +39,7 @@ public class ConsoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //((MainFragment) requireActivity()).setActionBarTitle("Ma consommation");
+        ((MainFragment) requireActivity()).setActionBarTitle("Ma consommation");
 
         BarChart barChart = view.findViewById(R.id.barChart);
         ArrayList<BarEntry> visitor = new ArrayList<>();

@@ -42,9 +42,9 @@ public class InscriptionPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscription_page);
 
-        ActionBar actionBar = getSupportActionBar();
+        /*ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.hide();
+        actionBar.hide();*/
         mAuth = FirebaseAuth.getInstance();
 
         this.tabLayout = findViewById(R.id.tabLayoutInscription);
