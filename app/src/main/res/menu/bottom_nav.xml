@@ -7,19 +7,22 @@
         <item
             android:id="@+id/consoFragment"
             android:enabled="true"
-            android:icon="@drawable/ic_water_drop"
-            android:title="@string/consommation" />
+            android:icon="@drawable/ic_home"
+            android:title="Accueil" />
+
         <item
-            android:id="@+id/servicesFragment"
-            android:enabled="true"
-            android:icon="@drawable/ic_service"
-            android:title="@string/services" />
+            android:id="@+id/notifsFragment"
+            android:title="Notification"
+            android:contentDescription="Notification"
+            android:icon="@drawable/ic_notif"/>
+
+
 
         <item
             android:id="@+id/profileFragment"
             android:enabled="true"
             android:icon="@drawable/ic_profil"
-            android:title="Profil"
+            android:title="Mon compte"
             app:showAsAction="collapseActionView" />
     </group>
 

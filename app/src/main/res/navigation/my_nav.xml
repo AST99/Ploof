@@ -3,13 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/consoFragment">
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.astdev.ploof.HomeFragment"
-        android:label="Accueil"
-        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/consoFragment"
         android:name="com.astdev.ploof.ConsoFragment"
@@ -25,4 +20,24 @@
         android:name="com.astdev.ploof.ProfileFragment"
         android:label="Profil"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/facturesFragment"
+        android:name="com.astdev.ploof.FacturesFragment"
+        android:label="Mes factures"
+        tools:layout="@layout/fragment_factures" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.astdev.ploof.ContactFragment"
+        android:label="Contact"
+        tools:layout="@layout/fragment_contact" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.astdev.ploof.AboutFragment"
+        android:label="A propos"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/notifsFragment"
+        android:name="com.astdev.ploof.NotifsFragment"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_notifs" />
 </navigation>

@@ -214,7 +214,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cvSignaleFuite"
+            android:id="@+id/cvFuite"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"

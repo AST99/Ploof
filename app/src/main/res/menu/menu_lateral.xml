@@ -12,18 +12,24 @@
             android:icon="@drawable/ic_water_drop"
             android:title="Ma consommation"
             android:checked="true" />
+
         <item
-            android:id="@+id/factures"
+            android:id="@+id/servicesFragment"
+            android:icon="@drawable/ic_service"
+            android:title="@string/services" />
+
+        <item
+            android:id="@+id/facturesFragment"
             android:icon="@drawable/ic_facture"
             android:title="Mes factures" />
 
         <item
-            android:id="@+id/contact"
+            android:id="@+id/contactFragment"
             android:icon="@drawable/ic_contact"
             android:title="contact" />
 
         <item
-            android:id="@+id/about"
+            android:id="@+id/aboutFragment"
             android:icon="@drawable/ic_info"
             android:title="À propos" />
 

@@ -37,19 +37,6 @@
             android:value="AIzaSyAQ_CUi2TsPnTgNgGN_9fGZGpkGWjjTqSU" />
 
         <activity
-            android:name=".MapsFragment"
-            android:exported="false" />
-        <activity
-            android:name=".SignalerFuite"
-            android:exported="false"
-            android:label="@string/signaler_une_fuite"
-            android:parentActivityName=".MainFragment" />
-        <activity
-            android:name=".SuiviConso"
-            android:exported="false"
-            android:label="Ma consommation"
-            android:parentActivityName=".MainFragment" />
-        <activity
             android:name=".MainFragment"
             android:exported="false"
             android:label="Ploof" />
