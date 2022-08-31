@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.Toast;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
@@ -20,7 +19,6 @@ import java.util.Objects;
 public class ConnexionPage extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private Button btnConnexion, btnInscription;
     private TextInputEditText editTxtPhone_mail, editTxtPassWrd;
     private TextInputLayout editTxtTitle;
 
@@ -33,15 +31,11 @@ public class ConnexionPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connexion);
 
-        /*ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.hide();*/
-
         mAuth = FirebaseAuth.getInstance();
 
         this.tabLayout = findViewById(R.id.tabLayout);
-        this.btnConnexion = findViewById(R.id.btnConnecter);
-        this.btnInscription = findViewById(R.id.btnInscription);
+        Button btnConnexion = findViewById(R.id.btnConnecter);
+        Button btnInscription = findViewById(R.id.btnInscription);
         this.editTxtPhone_mail = findViewById(R.id.phoneOrMail);
         this.editTxtPassWrd = findViewById(R.id.passWrd);
         this.editTxtTitle = findViewById(R.id.titleEdit);
@@ -51,8 +45,8 @@ public class ConnexionPage extends AppCompatActivity {
         btnConnexion.setOnClickListener(view -> {
             textBoxError();
             startActivity(new Intent(getApplicationContext(), MainFragment.class));
-            /*if (choix.equals("mail"))
-                mailAndPassWrdConnexion();*/
+            if (choix.equals("mail"))
+                mailAndPassWrdConnexion();
             //else if (choix.equals("tel"))
         });
         btnInscription.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),InscriptionPage.class)));

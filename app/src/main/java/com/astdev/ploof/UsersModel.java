@@ -22,17 +22,13 @@ public class UsersModel {
 
 
 
-    public UsersModel(String latitude, String longitude, String numeroCompteur, String image,
-                      String atHome, String description, LatLng position, boolean isConnected) {
+    public UsersModel(String latitude, String longitude, String atHome, String description, LatLng position) {
 
         this.latitude = latitude;
         this.longitude = longitude;
-        this.numeroCompteur = numeroCompteur;
-        this.image = image;
         this.atHome = atHome;
         this.description = description;
         this.position = position;
-        this.isConnected = isConnected;
     }
 
 

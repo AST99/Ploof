@@ -70,7 +70,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_gravity="center"
@@ -80,18 +80,19 @@
 
                     <ImageView
                         android:id="@+id/addPhotoFuite"
-                        android:layout_width="128dp"
-                        android:layout_height="236dp"
+                        android:layout_width="200dp"
+                        android:layout_height="256dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/add_photo"/>
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/add_photo" />
 
                     <Button
                         android:id="@+id/btnPrendrePhoto"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Prenez une photo"
+                        android:text="Prenez une photo de la fuite"
                         android:textAllCaps="false"
                         android:layout_gravity="center"
                         android:textColor="@color/buttonColor" />
@@ -103,7 +104,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:hint="Description de la fuite"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"

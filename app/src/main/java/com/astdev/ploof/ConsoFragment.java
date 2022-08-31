@@ -2,19 +2,20 @@ package com.astdev.ploof;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.Looper;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,35 +25,33 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.FileProvider;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.XAxis.XAxisPosition;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class ConsoFragment extends Fragment{
 
     BarChart barChart;
 
-    private CardView signaleFuite, fuiteDetected;
-    private TextView txtView, txtViewClose, txtViewClose2;
+    private TextView txtView;
     private Button btnDomicile, btnRue, btnPrendrePhoto;
     public static boolean atHome, outsideHome;
     private Dialog d_lieuFuite; //l'utilisateur choisie le lieux de la fuite (à domicile ou  dans la rue)
@@ -60,8 +59,20 @@ public class ConsoFragment extends Fragment{
     private Button exFab;
 
 
-    ImageView photoPrise;
-    Uri afficheImage;
+    private ImageView photoPrise;
+    private Uri afficheImage;
+    private byte[] imgCompressed;  //L'image après l'avoir compresser
+
+    //Pour la localisation
+    FusedLocationProviderClient client;
+    private LatLng latLng;
+    public List<UsersModel> usersModelList;
+    UsersModel user;
+    private FirebaseDatabase database;
+    private DatabaseReference myRefPosition;
+    String latitude, longitude;
+    String userName, userPhone, userCmptNumber;
+
 
     public ConsoFragment() {
         // Required empty public constructor
@@ -86,13 +97,13 @@ public class ConsoFragment extends Fragment{
 
         d_lieuFuite = new Dialog(getActivity());
         d_lieuFuite.setContentView(R.layout.fuitepopup);
-        d_lieuFuite.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        d_lieuFuite.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         d_lieuFuite.getWindow().setGravity(Gravity.CENTER);
         d_lieuFuite.setCanceledOnTouchOutside(false);
 
         sFuite = new Dialog(getActivity());
         sFuite.setContentView(R.layout.signaler_fuite);
-        sFuite.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        sFuite.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         sFuite.getWindow().setGravity(Gravity.CENTER);
         sFuite.setCanceledOnTouchOutside(false);
 
@@ -102,25 +113,44 @@ public class ConsoFragment extends Fragment{
         this.btnPrendrePhoto = sFuite.findViewById(R.id.btnPrendrePhoto);
         this.photoPrise = sFuite.findViewById(R.id.addPhotoFuite);
 
-        btnPrendrePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-                    if (getContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED ||
-                            getContext().checkSelfPermission(Manifest.permission.CAMERA)==PackageManager.PERMISSION_DENIED){
-                        String[]tabPermission={Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
-                        requestPermissions(tabPermission,100);
-                    }
-                    else openCam();
-                }
-                else openCam();
-            }
+
+        //Pour la localisation
+        client = LocationServices.getFusedLocationProviderClient(requireActivity());
+        usersModelList = new ArrayList<>();
+        database = FirebaseDatabase.getInstance();
+        myRefPosition = database.getReference("Users");
+        client = LocationServices.getFusedLocationProviderClient(requireActivity());
+        // check condition
+        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // When permission is granted
+            // Call method
+            getCurrentLocation();
+        }
+        else {
+            // When permission is not granted
+            // Call method
+            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION }, 100);
+        }
+
+
+        exFab.setOnClickListener(view12 -> Toast.makeText(requireActivity(), "position:"+latitude+", "+longitude, Toast.LENGTH_SHORT).show());
+
+        btnPrendrePhoto.setOnClickListener(view1 -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (requireContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED ||
+                        requireContext().checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+                    String[] tabPermission = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+                    requestPermissions(tabPermission, 100);
+                } else openCam();
+            } else openCam();
         });
 
-        this.fuiteDetected = view.findViewById(R.id.cvFuiteDetected);
-        fuiteDetected.setOnClickListener(view1 -> startActivity(new Intent(getContext(),Bar.class)));
-
-        this.signaleFuite = view.findViewById(R.id.cvFuite);
+        CardView fuiteDetected = view.findViewById(R.id.cvFuiteDetected);
+        fuiteDetected.setOnClickListener(view1 -> startActivity(new Intent(getContext(), Bar.class)));
+        CardView signaleFuite = view.findViewById(R.id.cvFuite);
         signaleFuite.setOnClickListener(view1 -> {
             d_lieuFuite.show();
             signaleFuite();
@@ -129,9 +159,10 @@ public class ConsoFragment extends Fragment{
         graph();
     }
 
+    @SuppressLint("SetTextI18n")
     public void signaleFuite(){
-        this.txtViewClose = d_lieuFuite.findViewById(R.id.close);
-        this.txtViewClose2 = sFuite.findViewById(R.id.close2);
+        TextView txtViewClose = d_lieuFuite.findViewById(R.id.close);
+        TextView txtViewClose2 = sFuite.findViewById(R.id.close2);
         txtViewClose.setOnClickListener(view -> d_lieuFuite.dismiss());
         txtViewClose2.setOnClickListener(view -> {
             sFuite.dismiss();
@@ -158,6 +189,57 @@ public class ConsoFragment extends Fragment{
             sFuite.show();
             d_lieuFuite.dismiss();
         });
+    }
+
+    /***************************************Localisation********************************************/
+    @SuppressLint("MissingPermission")
+    private void getCurrentLocation() {
+        try {
+            // Initialize Location manager
+            LocationManager locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
+            // Check condition
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                // When location service is enabled
+                // Get last location
+                client.getLastLocation().addOnCompleteListener(task -> {
+                    // Initialize location
+                    Location location = task.getResult();
+                    // Check condition
+                    if (location != null) {
+                        // When location result is not
+                        // null set latitude
+                        latitude= String.valueOf(location.getLatitude());
+                        // set longitude
+                        longitude= String.valueOf(location.getLongitude());
+                    } else {
+                        // When location result is null
+                        // initialize location request
+                        LocationRequest locationRequest = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
+                                // Initialize location call back
+                        LocationCallback locationCallback = new LocationCallback() {
+                            @Override
+                            public void onLocationResult(LocationResult locationResult) {
+                                // Initialize
+                                // location
+                                Location location1 = locationResult.getLastLocation();
+                                // Set latitude
+                                latitude = String.valueOf(Objects.requireNonNull(location1).getLatitude());
+                                longitude=String.valueOf(location1.getLongitude());
+                            }
+                        };
+                        // Request location updates
+                        client.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+                    }
+                });
+            } else {
+                // When location service is not enabled
+                // open location setting
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void graph(){
@@ -188,7 +270,6 @@ public class ConsoFragment extends Fragment{
         barChart.animateY(900);
     }
 
-
     /*************************************Prendre une photo****************************************/
     private void openCam() {
         ContentValues cv=new ContentValues();
@@ -203,18 +284,19 @@ public class ConsoFragment extends Fragment{
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode==100){
-            if (grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED)
-                openCam();
-            else
-                Toast.makeText(getActivity(), "Permission manquante", Toast.LENGTH_SHORT).show();
-        }
+        if ((requestCode==100) && (grantResults.length>0 && grantResults[0]+grantResults[1]==PackageManager.PERMISSION_GRANTED)){
+           openCam();
+           getCurrentLocation();
+        }else
+            Toast.makeText(getActivity(), "Permission manquante", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode==101)
+        if (requestCode==101){
             photoPrise.setImageURI(afficheImage);
+            btnPrendrePhoto.setVisibility(View.GONE);
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 

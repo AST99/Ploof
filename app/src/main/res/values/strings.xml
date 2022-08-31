@@ -36,4 +36,6 @@
     <string name="ce_mois">Ce mois</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="image_signaler_fuite">Image signaler fuite</string>
+    <string name="r_sum_de_la_consommation">Résumé de la consommation</string>
 </resources>

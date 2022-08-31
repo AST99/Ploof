@@ -1,8 +1,5 @@
 package com.astdev.ploof;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,15 +7,13 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Patterns;
-import android.view.TextureView;
 import android.widget.Button;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
@@ -42,9 +37,6 @@ public class InscriptionPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscription_page);
 
-        /*ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.hide();*/
         mAuth = FirebaseAuth.getInstance();
 
         this.tabLayout = findViewById(R.id.tabLayoutInscription);
@@ -58,7 +50,6 @@ public class InscriptionPage extends AppCompatActivity {
 
         selectedTab();
         inscription();
-
     }
 
 
@@ -198,8 +189,8 @@ public class InscriptionPage extends AppCompatActivity {
                                 if(task1.isSuccessful()){
                                     Toast.makeText(InscriptionPage.this,"Vous compte a bien été enregistré !",
                                             Toast.LENGTH_LONG).show();
-                                    FirebaseUser userFirebase = mAuth.getCurrentUser();
-                                    updateUI(userFirebase);
+                                    mAuth.getCurrentUser();
+                                    updateUI();
                                     startActivity(new Intent(getApplicationContext(),ConnexionPage.class));
                                     progressDialog.dismiss();
                                 }
@@ -219,7 +210,7 @@ public class InscriptionPage extends AppCompatActivity {
         }
     }
 
-    private void updateUI(FirebaseUser user) {
+    private void updateUI() {
     }
 
 }

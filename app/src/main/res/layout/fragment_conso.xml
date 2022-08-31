@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="6dp"
-                android:text="Résumé de la consommation"
+                android:text="@string/r_sum_de_la_consommation"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
@@ -195,7 +195,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#F1FDFE"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="16dp">
@@ -213,6 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
+                    android:textColor="#000000"
                     android:text="Fuite détectées"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -231,17 +231,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#F1FDFE"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:id="@+id/imgViewSignaleFuite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/signaler_fuite58" />
+                    android:src="@drawable/signaler_fuite58"
+                    android:contentDescription="@string/image_signaler_fuite" />
 
                 <TextView
                     android:id="@+id/txtViewSignaleFuite"
@@ -249,6 +250,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
+                    android:textColor="#000000"
                     android:text="@string/signaler_une_fuite"
                     android:textStyle="bold" />
             </LinearLayout>
