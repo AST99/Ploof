@@ -16,26 +16,15 @@
     <string name="inscription">Inscription</string>
     <string name="nom_et_prenoms">Nom et prénoms</string>
     <string name="confirmer_le_mot_de_passe">Confirmer le mot de passe</string>
-    <string name="aujourd_hui">Aujourd\'hui</string>
-    <string name="hier">Hier</string>
-    <string name="cette_semaine">Cette semaine</string>
-    <string name="r_sum_de_votre_consommation_d_eau">Résumé de votre consommation d\'eau</string>
-    <string name="consommation">Ma consommation</string>
     <string name="services">Services</string>
 
     <string name="open_lateral_menu">Ouvrir</string>
     <string name="close_lateral_menu">Fermer</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="mes_notifications">Mes notifications</string>
-    <string name="nos_services">Nos services</string>
-    <string name="ma_conso_d_eau">Ma conso d\'eau</string>
     <string name="signaler_une_fuite">Signaler une fuite</string>
 
-    <string name="domicile">À domicile</string>
-    <string name="ce_mois">Ce mois</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="image_signaler_fuite">Image signaler fuite</string>
     <string name="r_sum_de_la_consommation">Résumé de la consommation</string>
 </resources>

@@ -9,21 +9,4 @@
     </style>
 
 
-    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">18dp</item>
-    </style>
-
-    <style name="Widget.App.ExtendedFloatingActionButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton.Icon">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
-        <item name="shapeAppearanceOverlay">
-            @style/ShapeAppearance.App.SmallComponent
-        </item>
-    </style>
-
-    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
-        <item name="colorSecondary">#1eb6c6</item>
-        <item name="colorOnSecondary">#ffffff</item>
-        <item name="colorOnSurface">#14500d</item>
-    </style>
 </resources>
