@@ -6,7 +6,8 @@
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".PrendrePhoto">
 
     <LinearLayout
         android:id="@+id/linearLayout6"
@@ -27,7 +28,6 @@
                 android:id="@+id/close2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fermer"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_gravity="end"
@@ -68,70 +68,75 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/addPhotoFuite"
-                    android:layout_width="match_parent"
-                    android:layout_height="247dp"
-                    android:contentDescription="Photo détail de fuite"
-                    android:src="@drawable/ic_add_photo" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="16dp">
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/trait_discontinu">
+
+                    <ImageView
+                        android:id="@+id/addPhotoFuite"
+                        android:layout_width="128dp"
+                        android:layout_height="236dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/add_photo"/>
 
                     <Button
                         android:id="@+id/btnPrendrePhoto"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:padding="5dp"
-                        android:text="Prendre une photo de la fuite"
+                        android:text="Prenez une photo"
                         android:textAllCaps="false"
-                        android:textColor="@color/buttonColor"
-                        android:textStyle="bold" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/titleEdit"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:hint="Description de la fuite"
-                        android:scrollbars="vertical"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="70"
-                        app:placeholderText="Décrivez la fuite"
-                        app:placeholderTextColor="#a2b5bb">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/descFuite"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:focusable="true"
-                            android:imeOptions="actionDone"
-                            android:inputType="textImeMultiLine"
-                            android:lines="3"
-                            android:maxLength="70"
-                            android:maxLines="3"
-                            android:scrollbarFadeDuration="70"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
+                        android:layout_gravity="center"
+                        android:textColor="@color/buttonColor" />
 
                 </LinearLayout>
 
-                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/titleEdit"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="Description de la fuite"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:scrollbars="vertical"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="70"
+                    app:placeholderText="Décrivez la fuite"
+                    app:placeholderTextColor="#a2b5bb">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/descFuite"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:focusable="true"
+                        android:imeOptions="actionDone"
+                        android:inputType="textImeMultiLine"
+                        android:lines="3"
+                        android:maxLength="70"
+                        android:maxLines="3"
+                        android:scrollbarFadeDuration="70" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
                     android:id="@+id/exFab"
-                    style="@style/Widget.App.ExtendedFloatingActionButton"
-                    android:layout_width="wrap_content"
+                    android:background="@drawable/contour_button"
+                    android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
                     android:layout_margin="20dp"
+                    android:elevation="1dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
                     android:contentDescription="Contacter une plombier"
                     android:text="Contacter une plombier"
                     android:textAllCaps="false"/>

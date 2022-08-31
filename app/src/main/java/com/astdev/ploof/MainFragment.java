@@ -47,9 +47,9 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
         bottomNavigationView.setSelectedItemId(R.id.consoFragment);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment fragment=null;
+            bottomNavigationView.getMenu().setGroupCheckable(0, true, true);
             switch (item.getItemId()){
                 case R.id.consoFragment: fragment = new ConsoFragment();break;
-                case R.id.servicesFragment: fragment = new ServicesFragment();break;
                 case R.id.profileFragment: fragment = new ProfileFragment();break;
                 case R.id.notifsFragment: fragment = new NotifsFragment();break;
             }
@@ -75,6 +75,7 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         menu_Lateral.closeDrawer(GravityCompat.START);
+        bottomNavigationView.getMenu().setGroupCheckable(0, false, true);
         Fragment fragment=null;
         switch (item.getItemId()){
             case R.id.consoFragment: fragment = new ConsoFragment();break;
@@ -82,7 +83,6 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
             case R.id.facturesFragment: fragment = new FacturesFragment();break;
             case R.id.contactFragment: fragment = new ContactFragment();break;
             case R.id.aboutFragment: fragment = new AboutFragment();break;
-
         }
         if (fragment == null) throw new AssertionError();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
