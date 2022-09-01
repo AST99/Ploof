@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,7 +41,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
@@ -52,12 +53,11 @@ public class ConsoFragment extends Fragment{
     BarChart barChart;
 
     private TextView txtView;
-    private Button btnDomicile, btnRue, btnPrendrePhoto;
+    private Button btnPrendrePhoto;
     public static boolean atHome, outsideHome;
     private Dialog d_lieuFuite; //l'utilisateur choisie le lieux de la fuite (à domicile ou  dans la rue)
     private Dialog sFuite;
     private Button exFab;
-
 
     private ImageView photoPrise;
     private Uri afficheImage;
@@ -65,13 +65,11 @@ public class ConsoFragment extends Fragment{
 
     //Pour la localisation
     FusedLocationProviderClient client;
-    private LatLng latLng;
     public List<UsersModel> usersModelList;
-    UsersModel user;
+    private UsersModel user, lieu;
     private FirebaseDatabase database;
     private DatabaseReference myRefPosition;
-    String latitude, longitude;
-    String userName, userPhone, userCmptNumber;
+    private String latitude, longitude;
 
 
     public ConsoFragment() {
@@ -94,6 +92,8 @@ public class ConsoFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         ((MainFragment) requireActivity()).setActionBarTitle("Ma consommation");
+
+        lieu = new UsersModel();
 
         d_lieuFuite = new Dialog(getActivity());
         d_lieuFuite.setContentView(R.layout.fuitepopup);
@@ -135,8 +135,14 @@ public class ConsoFragment extends Fragment{
                     Manifest.permission.ACCESS_COARSE_LOCATION }, 100);
         }
 
+        EditText desc = sFuite.findViewById(R.id.descFuite);
 
-        exFab.setOnClickListener(view12 -> Toast.makeText(requireActivity(), "position:"+latitude+", "+longitude, Toast.LENGTH_SHORT).show());
+
+        exFab.setOnClickListener(view12 ->{
+            String strDesc = desc.getText().toString().trim();
+            lieu.setDescription(strDesc);
+            sendOnDatabase();
+        });
 
         btnPrendrePhoto.setOnClickListener(view1 -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -155,7 +161,6 @@ public class ConsoFragment extends Fragment{
             d_lieuFuite.show();
             signaleFuite();
         });
-
         graph();
     }
 
@@ -169,21 +174,22 @@ public class ConsoFragment extends Fragment{
             d_lieuFuite.show();
         });
 
-        this.btnDomicile = d_lieuFuite.findViewById(R.id.btnDomicile);
+        Button btnDomicile = d_lieuFuite.findViewById(R.id.btnDomicile);
         btnDomicile.setOnClickListener(view -> {
             atHome = true;
             outsideHome = false;
             exFab.setText("Contacter un plombier");
             txtView.setText("Signaler une fuite d'eau à domicile");
-            //lieu.setAtHome("yes");
+            lieu.setAtHome("yes");
             sFuite.show();
             d_lieuFuite.dismiss();
         });
 
-        this.btnRue = d_lieuFuite.findViewById(R.id.btnRue);
+        Button btnRue = d_lieuFuite.findViewById(R.id.btnRue);
         btnRue.setOnClickListener(view -> {
             outsideHome = true;
             atHome = false;
+            lieu.setAtHome("no");
             exFab.setText("Signaler à l'ONEA");
             txtView.setText("Signaler une fuite d'eau dans la rue");
             sFuite.show();
@@ -269,6 +275,32 @@ public class ConsoFragment extends Fragment{
 
         barChart.animateY(900);
     }
+
+    /***************************Envoie les info sur la base de données*****************************/
+    public void sendOnDatabase(){
+        try {
+            try {
+                user = new UsersModel(latitude, longitude, lieu.getAtHome(), lieu.getDescription());
+                usersModelList.add(user);
+
+                myRefPosition = database.getReference("Users");
+                myRefPosition.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).
+                        getUid()).setValue(user).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(requireActivity(), "La fuite a bien été signalée!" +
+                                "\nUn technicien sera envoyé sur place!", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(requireActivity(), "Vérifiez votre connexion internet !",
+                                Toast.LENGTH_SHORT).show();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /*************************************Prendre une photo****************************************/
     private void openCam() {

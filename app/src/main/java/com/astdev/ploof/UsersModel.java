@@ -12,7 +12,7 @@ public class UsersModel {
     }
 
     /**********************************Connexion***************************************************/
-    public UsersModel(String nomPrenom, String mail, String phone, String passWrd) {
+    public UsersModel(String nomPrenom, String mail, String passWrd) {
         this.nomPrenom = nomPrenom;
         this.mail = mail;
         this.phone = phone;
@@ -21,17 +21,68 @@ public class UsersModel {
     /***********************************************************************************************/
 
 
-
-    public UsersModel(String latitude, String longitude, String atHome, String description, LatLng position) {
-
+    public UsersModel(String latitude, String longitude, String atHome, String description) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.atHome = atHome;
         this.description = description;
-        this.position = position;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
 
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getNumeroCompteur() {
+        return numeroCompteur;
+    }
+
+    public void setNumeroCompteur(String numeroCompteur) {
+        this.numeroCompteur = numeroCompteur;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getAtHome() {
+        return atHome;
+    }
+
+    public void setAtHome(String atHome) {
+        this.atHome = atHome;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LatLng getPosition() {
+        return position;
+    }
+
+    public void setPosition(LatLng position) {
+        this.position = position;
+    }
 
     public UsersModel(boolean isConnected) {
         this.isConnected = isConnected;

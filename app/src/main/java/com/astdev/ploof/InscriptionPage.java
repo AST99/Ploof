@@ -105,7 +105,7 @@ public class InscriptionPage extends AppCompatActivity {
         btnInscription.setOnClickListener(view -> {
             textBoxError();
             if (choix.equals("mail"))
-                createUserWithMail(mail,passWrd,nomPrenoms,phone);
+                createUserWithMail(mail,passWrd,nomPrenoms);
             //else if (choix.equals("tel"))
         });
     }
@@ -171,8 +171,8 @@ public class InscriptionPage extends AppCompatActivity {
 
     /************************************Inscription avec le mail***********************************/
 
-    //=>m: mail, p: mot de passe, n: nom/prénom, t: téléphone
-    private void createUserWithMail(String m, String p, String n, String t){
+    //=>m: mail, p: mot de passe, n: nom/prénom
+    private void createUserWithMail(String m, String p, String n){
 
         try {
             ProgressDialog progressDialog = new ProgressDialog(InscriptionPage.this, R.style.MyAlertDialogStyle);
@@ -182,7 +182,7 @@ public class InscriptionPage extends AppCompatActivity {
 
             mAuth.createUserWithEmailAndPassword(m,p).addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
-                    UsersModel user = new UsersModel(n, m, t, p);
+                    UsersModel user = new UsersModel(n, m, p);
                     FirebaseDatabase.getInstance().getReference("Users")
                             .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).
                                     getUid()).setValue(user).addOnCompleteListener(task1 -> {

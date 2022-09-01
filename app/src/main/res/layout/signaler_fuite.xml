@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:ignore="MissingDefaultResource"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:ignore="HardcodedText, MissingDefaultResource"
     tools:context=".PrendrePhoto">
 
     <LinearLayout
@@ -114,7 +114,7 @@
                     app:placeholderText="Décrivez la fuite"
                     app:placeholderTextColor="#a2b5bb">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <EditText
                         android:id="@+id/descFuite"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
