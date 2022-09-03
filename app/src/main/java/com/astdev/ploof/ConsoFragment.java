@@ -21,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,6 +40,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -55,7 +55,7 @@ public class ConsoFragment extends Fragment{
     private TextView txtView;
     private Button btnPrendrePhoto;
     public static boolean atHome, outsideHome;
-    private Dialog d_lieuFuite; //l'utilisateur choisie le lieux de la fuite (à domicile ou  dans la rue)
+    private Dialog choixLieuFuite; //l'utilisateur choisie le lieux de la fuite (à domicile ou  dans la rue)
     private Dialog sFuite;
     private Button exFab;
 
@@ -95,11 +95,11 @@ public class ConsoFragment extends Fragment{
 
         lieu = new UsersModel();
 
-        d_lieuFuite = new Dialog(getActivity());
-        d_lieuFuite.setContentView(R.layout.fuitepopup);
-        d_lieuFuite.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        d_lieuFuite.getWindow().setGravity(Gravity.CENTER);
-        d_lieuFuite.setCanceledOnTouchOutside(false);
+        choixLieuFuite = new Dialog(getActivity());
+        choixLieuFuite.setContentView(R.layout.fuitepopup);
+        choixLieuFuite.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        choixLieuFuite.getWindow().setGravity(Gravity.CENTER);
+        choixLieuFuite.setCanceledOnTouchOutside(false);
 
         sFuite = new Dialog(getActivity());
         sFuite.setContentView(R.layout.signaler_fuite);
@@ -135,13 +135,17 @@ public class ConsoFragment extends Fragment{
                     Manifest.permission.ACCESS_COARSE_LOCATION }, 100);
         }
 
-        EditText desc = sFuite.findViewById(R.id.descFuite);
+        TextInputEditText desc = sFuite.findViewById(R.id.descFuite);
 
 
         exFab.setOnClickListener(view12 ->{
-            String strDesc = desc.getText().toString().trim();
+            String strDesc = Objects.requireNonNull(desc.getText()).toString().trim();
             lieu.setDescription(strDesc);
             sendOnDatabase();
+
+            if (atHome){
+                startActivity(new Intent(getActivity(),PlumberList.class));
+            }
         });
 
         btnPrendrePhoto.setOnClickListener(view1 -> {
@@ -158,7 +162,7 @@ public class ConsoFragment extends Fragment{
         fuiteDetected.setOnClickListener(view1 -> startActivity(new Intent(getContext(), Bar.class)));
         CardView signaleFuite = view.findViewById(R.id.cvFuite);
         signaleFuite.setOnClickListener(view1 -> {
-            d_lieuFuite.show();
+            choixLieuFuite.show();
             signaleFuite();
         });
         graph();
@@ -166,15 +170,15 @@ public class ConsoFragment extends Fragment{
 
     @SuppressLint("SetTextI18n")
     public void signaleFuite(){
-        TextView txtViewClose = d_lieuFuite.findViewById(R.id.close);
+        TextView txtViewClose = choixLieuFuite.findViewById(R.id.close);
         TextView txtViewClose2 = sFuite.findViewById(R.id.close2);
-        txtViewClose.setOnClickListener(view -> d_lieuFuite.dismiss());
+        txtViewClose.setOnClickListener(view -> choixLieuFuite.dismiss());
         txtViewClose2.setOnClickListener(view -> {
             sFuite.dismiss();
-            d_lieuFuite.show();
+            choixLieuFuite.show();
         });
 
-        Button btnDomicile = d_lieuFuite.findViewById(R.id.btnDomicile);
+        Button btnDomicile = choixLieuFuite.findViewById(R.id.btnDomicile);
         btnDomicile.setOnClickListener(view -> {
             atHome = true;
             outsideHome = false;
@@ -182,10 +186,10 @@ public class ConsoFragment extends Fragment{
             txtView.setText("Signaler une fuite d'eau à domicile");
             lieu.setAtHome("yes");
             sFuite.show();
-            d_lieuFuite.dismiss();
+            choixLieuFuite.dismiss();
         });
 
-        Button btnRue = d_lieuFuite.findViewById(R.id.btnRue);
+        Button btnRue = choixLieuFuite.findViewById(R.id.btnRue);
         btnRue.setOnClickListener(view -> {
             outsideHome = true;
             atHome = false;
@@ -193,7 +197,7 @@ public class ConsoFragment extends Fragment{
             exFab.setText("Signaler à l'ONEA");
             txtView.setText("Signaler une fuite d'eau dans la rue");
             sFuite.show();
-            d_lieuFuite.dismiss();
+            choixLieuFuite.dismiss();
         });
     }
 
@@ -287,6 +291,8 @@ public class ConsoFragment extends Fragment{
                 myRefPosition.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).
                         getUid()).setValue(user).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        sFuite.dismiss();
+                        choixLieuFuite.cancel();
                         Toast.makeText(requireActivity(), "La fuite a bien été signalée!" +
                                 "\nUn technicien sera envoyé sur place!", Toast.LENGTH_LONG).show();
                     } else

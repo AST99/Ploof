@@ -213,7 +213,7 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:textColor="#000000"
-                    android:text="Fuite détectées"
+                    android:text="Fuites détectées"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
