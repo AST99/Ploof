@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/consoFragment">
+
+    <fragment
+        android:id="@+id/consoFragment"
+        android:name="com.astdev.ploof.ConsoFragment"
+        android:label="Ma consommation"
+        tools:layout="@layout/fragment_conso" />
+    <fragment
+        android:id="@+id/servicesFragment"
+        android:name="com.astdev.ploof.ServicesFragment"
+        android:label="Services"
+        tools:layout="@layout/fragment_services" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.astdev.ploof.ProfileFragment"
+        android:label="Profil"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/facturesFragment"
+        android:name="com.astdev.ploof.FacturesFragment"
+        android:label="Mes factures"
+        tools:layout="@layout/fragment_factures" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.astdev.ploof.ContactFragment"
+        android:label="Contact"
+        tools:layout="@layout/fragment_contact" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.astdev.ploof.AboutFragment"
+        android:label="A propos"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/notifsFragment"
+        android:name="com.astdev.ploof.NotifsFragment"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_notifs" />
+    <fragment
+        android:id="@+id/plumberListFragment"
+        android:name="com.astdev.ploof.PlumberListFragment"
+        android:label="Contacter un plombier"
+        tools:layout="@layout/fragment_plumber_list" />
+</navigation>

@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Ploof</string>
+    <string name="mot_de_passe_oubli"><u>Mot de passe oublié ?</u></string>
+    <string name="logo">logo</string>
+    <string name="ploof">Ploof</string>
+    <string name="slogant">Parce que l\'eau est précieuse</string>
+    <string name="connexion">Connexion</string>
+    <string name="phone">Téléphone</string>
+    <string name="e_mail">E-mail</string>
+    <string name="phoneNumber">Numéro de téléphone</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="se_connecter">Se connecter</string>
+    <string name="creer_compte">Si vous n\'avez pas de compte</string>
+    <string name="s_inscrire">S\'inscrire</string>
+    <string name="msg_de_bienvenue">Bienvenue sur votre plateforme de suivi de consommation d\'eau et de signalisation de fuites d\'eau</string>
+    <string name="inscription">Inscription</string>
+    <string name="nom_et_prenoms">Nom et prénoms</string>
+    <string name="confirmer_le_mot_de_passe">Confirmer le mot de passe</string>
+    <string name="services">Services</string>
+
+    <string name="open_lateral_menu">Ouvrir</string>
+    <string name="close_lateral_menu">Fermer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="signaler_une_fuite">Signaler une fuite</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="image_signaler_fuite">Image signaler fuite</string>
+    <string name="r_sum_de_la_consommation">Résumé de la consommation</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
