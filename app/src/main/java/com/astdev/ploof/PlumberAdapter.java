@@ -40,6 +40,7 @@ public class PlumberAdapter extends RecyclerView.Adapter<PlumberAdapter.PlumberV
         PlumberModel plumberModel = plumberArrayList.get(position);
         holder.txtViewName.setText(plumberModel.nomPrenoms);
         holder.imgView.setImageResource(plumberModel.imgId);
+        holder.txtViewPhone.setText(plumberModel.numeroTel);
 
     }
 
@@ -52,7 +53,7 @@ public class PlumberAdapter extends RecyclerView.Adapter<PlumberAdapter.PlumberV
 
 
         ShapeableImageView imgView;
-        TextView txtViewName;
+        TextView txtViewName, txtViewPhone;
 
 
         public PlumberViewHolder(@NonNull View itemView) {
@@ -61,6 +62,8 @@ public class PlumberAdapter extends RecyclerView.Adapter<PlumberAdapter.PlumberV
 
             imgView = itemView.findViewById(R.id.title_image);
             txtViewName = itemView.findViewById(R.id.plumberName);
+            txtViewPhone = itemView.findViewById(R.id.plumberPhone);
+
         }
     }
 }

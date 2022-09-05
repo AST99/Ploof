@@ -165,7 +165,10 @@ public class ConsoFragment extends Fragment{
         });
 
         CardView fuiteDetected = view.findViewById(R.id.cvFuiteDetected);
-        fuiteDetected.setOnClickListener(view1 -> startActivity(new Intent(getContext(), Bar.class)));
+        fuiteDetected.setOnClickListener(view1 -> {
+            //startActivity(new Intent(getContext(), Bar.class));
+            Toast.makeText(getActivity(), "Affiche les fuites détectées", Toast.LENGTH_SHORT).show();
+        });
         CardView signaleFuite = view.findViewById(R.id.cvFuite);
         signaleFuite.setOnClickListener(view1 -> {
             choixLieuFuite.show();

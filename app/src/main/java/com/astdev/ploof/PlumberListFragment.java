@@ -69,7 +69,7 @@ public class PlumberListFragment extends Fragment {
                 "89822505", "05362221", "58327422"};
 
         for (int i=0;i<imgId.length;i++){
-            PlumberModel plumber =new PlumberModel(plumberName[i], imgId[i]);
+            PlumberModel plumber =new PlumberModel(plumberName[i],phoneNum[i], imgId[i]);
             plumberList.add(plumber);
         }
 

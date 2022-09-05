@@ -1,7 +1,11 @@
 package com.astdev.ploof;
 
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,11 +30,13 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
 
     BottomNavigationView bottomNavigationView;
 
-    @SuppressLint({"SimpleDateFormat", "SetTextI18n", "UseCompatLoadingForDrawables", "NonConstantResourceId"})
+    @SuppressLint({"SimpleDateFormat", "SetTextI18n", "UseCompatLoadingForDrawables", "NonConstantResourceId", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_fragment);
+
+        setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
         menu_Lateral = findViewById(R.id.drawerLayout);
         nav_view = findViewById(R.id.nav_view);
