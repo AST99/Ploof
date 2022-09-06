@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="8dp"
+    android:id="@+id/listItemClick"
     android:layout_marginHorizontal="8dp">
 
 

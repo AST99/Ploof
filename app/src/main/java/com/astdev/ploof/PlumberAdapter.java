@@ -56,6 +56,7 @@ public class PlumberAdapter extends RecyclerView.Adapter<PlumberAdapter.PlumberV
         TextView txtViewName, txtViewPhone;
 
 
+
         public PlumberViewHolder(@NonNull View itemView) {
             super(itemView);
 

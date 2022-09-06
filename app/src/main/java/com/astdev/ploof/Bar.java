@@ -6,17 +6,22 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
@@ -32,93 +37,70 @@ import org.eazegraph.lib.models.ValueLineSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bar extends AppCompatActivity implements IAxisValueFormatter {
+public class Bar extends AppCompatActivity {
 
     final List<String> xAxisLabel = new ArrayList<>();
+    BarChart barChart;
+    ArrayList<String> xEntry=new ArrayList <> ();
+    ArrayList<BarEntry> yEntry=new ArrayList <> ();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bar_chart);
 
-        BarChart barChart = findViewById(R.id.barChart);
-        ArrayList<BarEntry> visitor = new ArrayList<>();
-        ArrayList<String> XAxisLabels=new ArrayList <> ();
-
-
-        visitor.add(new BarEntry(2010,10));
-        visitor.add(new BarEntry(2011,35));
-        visitor.add(new BarEntry(2012,80));
-        visitor.add(new BarEntry(2013,70));
-        visitor.add(new BarEntry(2014,20));
-        visitor.add(new BarEntry(2015,30));
-        visitor.add(new BarEntry(2016,50));
-
-
-        xAxisLabel.add("Mon");
-        xAxisLabel.add("Tue");
-        xAxisLabel.add("Wed");
-        xAxisLabel.add("Thu");
-        xAxisLabel.add("Fri");
-        xAxisLabel.add("Sat");
-        xAxisLabel.add("Sun");
-
-
-
-        BarDataSet barDataSet = new BarDataSet(visitor,"Visitor");
-        //barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(16f);
-        BarData barData  = new BarData(barDataSet);
-        barChart.setFitBars(true);
-        barChart.setData(barData);
-
-        //barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-
-        XAxis xAxis = barChart.getXAxis();
-
-       /* xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return "YOUR_TEXT"; // here you can map your values or pass it as empty string
-            }
-
-            @Override
-            public int getDecimalDigits() {
-                return 0; //show only integer
-            }
-        });*/
-
-
-
-
-
-
-
-        barChart.getDescription().setText("Bar chart Exemple");
-        barChart.animateY(1000);
-
-
-        /*GraphView graph = findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        graph.addSeries(series);*/
-
+        graph();
     }
 
 
 
-    @Override
-    public String getFormattedValue(float value, AxisBase axis) {
-        if (value >= 0) {
-            if (value <= xAxisLabel.size() - 1) {
-                return xAxisLabel.get((int) value);
-            }return "";
-        }return "";
+    public void graph(){
+        float[] yDataL = {10, 60, 70, 80};
+        String[] xDataL = {"Week 1", "Week 2" , "Week 3" , "Week 4"};
+
+        ArrayList<Entry> yEntrys = new ArrayList<>();
+        final ArrayList<String> xEntrys = new ArrayList<>();
+
+        for(int i = 0; i < yDataL.length; i++){
+            yEntrys.add(new Entry(i, yDataL[i]));
+        }
+
+        for(int i = 1; i < xDataL.length; i++){
+            xEntrys.add(xDataL[i]);
+        }
+
+
+        Log.d("asa", "data Y 1" + yEntrys);
+        Log.d("asa", "data X 1" + xEntrys);
+
+        //create the data set
+        LineDataSet pieDataSet = new LineDataSet(yEntrys, "assa");
+        LineChart lineChart= findViewById(R.id.barChart);
+
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(true);
+        xAxis.setGranularity(1f);
+        xAxis.setGranularityEnabled(true);
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+
+                Log.d("asa", "data X" + xEntrys);
+                return "Day"+xDataL[(int) value-1];
+                //return xEntrys.get((int) value % xEntrys.size());
+            }
+        });
+
+        YAxis rightAxis = lineChart.getAxisRight();
+        rightAxis.setEnabled(false);
+
+
+        lineChart.getAxisLeft().setAxisMaxValue(100f);
+        lineChart.getAxisLeft().setAxisMinValue(10f);
+
+        LineData pieData = new LineData(pieDataSet);
+        lineChart.setData(pieData);
+        lineChart.invalidate();
     }
 }

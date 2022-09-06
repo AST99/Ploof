@@ -32,10 +32,15 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -166,7 +171,7 @@ public class ConsoFragment extends Fragment{
 
         CardView fuiteDetected = view.findViewById(R.id.cvFuiteDetected);
         fuiteDetected.setOnClickListener(view1 -> {
-            //startActivity(new Intent(getContext(), Bar.class));
+            startActivity(new Intent(getContext(), Bar.class));
             Toast.makeText(getActivity(), "Affiche les fuites détectées", Toast.LENGTH_SHORT).show();
         });
         CardView signaleFuite = view.findViewById(R.id.cvFuite);
@@ -263,18 +268,31 @@ public class ConsoFragment extends Fragment{
 
     public void graph(){
         ArrayList<BarEntry> visitor = new ArrayList<>();
-        ArrayList<String> XAxisLabels=new ArrayList <> ();
 
-        visitor.add(new BarEntry(2010,10));
+        float[] yData = {10,35,80,70,20,30,50};
+        final String xData[]  = {"Lun","Mar","Mer","Jeu","Ven","Sam","Dim"};
+        ArrayList<String> xEntry=new ArrayList <> ();
+        ArrayList<BarEntry> yEntry=new ArrayList <> ();
+
+
+        for (int i=0;i<yData.length;i++){
+            yEntry.add(new BarEntry(i, yData[i]));
+        }
+
+        for (int i=0; i<xData.length;i++){
+            xEntry.add(xData[i]);
+        }
+
+
+        /*visitor.add(new BarEntry(2010,10));
         visitor.add(new BarEntry(2011,35));
         visitor.add(new BarEntry(2012,80));
         visitor.add(new BarEntry(2013,70));
         visitor.add(new BarEntry(2014,20));
         visitor.add(new BarEntry(2015,30));
-        visitor.add(new BarEntry(2016,50));
+        visitor.add(new BarEntry(2016,50));*/
 
-        BarDataSet barDataSet = new BarDataSet(visitor,"");
-        //barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        BarDataSet barDataSet = new BarDataSet(yEntry,"");
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(10f);
         BarData barData  = new BarData(barDataSet);
@@ -284,6 +302,16 @@ public class ConsoFragment extends Fragment{
         barChart.getDescription().setEnabled(false);
         barChart.setTouchEnabled(false);
         barChart.setFitBars(true);
+        barChart.getXAxis().setGranularity(1f);
+        barChart.getXAxis().setGranularityEnabled(true);
+        barChart.getXAxis().setDrawGridLines(false);
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(){
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return xEntry.get((int) value % xEntry.size());
+            }
+        });
         barChart.setData(barData);
 
         barChart.animateY(900);
