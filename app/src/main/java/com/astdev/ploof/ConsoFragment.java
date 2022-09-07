@@ -27,20 +27,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+<<<<<<< HEAD
 import androidx.appcompat.app.AppCompatActivity;
+=======
+>>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.github.mikephil.charting.charts.BarChart;
+<<<<<<< HEAD
 import com.github.mikephil.charting.components.AxisBase;
+=======
+>>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+<<<<<<< HEAD
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+=======
+>>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -149,6 +158,7 @@ public class ConsoFragment extends Fragment{
             lieu.setDescription(strDesc);
             sendOnDatabase();
 
+<<<<<<< HEAD
             sFuite.dismiss();
             choixLieuFuite.dismiss();
             if (atHome){
@@ -156,6 +166,10 @@ public class ConsoFragment extends Fragment{
                 Fragment myFragment = new PlumberListFragment();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,
                         myFragment).addToBackStack(null).commit();
+=======
+            if (atHome){
+                startActivity(new Intent(getActivity(),PlumberList.class));
+>>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
             }
         });
 
@@ -170,10 +184,14 @@ public class ConsoFragment extends Fragment{
         });
 
         CardView fuiteDetected = view.findViewById(R.id.cvFuiteDetected);
+<<<<<<< HEAD
         fuiteDetected.setOnClickListener(view1 -> {
             startActivity(new Intent(getContext(), Bar.class));
             Toast.makeText(getActivity(), "Affiche les fuites détectées", Toast.LENGTH_SHORT).show();
         });
+=======
+        fuiteDetected.setOnClickListener(view1 -> startActivity(new Intent(getContext(), Bar.class)));
+>>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
         CardView signaleFuite = view.findViewById(R.id.cvFuite);
         signaleFuite.setOnClickListener(view1 -> {
             choixLieuFuite.show();
@@ -268,6 +286,7 @@ public class ConsoFragment extends Fragment{
 
     public void graph(){
         ArrayList<BarEntry> visitor = new ArrayList<>();
+<<<<<<< HEAD
 
         float[] yData = {10,35,80,70,20,30,50};
         final String xData[]  = {"Lun","Mar","Mer","Jeu","Ven","Sam","Dim"};
@@ -285,14 +304,26 @@ public class ConsoFragment extends Fragment{
 
 
         /*visitor.add(new BarEntry(2010,10));
+=======
+        ArrayList<String> XAxisLabels=new ArrayList <> ();
+
+        visitor.add(new BarEntry(2010,10));
+>>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
         visitor.add(new BarEntry(2011,35));
         visitor.add(new BarEntry(2012,80));
         visitor.add(new BarEntry(2013,70));
         visitor.add(new BarEntry(2014,20));
         visitor.add(new BarEntry(2015,30));
+<<<<<<< HEAD
         visitor.add(new BarEntry(2016,50));*/
 
         BarDataSet barDataSet = new BarDataSet(yEntry,"");
+=======
+        visitor.add(new BarEntry(2016,50));
+
+        BarDataSet barDataSet = new BarDataSet(visitor,"");
+        //barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+>>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(10f);
         BarData barData  = new BarData(barDataSet);
@@ -302,6 +333,7 @@ public class ConsoFragment extends Fragment{
         barChart.getDescription().setEnabled(false);
         barChart.setTouchEnabled(false);
         barChart.setFitBars(true);
+<<<<<<< HEAD
         barChart.getXAxis().setGranularity(1f);
         barChart.getXAxis().setGranularityEnabled(true);
         barChart.getXAxis().setDrawGridLines(false);
@@ -312,6 +344,8 @@ public class ConsoFragment extends Fragment{
                 return xEntry.get((int) value % xEntry.size());
             }
         });
+=======
+>>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
         barChart.setData(barData);
 
         barChart.animateY(900);
