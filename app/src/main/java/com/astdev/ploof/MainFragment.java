@@ -1,16 +1,11 @@
 package com.astdev.ploof;
 
-<<<<<<< HEAD
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-=======
-import android.annotation.SuppressLint;
-import android.content.Intent;
->>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,21 +30,14 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
 
     BottomNavigationView bottomNavigationView;
 
-<<<<<<< HEAD
     @SuppressLint({"SimpleDateFormat", "SetTextI18n", "UseCompatLoadingForDrawables", "NonConstantResourceId", "SourceLockedOrientationActivity"})
-=======
-    @SuppressLint({"SimpleDateFormat", "SetTextI18n", "UseCompatLoadingForDrawables", "NonConstantResourceId"})
->>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_fragment);
 
-<<<<<<< HEAD
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
-=======
->>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
         menu_Lateral = findViewById(R.id.drawerLayout);
         nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(this);
@@ -78,12 +66,7 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
 
         //Pour le menu lateral
         nav_view.bringToFront();
-<<<<<<< HEAD
         toggle = new ActionBarDrawerToggle(this,menu_Lateral, R.string.open_lateral_menu, R.string.close_lateral_menu);
-=======
-        toggle = new ActionBarDrawerToggle(this,menu_Lateral, R.string.open_lateral_menu,
-                R.string.close_lateral_menu);
->>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
         menu_Lateral.addDrawerListener(toggle);
         toggle.syncState();
     }

@@ -8,12 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-<<<<<<< HEAD
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
-=======
-    <uses-permission android:name="android.permission.CAMERA" />
->>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
 
     <application
         android:allowBackup="true"
@@ -24,15 +20,6 @@
         android:theme="@style/Theme.OTech"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
-=======
-            android:name=".PlumberProfil"
-            android:exported="false" />
-        <activity
-            android:name=".PlumberList"
-            android:exported="false" />
-        <activity
->>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
             android:name=".Bar"
             android:exported="false" />
         <!--

@@ -40,12 +40,9 @@
         android:name="com.astdev.ploof.NotifsFragment"
         android:label="Notifications"
         tools:layout="@layout/fragment_notifs" />
-<<<<<<< HEAD
     <fragment
         android:id="@+id/plumberListFragment"
         android:name="com.astdev.ploof.PlumberListFragment"
         android:label="Contacter un plombier"
         tools:layout="@layout/fragment_plumber_list" />
-=======
->>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
 </navigation>

@@ -8,13 +8,10 @@
         <item name="colorAccent">#1eb6c6</item>
     </style>
 
-<<<<<<< HEAD
     <style name="RoundCorner" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>
         <item name="color">@color/white</item>
     </style>
-=======
->>>>>>> ec0d234de1fd3088649fdca3beab03bb0389f283
 
 </resources>
