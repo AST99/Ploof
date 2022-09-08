@@ -41,6 +41,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -51,6 +52,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -267,35 +269,23 @@ public class ConsoFragment extends Fragment{
     }
 
     public void graph(){
-        ArrayList<BarEntry> visitor = new ArrayList<>();
 
         float[] yData = {10,35,80,70,20,30,50};
-        final String xData[]  = {"Lun","Mar","Mer","Jeu","Ven","Sam","Dim"};
+        final String[] jours  = {"Lun","Mar","Mer","Jeu","Ven","Sam","Dim"};
         ArrayList<String> xEntry=new ArrayList <> ();
         ArrayList<BarEntry> yEntry=new ArrayList <> ();
-
 
         for (int i=0;i<yData.length;i++){
             yEntry.add(new BarEntry(i, yData[i]));
         }
 
-        for (int i=0; i<xData.length;i++){
-            xEntry.add(xData[i]);
-        }
+        Collections.addAll(xEntry, jours);
 
+        BarDataSet set1 = new BarDataSet(yEntry, "");
 
-        /*visitor.add(new BarEntry(2010,10));
-        visitor.add(new BarEntry(2011,35));
-        visitor.add(new BarEntry(2012,80));
-        visitor.add(new BarEntry(2013,70));
-        visitor.add(new BarEntry(2014,20));
-        visitor.add(new BarEntry(2015,30));
-        visitor.add(new BarEntry(2016,50));*/
-
-        BarDataSet barDataSet = new BarDataSet(yEntry,"");
-        barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(10f);
-        BarData barData  = new BarData(barDataSet);
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set1);
+        BarData data = new BarData(dataSets);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         barChart.getAxisRight().setEnabled(false);
         barChart.getLegend().setEnabled(false);
@@ -305,15 +295,15 @@ public class ConsoFragment extends Fragment{
         barChart.getXAxis().setGranularity(1f);
         barChart.getXAxis().setGranularityEnabled(true);
         barChart.getXAxis().setDrawGridLines(false);
-        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(){
 
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(new ValueFormatter() {
             @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return xEntry.get((int) value % xEntry.size());
+            public String getFormattedValue(float value) {
+                return jours[(int) value];
             }
         });
-        barChart.setData(barData);
-
+        barChart.setData(data);
         barChart.animateY(900);
     }
 
