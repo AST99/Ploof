@@ -1,5 +1,6 @@
 package com.astdev.ploof;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,35 +15,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.astdev.ploof.databinding.ActivityConnexionBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ConnexionPage extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private TextInputEditText editTxtmail, editTxtPassWrd, editTxtPhone;
-    private TextInputLayout editTxtTitle;
-
+    private TextInputEditText editTxtmail;
+    private TextInputEditText editTxtPassWrd;
     private FirebaseAuth mAuth;
-    private String choix="";
-    private String phone, mail, passWrd;
     private LinearLayout mainLayout, verificationLayout, numeroLayout, mail_layout;
 
     /*******************OTP************************/
     private ActivityConnexionBinding binding;
     //Si l'envoie du code OTP échoue, "forceResending permet de renvoyer un autre code
     private PhoneAuthProvider.ForceResendingToken forceResendingToken;
-
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBacks;
     private String mVerificationId;
-
     ProgressDialog progressDialog;
 
     @Override
@@ -53,8 +49,6 @@ public class ConnexionPage extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        choix="tel";
-
         progressDialog = new ProgressDialog(ConnexionPage.this, R.style.MyAlertDialogStyle);
         progressDialog.setCanceledOnTouchOutside(false);
 
@@ -63,12 +57,9 @@ public class ConnexionPage extends AppCompatActivity {
         this.mail_layout = findViewById(R.id.mail_layout);
         this.verificationLayout = findViewById(R.id.verificationOTP);
         verificationLayout.setVisibility(View.GONE);
-
         this.numeroLayout = findViewById(R.id.numeroLayout);
         this.editTxtPassWrd = findViewById(R.id.passWrd);
-        this.editTxtPhone = findViewById(R.id.phoneNumber);
         this.editTxtmail = findViewById(R.id.Mail);
-        this.editTxtTitle = findViewById(R.id.titleEdit);
 
         selectedTab();
 
@@ -85,7 +76,7 @@ public class ConnexionPage extends AppCompatActivity {
         binding.btnConnecter.setOnClickListener(view -> mailAndPassWrdConnexion());
         binding.btnOTPContinuer.setOnClickListener(view -> phoneConnexion());
 
-       binding.btnInscription.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),InscriptionPage.class)));
+        binding.btnInscription.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),InscriptionPage.class)));
     }
 
     private void selectedTab(){
@@ -97,12 +88,12 @@ public class ConnexionPage extends AppCompatActivity {
                         mail_layout.setVisibility(View.GONE);
                         numeroLayout.setVisibility(View.VISIBLE);
                         editTxtmail.setText("");
-                        choix = "tel";break;
+                        break;
                     case 1:
                         mail_layout.setVisibility(View.VISIBLE);
                         numeroLayout.setVisibility(View.GONE);
                         editTxtmail.setText("");
-                        choix = "mail"; break;
+                        break;
                 }
             }
 
@@ -116,31 +107,56 @@ public class ConnexionPage extends AppCompatActivity {
 
     /******************************Connexion avec le mail et le mot de passe***************************/
     private void mailAndPassWrdConnexion(){
-        ProgressDialog progressDialog = new ProgressDialog(ConnexionPage.this, R.style.MyAlertDialogStyle);
-        progressDialog.setMessage("Connexion en cours...!");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        mAuth.signInWithEmailAndPassword(mail, passWrd).addOnCompleteListener(task -> {
 
-            if (task.isSuccessful()){
-                progressDialog.dismiss();
-                startActivity(new Intent(getApplicationContext(), MainFragment.class));
-                editTxtPassWrd.setText("");
-                editTxtmail.setText("");
-                //this.finish();
+        String mail = Objects.requireNonNull(binding.Mail.getText()).toString().trim();
+        String passWrd = Objects.requireNonNull(binding.passWrd.getText()).toString().trim();
+
+        if (mail.equals("")){
+            if (TextUtils.isEmpty(editTxtmail.getText())){
+                editTxtmail.setError("Votre e-mail est requis!");
+                editTxtmail.requestFocus();
             }
-            else {
-                progressDialog.dismiss();
-                Toast.makeText(ConnexionPage.this,"La connexion a échouer !\n Vérifiez vos" +
-                        " informations ou créez un compte !", Toast.LENGTH_LONG).show();
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(Objects.requireNonNull(editTxtmail.getText()).
+                    toString().trim()).matches()){
+                editTxtmail.setError("Merci de fournir un email valide!");
+                editTxtmail.requestFocus();
             }
-        });
+        }
+        else if (passWrd.equals("")){
+            if (TextUtils.isEmpty(editTxtPassWrd.getText())){
+                editTxtPassWrd.setError("Veuillez saisir un mot de passe!");
+                editTxtPassWrd.requestFocus();
+            }
+            if (editTxtPassWrd.length()<5){
+                editTxtPassWrd.setError("La longueur minimale du mot de passe doit être de 5 caractères");
+                editTxtPassWrd.requestFocus();
+            }
+        }
+        else {
+            progressDialog.setMessage("Connexion en cours...!");
+            progressDialog.show();
+            try {
+                mAuth.signInWithEmailAndPassword(mail, passWrd).addOnSuccessListener(authResult -> {
+                    progressDialog.dismiss();
+                    startActivity(new Intent(getApplicationContext(), MainFragment.class));
+                    editTxtPassWrd.setText("");
+                    editTxtmail.setText("");
+                    this.finish();
+                }).addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(ConnexionPage.this,"La connexion a échouer !\n Vérifiez vos" +
+                            " informations ou créez un compte !", Toast.LENGTH_LONG).show();
+                });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /****************************Connexion pa numéro de téléphone*************************************/
     private void phoneConnexion(){
-
-        /*OTP*/
         mCallBacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
@@ -153,6 +169,7 @@ public class ConnexionPage extends AppCompatActivity {
                 Toast.makeText(ConnexionPage.this,""+e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken token) {
                 super.onCodeSent(verificationId, forceResendingToken);
@@ -167,7 +184,8 @@ public class ConnexionPage extends AppCompatActivity {
                 Toast.makeText(ConnexionPage.this,"Code de vérification envoyé", Toast.LENGTH_LONG).show();
 
                 binding.txtViewSendTo.setText("Veuillez entrer le code de vérification " +
-                        "qui a été \nenvoyer au "+binding.phoneNumber.getText().toString().trim());
+                        "qui a été \nenvoyer au "+ Objects.requireNonNull(binding.phoneNumber
+                        .getText()).toString().trim());
 
             }
         };
@@ -197,16 +215,12 @@ public class ConnexionPage extends AppCompatActivity {
             }
             else verifyPhoneNumberWithCode(mVerificationId, code);
         });
-        /*Fin OTP */
-
     }
 
     private void verifyPhoneNumberWithCode(String mVerificationId, String code) {
         progressDialog.setMessage("Vérification du code");
         progressDialog.show();
-
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
-
         signInWithPhoneAuthCredential(credential);
     }
 
@@ -216,9 +230,16 @@ public class ConnexionPage extends AppCompatActivity {
 
         mAuth.signInWithCredential(credential).addOnSuccessListener(authResult -> {
             progressDialog.dismiss();
-            String phone = mAuth.getCurrentUser().getPhoneNumber();
+            String phone = Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber();
+
+            UsersModel user = new UsersModel(phone);
+            FirebaseDatabase.getInstance().getReference("Users")
+                    .child(Objects.requireNonNull(FirebaseAuth.getInstance()
+                                    .getCurrentUser()).getUid()).setValue(user);
+
             startActivity(new Intent(getApplicationContext(), MainFragment.class));
             Toast.makeText(ConnexionPage.this,"connecté en tant que "+phone, Toast.LENGTH_LONG).show();
+            this.finish();
 
         }).addOnFailureListener(e -> {
             progressDialog.dismiss();
@@ -244,49 +265,6 @@ public class ConnexionPage extends AppCompatActivity {
                 .setTimeout(60L, TimeUnit.SECONDS).setActivity(this)
                 .setCallbacks(mCallBacks).build();
         PhoneAuthProvider.verifyPhoneNumber(options);
-    }
-
-    /****************************Gestion des erreurs au niveau des champs de saisie******************/
-    private void textBoxError(){
-        try {
-            if (choix.equals("mail")){
-                if (TextUtils.isEmpty(editTxtmail.getText())){
-                    editTxtmail.setError("Votre e-mail est requis!");
-                    editTxtmail.requestFocus();
-                    return;
-                }
-                else mail = Objects.requireNonNull(editTxtmail.getText()).toString().trim();
-
-                if (!Patterns.EMAIL_ADDRESS.matcher(Objects.requireNonNull(editTxtmail.getText()).
-                        toString().trim()).matches()){
-                    editTxtmail.setError("Merci de fournir un email valide!");
-                    editTxtmail.requestFocus();
-                    return;
-                }
-            }
-
-            if (choix.equals("tel")){
-                if (TextUtils.isEmpty(editTxtmail.getText())){
-                    editTxtmail.setError("Votre numéro de téléphone est requis!");
-                    editTxtmail.requestFocus();
-                    return;
-                }
-                else phone = Objects.requireNonNull(editTxtmail.getText()).toString().trim();
-            }
-
-            if (TextUtils.isEmpty(editTxtPassWrd.getText())){
-                editTxtPassWrd.setError("Veuillez saisir un mot de passe!");
-                editTxtPassWrd.requestFocus();
-                return;
-            }
-            else passWrd = Objects.requireNonNull(editTxtPassWrd.getText()).toString().trim();
-            if (editTxtPassWrd.length()<5){
-                editTxtPassWrd.setError("La longueur minimale du mot de passe doit être de 5 caractères");
-                editTxtPassWrd.requestFocus();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

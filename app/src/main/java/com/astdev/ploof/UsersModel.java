@@ -6,7 +6,6 @@ public class UsersModel {
 
     String nomPrenom, mail, phone, passWrd, latitude, longitude, numeroCompteur, image, atHome, description;
     public LatLng position;
-    boolean isConnected;
 
     public UsersModel() {
     }
@@ -15,11 +14,13 @@ public class UsersModel {
     public UsersModel(String nomPrenom, String mail, String passWrd) {
         this.nomPrenom = nomPrenom;
         this.mail = mail;
-        this.phone = phone;
         this.passWrd = passWrd;
     }
     /***********************************************************************************************/
 
+    public UsersModel(String phone){
+        this.phone = phone;
+    }
 
     public UsersModel(String latitude, String longitude, String atHome, String description) {
         this.latitude = latitude;
@@ -82,18 +83,6 @@ public class UsersModel {
 
     public void setPosition(LatLng position) {
         this.position = position;
-    }
-
-    public UsersModel(boolean isConnected) {
-        this.isConnected = isConnected;
-    }
-
-    public boolean isConnected() {
-        return isConnected;
-    }
-
-    public void setConnected(boolean isConnected) {
-        this.isConnected = isConnected;
     }
 
     public String getNomPrenom() {
