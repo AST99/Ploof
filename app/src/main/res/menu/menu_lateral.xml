@@ -14,6 +14,13 @@
             android:checked="true" />
 
         <item
+            android:id="@+id/profileFragment"
+            android:enabled="true"
+            android:icon="@drawable/ic_profil"
+            android:title="Mon compte"
+           android:checked="true" />
+
+        <item
             android:id="@+id/servicesFragment"
             android:icon="@drawable/ic_service"
             android:title="@string/services" />

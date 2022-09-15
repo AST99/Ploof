@@ -1,14 +1,11 @@
 package com.astdev.ploof;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,26 +13,21 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import java.util.Objects;
 
 public class MainFragment extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout menu_Lateral;
     NavigationView nav_view;
-
     ActionBarDrawerToggle toggle;
 
-    BottomNavigationView bottomNavigationView;
-
-    @SuppressLint({"SimpleDateFormat", "SetTextI18n", "UseCompatLoadingForDrawables", "NonConstantResourceId", "SourceLockedOrientationActivity"})
+    @SuppressLint({"SimpleDateFormat", "SetTextI18n", "UseCompatLoadingForDrawables",
+            "NonConstantResourceId", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_fragment);
-
         setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
 
         menu_Lateral = findViewById(R.id.drawerLayout);
@@ -46,23 +38,14 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        //Gestion des évènements du menu de navigation du bas de page
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,
-                new ConsoFragment()).commit();
-        bottomNavigationView.setSelectedItemId(R.id.consoFragment);
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            Fragment fragment=null;
-            bottomNavigationView.getMenu().setGroupCheckable(0, true, true);
-            switch (item.getItemId()){
-                case R.id.consoFragment: fragment = new ConsoFragment();break;
-                case R.id.profileFragment: fragment = new ProfileFragment();break;
-                case R.id.notifsFragment: fragment = new NotifsFragment();break;
-            }
-            assert fragment != null;
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
-            return true;
-        });
+        if (mToolbar != null) {
+            Fragment fragment = new NotifsFragment();
+            mToolbar.setOnMenuItemClickListener(item -> {
+                Toast.makeText(getApplicationContext(), "TEST", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
+                return true;
+            });
+        }
 
         //Pour le menu lateral
         nav_view.bringToFront();
@@ -80,7 +63,6 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         menu_Lateral.closeDrawer(GravityCompat.START);
-        bottomNavigationView.getMenu().setGroupCheckable(0, false, true);
         Fragment fragment=null;
         switch (item.getItemId()){
             case R.id.consoFragment: fragment = new ConsoFragment();break;
@@ -88,6 +70,7 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
             case R.id.facturesFragment: fragment = new FacturesFragment();break;
             case R.id.contactFragment: fragment = new ContactFragment();break;
             case R.id.aboutFragment: fragment = new AboutFragment();break;
+            case R.id.profileFragment: fragment = new ProfileFragment();break;
         }
         if (fragment == null) throw new AssertionError();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
@@ -111,15 +94,9 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    //gère le click sur une action de l'ActionBar
+    //gère le click sur une action de l'ActionBar pour afficher le menu burger
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_deconnexion) {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(getApplicationContext(), ConnexionPage.class));
-            this.finish();
-            return true;
-        }
         if (toggle.onOptionsItemSelected(item)){
             return true;
         }

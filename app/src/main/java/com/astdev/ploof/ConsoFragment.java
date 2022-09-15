@@ -7,7 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -20,9 +19,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -32,14 +34,10 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -69,12 +67,11 @@ public class ConsoFragment extends Fragment{
 
     private ImageView photoPrise;
     private Uri afficheImage;
-    private byte[] imgCompressed;  //L'image après l'avoir compresser
 
     //Pour la localisation
     FusedLocationProviderClient client;
     public List<UsersModel> usersModelList;
-    private UsersModel user, lieu;
+    private UsersModel lieu;
     private FirebaseDatabase database;
     private DatabaseReference myRefPosition;
     private String latitude, longitude;
@@ -95,13 +92,18 @@ public class ConsoFragment extends Fragment{
         return inflater.inflate(R.layout.fragment_conso, container, false);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((MainFragment) requireActivity()).setActionBarTitle("Ma consommation");
+        ((MainFragment) requireActivity()).setActionBarTitle("Accueil");
 
         lieu = new UsersModel();
+        List<String> spinnerItem = new ArrayList<>();
+        spinnerItem.add("Résumé herbdomadaire");
+        spinnerItem.add("Résumé mensuel");
+        spinnerItem.add("Résumé annuel");
 
         choixLieuFuite = new Dialog(getActivity());
         choixLieuFuite.setContentView(R.layout.fuitepopup);
@@ -121,6 +123,24 @@ public class ConsoFragment extends Fragment{
         this.btnPrendrePhoto = sFuite.findViewById(R.id.btnPrendrePhoto);
         this.photoPrise = sFuite.findViewById(R.id.addPhotoFuite);
 
+        Spinner spinner = view.findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout
+                .simple_spinner_dropdown_item, spinnerItem);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0: graphHerbdo();break;
+                    case 1: graphMensuel();break;
+                    case 2:
+                        Toast.makeText(getActivity(), "Annuel", Toast.LENGTH_SHORT).show();break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
 
         //Pour la localisation
         client = LocationServices.getFusedLocationProviderClient(requireActivity());
@@ -181,7 +201,7 @@ public class ConsoFragment extends Fragment{
             choixLieuFuite.show();
             signaleFuite();
         });
-        graph();
+        graphMensuel();
     }
 
     @SuppressLint("SetTextI18n")
@@ -268,19 +288,18 @@ public class ConsoFragment extends Fragment{
         }
     }
 
-    public void graph(){
+    /************************Les graphes hebdomadaire, mensuel, annuel******************************/
+    public void graphHerbdo(){
 
         float[] yData = {10,35,80,70,20,30,50};
         final String[] jours  = {"Lun","Mar","Mer","Jeu","Ven","Sam","Dim"};
         ArrayList<String> xEntry=new ArrayList <> ();
         ArrayList<BarEntry> yEntry=new ArrayList <> ();
 
-        for (int i=0;i<yData.length;i++){
+        for (int i=0;i<yData.length;i++)
             yEntry.add(new BarEntry(i, yData[i]));
-        }
 
         Collections.addAll(xEntry, jours);
-
         BarDataSet set1 = new BarDataSet(yEntry, "");
 
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
@@ -295,7 +314,7 @@ public class ConsoFragment extends Fragment{
         barChart.getXAxis().setGranularity(1f);
         barChart.getXAxis().setGranularityEnabled(true);
         barChart.getXAxis().setDrawGridLines(false);
-
+        barChart.getXAxis().setLabelRotationAngle(-45);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
@@ -307,11 +326,49 @@ public class ConsoFragment extends Fragment{
         barChart.animateY(900);
     }
 
+    public void graphMensuel(){
+
+        float[] yData = {10,35,80,70,20,30,50,64,94,70,8,20};
+        final String[] mois  = {"Janv","Févr", "mars", "Avr", "Mai", "Juin", "Juil",
+                "Août",	"Sept", "Oct", "Nov", "Déc"};
+        ArrayList<String> xEntry=new ArrayList <> ();
+        ArrayList<BarEntry> yEntry=new ArrayList <> ();
+
+        for (int i=0;i<yData.length;i++)
+            yEntry.add(new BarEntry(i, yData[i]));
+
+        Collections.addAll(xEntry, mois);
+        BarDataSet set1 = new BarDataSet(yEntry, "");
+
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set1);
+        BarData data = new BarData(dataSets);
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart.getAxisRight().setEnabled(false);
+        barChart.getLegend().setEnabled(false);
+        barChart.getDescription().setEnabled(false);
+        barChart.setTouchEnabled(false);
+        barChart.setFitBars(true);
+        barChart.getXAxis().setGranularity(1f);
+        barChart.getXAxis().setGranularityEnabled(true);
+        barChart.getXAxis().setDrawGridLines(false);
+        barChart.getXAxis().setLabelRotationAngle(-45);
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return mois[(int) value];
+            }
+        });
+        barChart.setData(data);
+        barChart.animateY(900);
+    }
+
     /***************************Envoie les info sur la base de données*****************************/
     public void sendOnDatabase(){
         try {
             try {
-                user = new UsersModel(latitude, longitude, lieu.getAtHome(), lieu.getDescription());
+                UsersModel user = new UsersModel(latitude, longitude, lieu.getAtHome(), lieu.getDescription());
                 usersModelList.add(user);
 
                 myRefPosition = database.getReference("Users");
@@ -341,7 +398,6 @@ public class ConsoFragment extends Fragment{
         cv.put(MediaStore.Images.Media.TITLE,"Titre Image");
         cv.put(MediaStore.Images.Media.DESCRIPTION,"Description Image");
         afficheImage= requireActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
-
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,afficheImage);
         startActivityForResult(cameraIntent,101);
@@ -364,31 +420,4 @@ public class ConsoFragment extends Fragment{
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-    // UploadImage method
-    /*private void uploadImage() {
-        ProgressDialog progressDialog = new ProgressDialog(PrendrePhoto.this, R.style.MyAlertDialogStyle);
-        progressDialog.setMessage("Enregistrement de la photo...!");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        if(photo != null) {
-            StorageReference childRef = storageRef.child("Images/"+ System.currentTimeMillis()+".jpeg");
-            //uploading the image
-            UploadTask uploadTask = childRef.putBytes(imgCompressed);
-            uploadTask.addOnSuccessListener(taskSnapshot ->{
-                Toast.makeText(PrendrePhoto.this, "La photo a bien été enregistrée!", Toast.LENGTH_SHORT).show();
-                //Obtenir l'url de l'image
-                childRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    urlImage = uri.toString();
-                    url.setImage(urlImage);
-                });
-                progressDialog.dismiss();
-            });
-            uploadTask.addOnFailureListener(e ->
-                    Toast.makeText(PrendrePhoto.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show());
-        }
-        else
-            Toast.makeText(PrendrePhoto.this, "Select an image", Toast.LENGTH_SHORT).show();
-    }*/
-
 }

@@ -4,12 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="MissingDefaultResource">
 
-
-
     <item
-        android:id="@+id/action_deconnexion"
-        android:title="Déconnexion"
-        android:contentDescription="Me déconnecter"
-        />
+        android:id="@+id/notifsFragment"
+        android:title="Notification"
+        android:contentDescription="Notification"
+        android:icon="@drawable/ic_notif"
+        app:showAsAction="ifRoom"/>
 
 </menu>

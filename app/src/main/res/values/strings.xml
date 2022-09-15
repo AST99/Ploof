@@ -26,8 +26,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="image_signaler_fuite">Image signaler fuite</string>
-    <string name="r_sum_de_la_consommation">Résumé quotidien</string>
+    <string name="resume_de_la_consommation">Résumé</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="vous_n_avez_pas_obtenu_le_code_renvoyer">Vous n\'avez pas obtenu le code ? <b>Renvoyer</b></string>
+    <string name="filtre">Filtre</string>
 </resources>
