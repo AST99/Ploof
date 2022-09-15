@@ -88,7 +88,6 @@ public class ConsoFragment extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_conso, container, false);
     }
 
@@ -164,7 +163,6 @@ public class ConsoFragment extends Fragment{
         }
 
         TextInputEditText desc = sFuite.findViewById(R.id.descFuite);
-
 
         exFab.setOnClickListener(view12 ->{
             String strDesc = Objects.requireNonNull(desc.getText()).toString().trim();
@@ -314,7 +312,6 @@ public class ConsoFragment extends Fragment{
         barChart.getXAxis().setGranularity(1f);
         barChart.getXAxis().setGranularityEnabled(true);
         barChart.getXAxis().setDrawGridLines(false);
-        barChart.getXAxis().setLabelRotationAngle(-45);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
@@ -329,7 +326,7 @@ public class ConsoFragment extends Fragment{
     public void graphMensuel(){
 
         float[] yData = {10,35,80,70,20,30,50,64,94,70,8,20};
-        final String[] mois  = {"Janv","Févr", "mars", "Avr", "Mai", "Juin", "Juil",
+        final String[] mois  = {"Janv","Févr", "Mars", "Avr", "Mai", "Juin", "Juil",
                 "Août",	"Sept", "Oct", "Nov", "Déc"};
         ArrayList<String> xEntry=new ArrayList <> ();
         ArrayList<BarEntry> yEntry=new ArrayList <> ();
@@ -352,7 +349,6 @@ public class ConsoFragment extends Fragment{
         barChart.getXAxis().setGranularity(1f);
         barChart.getXAxis().setGranularityEnabled(true);
         barChart.getXAxis().setDrawGridLines(false);
-        barChart.getXAxis().setLabelRotationAngle(-45);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override

@@ -1,11 +1,12 @@
 package com.astdev.ploof;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+
 import java.util.Objects;
 
 public class MainFragment extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,7 +43,6 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
         if (mToolbar != null) {
             Fragment fragment = new NotifsFragment();
             mToolbar.setOnMenuItemClickListener(item -> {
-                Toast.makeText(getApplicationContext(), "TEST", Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
                 return true;
             });
@@ -65,7 +66,8 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
         menu_Lateral.closeDrawer(GravityCompat.START);
         Fragment fragment=null;
         switch (item.getItemId()){
-            case R.id.consoFragment: fragment = new ConsoFragment();break;
+            case R.id.deconnexion: startActivity(new Intent(getApplication(),ConnexionPage.class));
+            break;
             case R.id.servicesFragment: fragment = new ServicesFragment();break;
             case R.id.facturesFragment: fragment = new FacturesFragment();break;
             case R.id.contactFragment: fragment = new ContactFragment();break;

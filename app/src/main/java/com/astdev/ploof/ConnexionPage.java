@@ -181,7 +181,7 @@ public class ConnexionPage extends AppCompatActivity {
                 binding.mainLayout.setVisibility(View.GONE);
                 binding.verificationOTP.setVisibility(View.VISIBLE);
 
-                Toast.makeText(ConnexionPage.this,"Code de vérification envoyé", Toast.LENGTH_LONG).show();
+                Toast.makeText(ConnexionPage.this,"Code de vérification envoyé", Toast.LENGTH_SHORT).show();
 
                 binding.txtViewSendTo.setText("Veuillez entrer le code de vérification " +
                         "qui a été \nenvoyer au "+ Objects.requireNonNull(binding.phoneNumber
@@ -238,12 +238,12 @@ public class ConnexionPage extends AppCompatActivity {
                                     .getCurrentUser()).getUid()).setValue(user);
 
             startActivity(new Intent(getApplicationContext(), MainFragment.class));
-            Toast.makeText(ConnexionPage.this,"connecté en tant que "+phone, Toast.LENGTH_LONG).show();
+            Toast.makeText(ConnexionPage.this,"connecté en tant que "+phone, Toast.LENGTH_SHORT).show();
             this.finish();
 
         }).addOnFailureListener(e -> {
             progressDialog.dismiss();
-            Toast.makeText(ConnexionPage.this,""+e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(ConnexionPage.this,""+e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 

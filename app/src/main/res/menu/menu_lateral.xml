@@ -7,18 +7,12 @@
     <group
         android:id="@+id/group1"
         android:checkableBehavior="single">
-        <item
-            android:id="@+id/consoFragment"
-            android:icon="@drawable/ic_water_drop"
-            android:title="Ma consommation"
-            android:checked="true" />
 
         <item
             android:id="@+id/profileFragment"
             android:enabled="true"
             android:icon="@drawable/ic_profil"
-            android:title="Mon compte"
-           android:checked="true" />
+            android:title="Mon compte" />
 
         <item
             android:id="@+id/servicesFragment"
@@ -31,19 +25,57 @@
             android:title="Mes factures" />
 
         <item
-            android:id="@+id/contactFragment"
-            android:icon="@drawable/ic_contact"
-            android:title="contact" />
-
-        <item
             android:id="@+id/aboutFragment"
             android:icon="@drawable/ic_info"
             android:title="À propos" />
 
         <item
             android:id="@+id/deconnexion"
-            android:icon="@drawable/ic_exit"
+            android:icon="@drawable/ic_log_out"
             android:title="Déconnexion" />
+
+    </group>
+
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/coordonneTitle"
+            android:enabled="false"
+            android:title="Nos coordonnés" />
+    </group>
+
+    <group
+        android:id="@+id/group3"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/numeroTel1"
+            android:icon="@drawable/ic_contact"
+            android:enabled="false"
+            android:title="(+226) 61 27 11 87"/>
+
+        <item
+            android:id="@+id/mail"
+            android:icon="@drawable/ic_email"
+            android:enabled="false"
+            android:title="ploof@ploof.com"/>
+
+        <item
+            android:id="@+id/location"
+            android:icon="@drawable/ic_location"
+            android:enabled="false"
+            android:title="Ouaga 2000, vers Palace Hôtel"/>
+
+        <item
+            android:id="@+id/web"
+            android:icon="@drawable/ic_web"
+            android:enabled="false"
+            android:title="www.ploof-bf.com"/>
+
+
+
     </group>
 
 

@@ -39,9 +39,9 @@ public class Bar extends AppCompatActivity {
     public void graphMensuel(){
 
         float[] yData = {10,35,80,70,20,30,
-                         50,64,94,70,8,20};
+                         50,64,94,70/*,8,20*/};
         final String[] mois  = {"Janv","Févr", "mars", "Avr", "Mai", "Juin",
-                                "Juil", "Août","Sept", "Oct", "Déc", "Déc"};
+                                "Juil", "Août","Sept", "Oct"/*, "Déc", "Déc"*/};
         ArrayList<String> xEntry=new ArrayList <>();
         ArrayList<BarEntry> yEntry=new ArrayList <>();
 
@@ -59,10 +59,7 @@ public class Bar extends AppCompatActivity {
         barChart.getLegend().setEnabled(false);
         barChart.getDescription().setEnabled(false);
         barChart.setTouchEnabled(false);
-        barChart.setFitBars(true);
-        barChart.getXAxis().setGranularity(1f);
-        barChart.getXAxis().setGranularityEnabled(true);
-        barChart.getXAxis().setDrawGridLines(false);
+
         barChart.getXAxis().setLabelRotationAngle(-90);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(new ValueFormatter() {
