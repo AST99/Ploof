@@ -11,4 +11,10 @@
         android:icon="@drawable/ic_notif"
         app:showAsAction="ifRoom"/>
 
+    <item
+        android:id="@+id/action_deconnexion"
+        android:title="Déconnexion"
+        android:contentDescription="Me déconnecter"
+        />
+
 </menu>

@@ -23,7 +23,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:text="Ma consommation"
+            android:text="Ma conso"
             android:textSize="26sp"
             android:textStyle="bold" />
 

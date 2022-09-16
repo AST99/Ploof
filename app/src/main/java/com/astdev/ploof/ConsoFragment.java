@@ -133,8 +133,7 @@ public class ConsoFragment extends Fragment{
                 switch (i){
                     case 0: graphHerbdo();break;
                     case 1: graphMensuel();break;
-                    case 2:
-                        Toast.makeText(getActivity(), "Annuel", Toast.LENGTH_SHORT).show();break;
+                    case 2: graphAnnuel();break;
                 }
             }
             @Override
@@ -199,7 +198,6 @@ public class ConsoFragment extends Fragment{
             choixLieuFuite.show();
             signaleFuite();
         });
-        graphMensuel();
     }
 
     @SuppressLint("SetTextI18n")
@@ -360,6 +358,42 @@ public class ConsoFragment extends Fragment{
         barChart.animateY(900);
     }
 
+    public void graphAnnuel(){
+
+        float[] yData = {800,90};
+        final String[] an  = {"2021","2022","","","","",""};
+        ArrayList<String> xEntry=new ArrayList <> ();
+        ArrayList<BarEntry> yEntry=new ArrayList <> ();
+
+        for (int i=0;i<yData.length;i++)
+            yEntry.add(new BarEntry(i, yData[i]));
+
+        Collections.addAll(xEntry, an);
+        BarDataSet set1 = new BarDataSet(yEntry, "");
+
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set1);
+        BarData data = new BarData(dataSets);
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart.getAxisRight().setEnabled(false);
+        barChart.getLegend().setEnabled(false);
+        barChart.getDescription().setEnabled(false);
+        barChart.setTouchEnabled(false);
+        barChart.setFitBars(true);
+        barChart.getXAxis().setGranularity(1f);
+        barChart.getXAxis().setGranularityEnabled(true);
+        barChart.getXAxis().setDrawGridLines(false);
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return an[(int) value];
+            }
+        });
+        barChart.setData(data);
+        barChart.animateY(900);
+    }
+
     /***************************Envoie les info sur la base de données*****************************/
     public void sendOnDatabase(){
         try {
@@ -396,7 +430,7 @@ public class ConsoFragment extends Fragment{
         afficheImage= requireActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,afficheImage);
-        startActivityForResult(cameraIntent,101);
+        //startActivityForResult(cameraIntent,101);
     }
 
     @Override

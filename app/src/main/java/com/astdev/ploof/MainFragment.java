@@ -15,7 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
-
+import com.google.firebase.auth.FirebaseAuth;
 import java.util.Objects;
 
 public class MainFragment extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,14 +40,6 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        if (mToolbar != null) {
-            Fragment fragment = new NotifsFragment();
-            mToolbar.setOnMenuItemClickListener(item -> {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
-                return true;
-            });
-        }
-
         //Pour le menu lateral
         nav_view.bringToFront();
         toggle = new ActionBarDrawerToggle(this,menu_Lateral, R.string.open_lateral_menu, R.string.close_lateral_menu);
@@ -66,11 +58,8 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
         menu_Lateral.closeDrawer(GravityCompat.START);
         Fragment fragment=null;
         switch (item.getItemId()){
-            case R.id.deconnexion: startActivity(new Intent(getApplication(),ConnexionPage.class));
-            break;
             case R.id.servicesFragment: fragment = new ServicesFragment();break;
             case R.id.facturesFragment: fragment = new FacturesFragment();break;
-            case R.id.contactFragment: fragment = new ContactFragment();break;
             case R.id.aboutFragment: fragment = new AboutFragment();break;
             case R.id.profileFragment: fragment = new ProfileFragment();break;
         }
@@ -96,9 +85,20 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    //gère le click sur une action de l'ActionBar pour afficher le menu burger
+    //gère le click sur une action de l'ActionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_deconnexion) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getApplicationContext(), ConnexionPage.class));
+            this.finish();
+            return true;
+        }
+        if (item.getItemId() == R.id.notifsFragment){
+            Fragment fragment = new NotifsFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
+            return true;
+        }
         if (toggle.onOptionsItemSelected(item)){
             return true;
         }

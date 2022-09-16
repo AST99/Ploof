@@ -1,7 +1,5 @@
 package com.astdev.ploof;
 
-import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,7 +17,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -29,14 +26,14 @@ import java.util.concurrent.TimeUnit;
 
 public class ConnexionPage extends AppCompatActivity {
 
-    private TabLayout tabLayout;
     private TextInputEditText editTxtmail;
     private TextInputEditText editTxtPassWrd;
     public static FirebaseAuth mAuth;
     private LinearLayout mainLayout, verificationLayout, numeroLayout, mail_layout;
 
+    ActivityConnexionBinding binding;
+
     /*******************OTP************************/
-    private ActivityConnexionBinding binding;
     //Si l'envoie du code OTP échoue, "forceResending permet de renvoyer un autre code
     private PhoneAuthProvider.ForceResendingToken forceResendingToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBacks;
@@ -51,10 +48,13 @@ public class ConnexionPage extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        if (mAuth.getCurrentUser() != null) {
+            startActivity(new Intent(ConnexionPage.this, MainFragment.class));
+        }
+
         progressDialog = new ProgressDialog(ConnexionPage.this, R.style.MyAlertDialogStyle);
         progressDialog.setCanceledOnTouchOutside(false);
 
-        this.tabLayout = findViewById(R.id.tabLayout);
         this.mainLayout = findViewById(R.id.mainLayout);
         this.mail_layout = findViewById(R.id.mail_layout);
         this.verificationLayout = findViewById(R.id.verificationOTP);
@@ -82,7 +82,7 @@ public class ConnexionPage extends AppCompatActivity {
     }
 
     private void selectedTab(){
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
@@ -270,13 +270,13 @@ public class ConnexionPage extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if (currentUser != null)
-           reload();
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.onDestroy();
     }
 
-    private void reload() { }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

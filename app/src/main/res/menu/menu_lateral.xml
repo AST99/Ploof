@@ -29,11 +29,6 @@
             android:icon="@drawable/ic_info"
             android:title="À propos" />
 
-        <item
-            android:id="@+id/deconnexion"
-            android:icon="@drawable/ic_log_out"
-            android:title="Déconnexion" />
-
     </group>
 
     <group
@@ -66,8 +61,7 @@
             android:id="@+id/location"
             android:icon="@drawable/ic_location"
             android:enabled="false"
-            android:tooltipText="Ouaga 2000, vers Palace Hôtel"
-            android:title="Ouaga 2000, vers Palace Hôtel"/>
+            android:title="Ouaga 2000,vers Palace Hôtel"/>
 
         <item
             android:id="@+id/web"

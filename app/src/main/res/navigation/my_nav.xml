@@ -26,11 +26,6 @@
         android:label="Mes factures"
         tools:layout="@layout/fragment_factures" />
     <fragment
-        android:id="@+id/contactFragment"
-        android:name="com.astdev.ploof.ContactFragment"
-        android:label="Contact"
-        tools:layout="@layout/fragment_contact" />
-    <fragment
         android:id="@+id/aboutFragment"
         android:name="com.astdev.ploof.AboutFragment"
         android:label="A propos"
