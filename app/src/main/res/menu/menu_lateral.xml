@@ -66,6 +66,7 @@
             android:id="@+id/location"
             android:icon="@drawable/ic_location"
             android:enabled="false"
+            android:tooltipText="Ouaga 2000, vers Palace Hôtel"
             android:title="Ouaga 2000, vers Palace Hôtel"/>
 
         <item

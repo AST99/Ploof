@@ -1,5 +1,7 @@
 package com.astdev.ploof;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -30,7 +32,7 @@ public class ConnexionPage extends AppCompatActivity {
     private TabLayout tabLayout;
     private TextInputEditText editTxtmail;
     private TextInputEditText editTxtPassWrd;
-    private FirebaseAuth mAuth;
+    public static FirebaseAuth mAuth;
     private LinearLayout mainLayout, verificationLayout, numeroLayout, mail_layout;
 
     /*******************OTP************************/
@@ -271,6 +273,7 @@ public class ConnexionPage extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
         if (currentUser != null)
            reload();
     }
