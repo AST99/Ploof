@@ -59,7 +59,7 @@ public class PlumberListFragment extends Fragment {
         plumberList = new ArrayList<>();
 
         int[] imgId = {R.drawable.ex1, R.drawable.ex2, R.drawable.service_plumber, R.drawable.vidange,
-                R.drawable.signaler_fuite58, R.drawable.fuite_detecte,
+                R.drawable.signaler_fuite, R.drawable.fuite_detecte,
                 R.drawable.ex1, R.drawable.ex2, R.drawable.service_plumber,};
 
         String[] plumberName = {"Ouedroago Amidou", "Kaboré Cedric", "Koné Mohamed", "Sawadogo Abdoul",

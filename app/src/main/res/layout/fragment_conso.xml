@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ConsoFragment">
+    tools:context=".ConsoFragment"
+    tools:ignore="HardcodedText">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,18 +22,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="8dp"
             android:text="Ma conso"
             android:textSize="26sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <GridLayout
             android:id="@+id/gridLayoutTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="4dp"
             android:alignmentMode="alignMargins"
             android:columnCount="2"
             android:columnOrderPreserved="false"
@@ -74,18 +75,6 @@
                     app:cs_start_angle="370"
                     app:cs_use_custom_radii="false" />
 
-                <!-- <com.triggertrap.seekarc.SeekArc
-                 android:id="@+id/seekArc"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_gravity="center"
-                 android:padding="55dp"
-                 android:rotation="180"
-                 app:touchInside="false"
-                 app:progress="50"
-                 app:startAngle="30"
-                 app:sweepAngle="300"/>  -->
-
                 <TextView
                     android:id="@+id/text"
                     android:layout_width="wrap_content"
@@ -108,10 +97,11 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cvSignaleFuite1"
+                android:id="@+id/cvFacture"
                 android:layout_width="160dp"
                 android:layout_height="140dp"
                 android:layout_margin="6dp"
+                app:cardBackgroundColor="#F5F5F5"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp"
                 app:layout_columnWeight="1"
@@ -123,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="10.000fcfa"
-                    android:textColor="#000000"
+                    android:textColor="#DCDCDC"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -132,8 +122,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="Ma facture"
-                    android:textColor="#000000" />
+                    android:textColor="#DCDCDC"
+                    android:text="Ma facture"/>
             </androidx.cardview.widget.CardView>
 
         </GridLayout>
@@ -142,9 +132,7 @@
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="6dp"
             android:orientation="vertical">
-
 
             <androidx.cardview.widget.CardView
                 android:layout_width="330dp"
@@ -182,6 +170,7 @@
             android:layout_gravity="center"
             android:alignmentMode="alignMargins"
             android:columnCount="2"
+            android:layout_marginBottom="4dp"
             android:columnOrderPreserved="false"
             android:rowCount="1">
 
@@ -198,17 +187,18 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#F1FDFE"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="16dp"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:id="@+id/imgViewFuiteDetectee"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:src="@drawable/fuite_detecte" />
+                        android:src="@drawable/fuite_detecte"
+                        android:contentDescription="Fuite détecter" />
 
                     <TextView
                         android:id="@+id/txtViewFuiteDectee"
@@ -235,7 +225,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#F1FDFE"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp"
@@ -247,7 +236,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:contentDescription="@string/image_signaler_fuite"
-                        android:src="@drawable/signaler_fuite58" />
+                        android:src="@drawable/signaler_fuite" />
 
                     <TextView
                         android:id="@+id/txtViewSignaleFuite"
