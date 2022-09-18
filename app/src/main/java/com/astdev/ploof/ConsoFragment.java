@@ -150,13 +150,11 @@ public class ConsoFragment extends Fragment{
         if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
                 requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            // When permission is granted
-            // Call method
+            // When permission is granted Call method
             getCurrentLocation();
         }
         else {
-            // When permission is not granted
-            // Call method
+            // When permission is not granted Call method
             requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION }, 100);
         }
@@ -241,29 +239,25 @@ public class ConsoFragment extends Fragment{
             LocationManager locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
             // Check condition
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                // When location service is enabled
-                // Get last location
+                // When location service is enabled Get last location
                 client.getLastLocation().addOnCompleteListener(task -> {
                     // Initialize location
                     Location location = task.getResult();
                     // Check condition
                     if (location != null) {
-                        // When location result is not
-                        // null set latitude
+                        // When location result is not null set latitude
                         latitude= String.valueOf(location.getLatitude());
                         // set longitude
                         longitude= String.valueOf(location.getLongitude());
                     } else {
-                        // When location result is null
-                        // initialize location request
+                        // When location result is null initialize location request
                         LocationRequest locationRequest = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                                 .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
                                 // Initialize location call back
                         LocationCallback locationCallback = new LocationCallback() {
                             @Override
                             public void onLocationResult(LocationResult locationResult) {
-                                // Initialize
-                                // location
+                                // Initialize location
                                 Location location1 = locationResult.getLastLocation();
                                 // Set latitude
                                 latitude = String.valueOf(Objects.requireNonNull(location1).getLatitude());
@@ -275,8 +269,7 @@ public class ConsoFragment extends Fragment{
                     }
                 });
             } else {
-                // When location service is not enabled
-                // open location setting
+                // When location service is not enabled open location setting
                 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         } catch (Exception e) {

@@ -51,7 +51,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.5.2'
     implementation 'androidx.navigation:navigation-ui:2.5.2'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.firebase:firebase-firestore:24.3.0'
+    implementation 'com.google.firebase:firebase-firestore:24.3.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
@@ -74,8 +74,6 @@ dependencies {
     //ImageView arrondi
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    //Pour afficher un gif
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.25'
     //Map
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-location:20.0.0'

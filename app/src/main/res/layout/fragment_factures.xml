@@ -11,12 +11,11 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBarFacture"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_gravity="bottom"
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="10dp"
-        app:fabCradleVerticalOffset="10dp">
-    </com.google.android.material.bottomappbar.BottomAppBar>
+        app:fabCradleVerticalOffset="10dp"></com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabFacture"
@@ -25,7 +24,8 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_home"
         app:backgroundTint="@color/buttonColor"
-        app:layout_anchor="@id/bottomAppBarFacture" />
+        app:layout_anchor="@id/bottomAppBarFacture"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:layout_width="match_parent"

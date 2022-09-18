@@ -1,24 +1,23 @@
 package com.astdev.ploof;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.imageview.ShapeableImageView;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class PlumberAdapter extends RecyclerView.Adapter<PlumberAdapter.PlumberViewHolder>{
 
     Context context;
     ArrayList<PlumberModel> plumberArrayList;
+    Uri u;
 
     public PlumberAdapter(Context context, ArrayList<PlumberModel> plumberArrayList) {
         this.context = context;
@@ -41,6 +40,18 @@ public class PlumberAdapter extends RecyclerView.Adapter<PlumberAdapter.PlumberV
         holder.txtViewName.setText(plumberModel.nomPrenoms);
         holder.imgView.setImageResource(plumberModel.imgId);
         holder.txtViewPhone.setText(plumberModel.numeroTel);
+
+        /*Lorque l'utilisateur clique sur un élément de la liste, le numéro de téléphone est
+        * automatiquement copier pour émettre l'appel*/
+        holder.itemView.setOnClickListener(view ->{
+            u = Uri.parse("tel:" + plumberModel.numeroTel);
+            try {
+                view.getContext().startActivity(new Intent(Intent.ACTION_DIAL, u));
+            }
+            catch (SecurityException s) {
+                Toast.makeText(view.getContext(), "Une erreur s'est produite",Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 

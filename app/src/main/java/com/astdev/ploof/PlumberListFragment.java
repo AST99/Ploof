@@ -1,6 +1,7 @@
 package com.astdev.ploof;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,12 +14,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.astdev.ploof.databinding.FragmentNotifsBinding;
+import com.astdev.ploof.databinding.FragmentPlumberListBinding;
+
 import java.util.ArrayList;
 
 
 public class PlumberListFragment extends Fragment {
 
     private ArrayList<PlumberModel> plumberList;
+    FragmentPlumberListBinding binding;
 
     public PlumberListFragment() {
         // Required empty public constructor
@@ -32,9 +37,9 @@ public class PlumberListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_plumber_list, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentPlumberListBinding.inflate(inflater,container,false);
+        return binding.getRoot();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -45,13 +50,16 @@ public class PlumberListFragment extends Fragment {
         ((MainFragment) requireActivity()).setActionBarTitle("Contacter un plombier");
 
         showList();
-        RecyclerView recylerView = view.findViewById(R.id.recyclerView);
-        recylerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recylerView.setHasFixedSize(true);
+
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setHasFixedSize(true);
 
         PlumberAdapter adapter = new PlumberAdapter(getContext(),plumberList);
-        recylerView.setAdapter(adapter);
+        binding.recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        binding.fabPlumber.setOnClickListener(v-> startActivity(new Intent(getActivity(), MainFragment.class)));
     }
 
     private void showList() {

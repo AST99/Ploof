@@ -3,7 +3,7 @@ package com.astdev.ploof;
 public class PlumberModel {
 
     String nomPrenoms, numeroTel;
-    int imgId;
+    int imgId, note;
 
     public PlumberModel(String nomPrenoms, String numeroTel, int imgId) {
        this.nomPrenoms = nomPrenoms;
@@ -33,5 +33,13 @@ public class PlumberModel {
 
     public void setImgId(int imgId) {
         this.imgId = imgId;
+    }
+
+    public int getNote() {
+        return note;
+    }
+
+    public void setNote(int note) {
+        this.note = note;
     }
 }

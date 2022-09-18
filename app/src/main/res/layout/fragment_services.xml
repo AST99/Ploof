@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,9 +39,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Service de plomberie"
+                        android:gravity="center"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        android:padding="10dp"/>
+
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="194dp"
+                        android:layout_height="160dp"
                         android:contentDescription="Service de plomberie"
                         android:scaleType="centerCrop"
                         android:src="@drawable/service_plumber" />
@@ -50,13 +58,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="10dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <Button
+                            android:id="@+id/btnConterPlombier"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Service de plomberie"
-                            android:textAppearance="?attr/textAppearanceHeadline6" />
+                            android:layout_gravity="center"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:background="@drawable/contour_button"
+                            android:text="Contacter un plombier" />
 
 
                     </LinearLayout>
@@ -75,9 +87,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Vidange de fosse septique"
+                        android:gravity="center"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        android:padding="10dp" />
+
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="194dp"
+                        android:layout_height="160dp"
                         android:contentDescription="Service vidange"
                         android:scaleType="centerCrop"
                         android:src="@drawable/vidange" />
@@ -86,14 +106,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="10dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <Button
+                            android:id="@+id/btnConterVidangeur"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Vidange de fosse septique"
-                            android:textAppearance="?attr/textAppearanceHeadline6" />
-
+                            android:layout_gravity="center"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:background="@drawable/contour_button"
+                            android:text="Contacter un vidangeur" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -104,12 +127,11 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBarService"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_gravity="bottom"
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="10dp"
-        app:fabCradleVerticalOffset="10dp">
-    </com.google.android.material.bottomappbar.BottomAppBar>
+        app:fabCradleVerticalOffset="10dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabService"
