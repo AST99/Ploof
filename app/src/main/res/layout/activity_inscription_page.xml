@@ -51,7 +51,7 @@
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/verificationOTP_Inscription"
+        android:id="@+id/verificationOTPInscription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -195,7 +195,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/Nametitle"
@@ -205,7 +205,6 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
                 android:hint="@string/nom_et_prenoms"
-                android:visibility="visible"
                 app:placeholderText="Ali Touré"
                 app:placeholderTextColor="#a2b5bb">
 
@@ -299,7 +298,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -308,12 +307,11 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
                 android:hint="@string/nom_et_prenoms"
-                android:visibility="visible"
                 app:placeholderText="Ali Touré"
                 app:placeholderTextColor="#a2b5bb">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inscriptionName"
+                    android:id="@+id/inscriptionPhoneName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -322,7 +320,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/titlePhoneOrMail"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -340,12 +337,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="18dp"
                     android:inputType="phone"
-                    android:maxLength="8"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/btnOTPContinuer"
+                android:id="@+id/btnOTPContinuerInscription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

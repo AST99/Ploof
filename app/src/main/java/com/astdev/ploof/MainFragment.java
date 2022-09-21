@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +19,9 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+
 import java.util.Objects;
 
 public class MainFragment extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,6 +45,24 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
         MaterialToolbar mToolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+       /* FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+
+            for (UserInfo profile : user.getProviderData()) {
+                // Id of the provider (ex: google.com)
+                String providerId = profile.getProviderId();
+
+                // UID specific to the provider
+                String uid = profile.getUid();
+
+                // Name, email address, and profile photo Url
+                String name = profile.getDisplayName();
+                String email = profile.getEmail();
+                Toast.makeText(getApplicationContext(),name,Toast.LENGTH_SHORT).show();
+                //  Uri photoUrl = profile.getPhotoUrl();
+            }
+        }*/
 
         //Pour le menu lateral
         nav_view.bringToFront();

@@ -51,11 +51,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Objects;
 
 public class ConsoFragment extends Fragment{
 
@@ -72,7 +72,7 @@ public class ConsoFragment extends Fragment{
     private Uri afficheImage;
 
     double todayConso; //stock la consommation du jour
-    SimpleDateFormat currentDay, currentMonth; // currentDay=>stock le jour actuelle,
+    SimpleDateFormat currentDay, currentMonth, newMonth; // currentDay=>stock le jour actuelle,
                                                 // currentMonth=>stock le mois actuelle
     String dateTime24h, strCurrentDay;
     Calendar calendar;
@@ -84,7 +84,8 @@ public class ConsoFragment extends Fragment{
     private UsersModel lieu;
     private FirebaseDatabase database;
     private DatabaseReference myRefPosition;
-    private String latitude, longitude;
+
+    private UsersModel position;
 
     DataHebdoModel dataHebdoModel;
 
@@ -109,17 +110,19 @@ public class ConsoFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         ((MainFragment) requireActivity()).setActionBarTitle("Accueil");
+        position = new UsersModel();
 
         dataHebdoModel = new DataHebdoModel();
 
         calendar = Calendar.getInstance();
         heureFormat24h = new SimpleDateFormat("HH:mm");
         currentDay = new SimpleDateFormat("EE");
+        newMonth = new SimpleDateFormat("dd");
+        String strNewMonth = newMonth.format(calendar.getTime());
         strCurrentDay = currentDay.format(calendar.getTime());
         dateTime24h = heureFormat24h.format(calendar.getTime());
 
-        Toast.makeText(requireActivity(),String.valueOf(strCurrentDay),Toast.LENGTH_SHORT).show();
-        Toast.makeText(requireActivity(),String.valueOf(dateTime24h),Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireActivity(), strNewMonth,Toast.LENGTH_SHORT).show();
 
         lieu = new UsersModel();
         List<String> spinnerItem = new ArrayList<>();
@@ -269,9 +272,9 @@ public class ConsoFragment extends Fragment{
                     // Check condition
                     if (location != null) {
                         // When location result is not null set latitude
-                        latitude= String.valueOf(location.getLatitude());
+                        position.setLatitude(String.valueOf(location.getLatitude()));
                         // set longitude
-                        longitude= String.valueOf(location.getLongitude());
+                        position.setLongitude(String.valueOf(location.getLongitude()));
                     } else {
                         // When location result is null initialize location request
                         LocationRequest locationRequest = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -283,8 +286,8 @@ public class ConsoFragment extends Fragment{
                                 // Initialize location
                                 Location location1 = locationResult.getLastLocation();
                                 // Set latitude
-                                latitude = String.valueOf(Objects.requireNonNull(location1).getLatitude());
-                                longitude=String.valueOf(location1.getLongitude());
+                                position.setLatitude(String.valueOf(Objects.requireNonNull(location1).getLatitude()));
+                                position.setLatitude(String.valueOf(location1.getLongitude()));
                             }
                         };
                         // Request location updates
@@ -414,12 +417,16 @@ public class ConsoFragment extends Fragment{
     public void sendOnDatabase(){
         try {
             try {
-                UsersModel user = new UsersModel(latitude, longitude, lieu.getAtHome(), lieu.getDescription());
-                usersModelList.add(user);
+
+                HashMap<String, Object> userMap = new HashMap<>();
+                userMap.put("atHome",lieu.getAtHome());
+                userMap.put("description",lieu.getDescription());
+                userMap.put("latitude",position.getLatitude());
+                userMap.put("longitude",position.getLongitude());
 
                 myRefPosition = database.getReference("Users");
                 myRefPosition.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).
-                        getUid()).setValue(user).addOnCompleteListener(task -> {
+                        getUid()).updateChildren(userMap).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         sFuite.dismiss();
                         choixLieuFuite.cancel();

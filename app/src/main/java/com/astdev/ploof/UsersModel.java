@@ -10,19 +10,17 @@ public class UsersModel {
     public UsersModel() {
     }
 
-    /**********************************Connexion***************************************************/
-    public UsersModel(String nomPrenom, String mail, String passWrd) {
-        this.nomPrenom = nomPrenom;
-        this.mail = mail;
-        this.passWrd = passWrd;
-    }
-    /***********************************************************************************************/
-
     public UsersModel(String phone){
         this.phone = phone;
     }
 
-    public UsersModel(String latitude, String longitude, String atHome, String description) {
+    /********************************Refonte page d'inscription*************************************/
+    public UsersModel(String nomPrenom, String mail, String numeroTel, String passWrd,
+                      String latitude, String longitude, String atHome, String description){
+        this.nomPrenom = nomPrenom;
+        this.mail = mail;
+        this.passWrd = passWrd;
+        this.phone = numeroTel;
         this.latitude = latitude;
         this.longitude = longitude;
         this.atHome = atHome;
