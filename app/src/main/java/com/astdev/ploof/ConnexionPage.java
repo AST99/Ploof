@@ -78,7 +78,10 @@ public class ConnexionPage extends AppCompatActivity {
         binding.btnConnecter.setOnClickListener(view -> mailAndPassWrdConnexion());
         binding.btnOTPContinuer.setOnClickListener(view -> phoneConnexion());
 
-        binding.btnInscription.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),InscriptionPage.class)));
+        binding.btnInscription.setOnClickListener(view ->{
+            startActivity(new Intent(getApplicationContext(),InscriptionPage.class));
+            this.finish();
+        });
     }
 
     private void selectedTab(){
@@ -98,10 +101,8 @@ public class ConnexionPage extends AppCompatActivity {
                         break;
                 }
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {}
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
@@ -273,6 +274,11 @@ public class ConnexionPage extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         this.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override

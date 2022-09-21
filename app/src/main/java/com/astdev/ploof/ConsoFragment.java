@@ -53,6 +53,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Objects;
 
 public class ConsoFragment extends Fragment{
 
@@ -68,6 +71,13 @@ public class ConsoFragment extends Fragment{
     private ImageView photoPrise;
     private Uri afficheImage;
 
+    double todayConso; //stock la consommation du jour
+    SimpleDateFormat currentDay, currentMonth; // currentDay=>stock le jour actuelle,
+                                                // currentMonth=>stock le mois actuelle
+    String dateTime24h, strCurrentDay;
+    Calendar calendar;
+    SimpleDateFormat heureFormat24h, heureFormat12h;
+
     //Pour la localisation
     FusedLocationProviderClient client;
     public List<UsersModel> usersModelList;
@@ -75,6 +85,8 @@ public class ConsoFragment extends Fragment{
     private FirebaseDatabase database;
     private DatabaseReference myRefPosition;
     private String latitude, longitude;
+
+    DataHebdoModel dataHebdoModel;
 
 
     public ConsoFragment() {
@@ -97,6 +109,17 @@ public class ConsoFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         ((MainFragment) requireActivity()).setActionBarTitle("Accueil");
+
+        dataHebdoModel = new DataHebdoModel();
+
+        calendar = Calendar.getInstance();
+        heureFormat24h = new SimpleDateFormat("HH:mm");
+        currentDay = new SimpleDateFormat("EE");
+        strCurrentDay = currentDay.format(calendar.getTime());
+        dateTime24h = heureFormat24h.format(calendar.getTime());
+
+        Toast.makeText(requireActivity(),String.valueOf(strCurrentDay),Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireActivity(),String.valueOf(dateTime24h),Toast.LENGTH_SHORT).show();
 
         lieu = new UsersModel();
         List<String> spinnerItem = new ArrayList<>();

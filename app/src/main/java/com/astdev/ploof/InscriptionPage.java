@@ -7,9 +7,13 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.astdev.ploof.databinding.ActivityConnexionBinding;
+import com.astdev.ploof.databinding.ActivityInscriptionPageBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -20,12 +24,10 @@ import java.util.Objects;
 
 public class InscriptionPage extends AppCompatActivity {
 
-    private TabLayout tabLayout;
-    private Button btnInscription;
-    private TextInputEditText editTxtNomPrenom, editTxtPhone_mail, editTxtPassWrd, confirmeditTxtPassWrd;
-    private TextInputLayout editTxtTitle, passWrdTitle;
     private String choix="tel";
     private FirebaseAuth mAuth;
+
+    ActivityInscriptionPageBinding binding;
 
     private int maxLength;
     InputFilter[] FilterArray = new InputFilter[1];
@@ -35,141 +37,74 @@ public class InscriptionPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inscription_page);
+        binding= ActivityInscriptionPageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
-
-        this.tabLayout = findViewById(R.id.tabLayoutInscription);
-        this.editTxtNomPrenom = findViewById(R.id.InscriptionNomPrenom);
-        this.editTxtPhone_mail = findViewById(R.id.phoneOrMailInscription);
-        this.editTxtPassWrd = findViewById(R.id.passWrdInscription);
-        this.confirmeditTxtPassWrd = findViewById(R.id.passWrdConfirm);
-        this.btnInscription =findViewById(R.id.btnInscrire);
-        this.passWrdTitle = findViewById(R.id.passWrdTitle);
-        this.editTxtTitle = findViewById(R.id.titlePhoneOrMail);
 
         selectedTab();
         inscription();
     }
 
-
     private void selectedTab(){
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        binding.tabLayoutInscription.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:
-                        editTxtTitle.setHint("Numéro de téléphone");
-                        editTxtTitle.setEndIconDrawable(R.drawable.ic_phone);
-                        editTxtTitle.setPlaceholderText("05000000");
-                        editTxtPhone_mail.setInputType(InputType.TYPE_CLASS_PHONE);
-                        editTxtPhone_mail.setText("");
-                        choix = "tel";
-
-                        maxLength = 8;
-                        FilterArray[0] = new InputFilter.LengthFilter(maxLength);
-                        editTxtPhone_mail.setFilters(FilterArray);
-
-                        break;
+                        binding.mailLayout.setVisibility(View.GONE);
+                        binding.numeroLayoutInscription.setVisibility(View.VISIBLE);
+                        binding.InscriptionNomPrenom.setText("");
+                        binding.mailInscription.setText("");
+                        binding.passWrdInscription.setText("");
+                        binding.passWrdInscriptionConfirme.setText("");break;
                     case 1:
-                        editTxtTitle.setHint("E-mail");
-                        editTxtTitle.setEndIconDrawable(R.drawable.ic_email);
-                        editTxtTitle.setPlaceholderText("exemple@ploof.com");
-                        editTxtPhone_mail.setInputType(InputType.TYPE_CLASS_TEXT|
-                                InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                        editTxtPhone_mail.setText("");
-                        choix = "mail";
-
-                        maxLength = 50;
-                        FilterArray[0] = new InputFilter.LengthFilter(maxLength);
-                        editTxtPhone_mail.setFilters(FilterArray);
-
-                        break;
+                        binding.mailLayout.setVisibility(View.VISIBLE);
+                        binding.numeroLayoutInscription.setVisibility(View.GONE);break;
                 }
             }
-
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
+            public void onTabUnselected(TabLayout.Tab tab) {}
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 
     private void inscription(){
-        btnInscription.setOnClickListener(view -> {
-            textBoxError();
-            if (choix.equals("mail"))
-                createUserWithMail(mail,passWrd,nomPrenoms);
-            //else if (choix.equals("tel"))
+       binding.btnInscrire.setOnClickListener(view -> {
+           if (TextUtils.isEmpty(binding.InscriptionNomPrenom.getText())){
+               binding.InscriptionNomPrenom.setError("Le nom et le prénom sont requis!");
+               binding.InscriptionNomPrenom.requestFocus();
+           }
+           else if (TextUtils.isEmpty(binding.mailInscription.getText())){
+               binding.mailInscription.setError("Votre e-mail est requis!");
+               binding.mailInscription.requestFocus();
+           }
+           else if (!Patterns.EMAIL_ADDRESS.matcher(Objects.requireNonNull(binding.mailInscription.getText()).
+                   toString().trim()).matches()){
+               binding.mailInscription.setError("Merci de fournir un email valide!");
+               binding.mailInscription.requestFocus();
+           }
+           else if (TextUtils.isEmpty(binding.passWrdInscription.getText())){
+               binding.passWrdInscription.setError("Veuillez saisir un mot de passe!");
+               binding.passWrdInscription.requestFocus();
+           }
+           else if(binding.passWrdInscription.length()<5){
+               binding.passWrdInscription.setError("Votre mot de passe doit contenir au minimum 5 caractères");
+               binding.passWrdInscription.requestFocus();
+           }
+           else if (TextUtils.isEmpty(binding.passWrdInscriptionConfirme.getText())){
+               binding.passWrdInscriptionConfirme.setError("Confirmez votre mot de passe!");
+               binding.passWrdInscriptionConfirme.requestFocus();
+           }
+           else{
+               mail = Objects.requireNonNull(binding.mailInscription.getText()).toString().trim();
+               passWrd = Objects.requireNonNull(binding.passWrdInscription.getText()).toString().trim();
+               nomPrenoms = Objects.requireNonNull(binding.InscriptionNomPrenom.getText()).toString().trim();
+               createUserWithMail(mail,passWrd,nomPrenoms);
+           }
         });
     }
-
-
-    /****************************Gestion des erreurs au niveau des champs de saisie******************/
-    private void textBoxError(){
-        try {
-            if (TextUtils.isEmpty(editTxtNomPrenom.getText())){
-                editTxtNomPrenom.setError("Votre nom et prénoms sont requis!");
-                editTxtNomPrenom.requestFocus();
-                return;
-            }
-            else nomPrenoms = Objects.requireNonNull(editTxtNomPrenom.getText()).toString().trim();
-
-            if (choix.equals("mail")){
-                if (TextUtils.isEmpty(editTxtPhone_mail.getText())){
-                    editTxtPhone_mail.setError("Votre e-mail est requis!");
-                    editTxtPhone_mail.requestFocus();
-                    return;
-                }
-                else mail = Objects.requireNonNull(editTxtPhone_mail.getText()).toString().trim();
-
-                if (!Patterns.EMAIL_ADDRESS.matcher(Objects.requireNonNull(editTxtPhone_mail.getText()).
-                        toString().trim()).matches()){
-                    editTxtPhone_mail.setError("Merci de fournir un email valide!");
-                    editTxtPhone_mail.requestFocus();
-                    return;
-                }
-            }
-
-            if (choix.equals("tel")){
-                if (TextUtils.isEmpty(editTxtPhone_mail.getText())){
-                    editTxtPhone_mail.setError("Votre numéro de téléphone est requis!");
-                    editTxtPhone_mail.requestFocus();
-                    return;
-                }
-                else phone = Objects.requireNonNull(editTxtPhone_mail.getText()).toString().trim();
-            }
-
-            if (TextUtils.isEmpty(editTxtPassWrd.getText())){
-                editTxtPassWrd.setError("Veuillez saisir un mot de passe!");
-                editTxtPassWrd.requestFocus();
-                return;
-            }
-            else passWrd = Objects.requireNonNull(editTxtPassWrd.getText()).toString().trim();
-            if (editTxtPassWrd.length()<5){
-                editTxtPassWrd.setError("La longueur minimale du mot de passe doit être de 5 caractères");
-                editTxtPassWrd.requestFocus();
-            }
-
-            if (!Objects.requireNonNull(editTxtPassWrd.getText()).toString().trim().
-                    equals(Objects.requireNonNull(confirmeditTxtPassWrd.getText()).toString().trim())){
-                confirmeditTxtPassWrd.setError("mot de passe invalide");
-                confirmeditTxtPassWrd.requestFocus();
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /************************************Inscription avec le mail***********************************/
 
     //=>m: mail, p: mot de passe, n: nom/prénom
     private void createUserWithMail(String m, String p, String n){
@@ -213,4 +148,10 @@ public class InscriptionPage extends AppCompatActivity {
     private void updateUI() {
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(),ConnexionPage.class));
+        this.finish();
+    }
 }
