@@ -1,15 +1,13 @@
 package com.astdev.ploof;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +17,8 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
-
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 
 public class MainFragment extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,23 +43,20 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-       /* FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
+        //Affiche les données de l'utilisateur connecté. Ici on affiche juste le nom.
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance()
+                        .getCurrentUser()).getUid()).get().addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    }
+                    else {
+                        TextView textView = nav_view.findViewById(R.id.userName);
+                        textView.setText(String.valueOf(task.getResult().child("nomPrenom").getValue(String.class)));
+                        //Log.d("firebase", String.valueOf(task.getResult().child("nomPrenom").getValue(String.class)));
+                    }
+                });
 
-            for (UserInfo profile : user.getProviderData()) {
-                // Id of the provider (ex: google.com)
-                String providerId = profile.getProviderId();
-
-                // UID specific to the provider
-                String uid = profile.getUid();
-
-                // Name, email address, and profile photo Url
-                String name = profile.getDisplayName();
-                String email = profile.getEmail();
-                Toast.makeText(getApplicationContext(),name,Toast.LENGTH_SHORT).show();
-                //  Uri photoUrl = profile.getPhotoUrl();
-            }
-        }*/
 
         //Pour le menu lateral
         nav_view.bringToFront();

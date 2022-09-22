@@ -23,9 +23,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
@@ -153,6 +155,7 @@ public class InscriptionPage extends AppCompatActivity {
                                     Toast.makeText(InscriptionPage.this,"Votre inscription n'a" +
                                                     " pas été fait !\n Essayez à nouveau",
                                             Toast.LENGTH_LONG).show();
+                                    progressDialog.dismiss();
                                 }
                             });
                 }else {
