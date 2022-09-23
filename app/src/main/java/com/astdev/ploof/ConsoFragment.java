@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -31,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.github.mikephil.charting.charts.BarChart;
@@ -49,6 +51,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.opencsv.CSVWriter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -71,6 +78,7 @@ public class ConsoFragment extends Fragment{
     private ImageView photoPrise;
     private Uri afficheImage;
 
+    String csv = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/consoData.csv");
     double todayConso; //stock la consommation du jour
     SimpleDateFormat currentDay, currentMonth, newMonth; // currentDay=>stock le jour actuelle,
                                                 // currentMonth=>stock le mois actuelle
@@ -112,9 +120,8 @@ public class ConsoFragment extends Fragment{
         ((MainFragment) requireActivity()).setActionBarTitle("Accueil");
         position = new UsersModel();
 
-        dataHebdoModel = new DataHebdoModel();
-
-        calendar = Calendar.getInstance();
+        //Manipulation des dates
+        /*calendar = Calendar.getInstance();
         heureFormat24h = new SimpleDateFormat("HH:mm");
         currentDay = new SimpleDateFormat("EE");
         newMonth = new SimpleDateFormat("dd");
@@ -122,7 +129,19 @@ public class ConsoFragment extends Fragment{
         strCurrentDay = currentDay.format(calendar.getTime());
         dateTime24h = heureFormat24h.format(calendar.getTime());
 
-        Toast.makeText(requireActivity(), strNewMonth,Toast.LENGTH_SHORT).show();
+        SimpleDateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+        String strDate=date.format(calendar.getTime());
+
+        ArrayList<DataHebdoModel> dataHebdoModelArrayList = new ArrayList<>();
+        if (dateTime24h.equals("00:00")){
+            dataHebdoModel = new DataHebdoModel(strDate,todayConso, 0.0,0.0);
+            dataHebdoModelArrayList.add(dataHebdoModel);
+        }
+
+
+        Toast.makeText(requireActivity(), strDate,Toast.LENGTH_SHORT).show();*/
+        //Fin manipulation des dates
+
 
         lieu = new UsersModel();
         List<String> spinnerItem = new ArrayList<>();
@@ -132,7 +151,8 @@ public class ConsoFragment extends Fragment{
 
         choixLieuFuite = new Dialog(getActivity());
         choixLieuFuite.setContentView(R.layout.fuitepopup);
-        choixLieuFuite.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        choixLieuFuite.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout
+                .LayoutParams.WRAP_CONTENT);
         choixLieuFuite.getWindow().setGravity(Gravity.CENTER);
         choixLieuFuite.setCanceledOnTouchOutside(false);
 
@@ -214,8 +234,10 @@ public class ConsoFragment extends Fragment{
 
         CardView fuiteDetected = view.findViewById(R.id.cvFuiteDetected);
         fuiteDetected.setOnClickListener(view1 -> {
-            startActivity(new Intent(getContext(), Bar.class));
-            Toast.makeText(getActivity(), "Affiche les fuites détectées", Toast.LENGTH_SHORT).show();
+            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+            Fragment myFragment = new FuiteDetectedFragment();
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,
+                    myFragment).addToBackStack(null).commit();
         });
         CardView signaleFuite = view.findViewById(R.id.cvFuite);
         signaleFuite.setOnClickListener(view1 -> {

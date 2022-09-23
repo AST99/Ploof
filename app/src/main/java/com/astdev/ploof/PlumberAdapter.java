@@ -27,9 +27,7 @@ public class PlumberAdapter extends RecyclerView.Adapter<PlumberAdapter.PlumberV
     @NonNull
     @Override
     public PlumberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View v = LayoutInflater.from(context).inflate(R.layout.list_item,parent,false);
-
         return new PlumberViewHolder(v);
     }
 

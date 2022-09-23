@@ -40,4 +40,9 @@
         android:name="com.astdev.ploof.PlumberListFragment"
         android:label="Contacter un plombier"
         tools:layout="@layout/fragment_plumber_list" />
+    <fragment
+        android:id="@+id/fuiteDetectedFragment"
+        android:name="com.astdev.ploof.FuiteDetectedFragment"
+        android:label="fragment_fuite_detected"
+        tools:layout="@layout/fragment_fuite_detected" />
 </navigation>

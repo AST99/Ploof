@@ -14,4 +14,36 @@ public class DataHebdoModel {
         this.min = min;
         this.max = max;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public double getConso() {
+        return conso;
+    }
+
+    public void setConso(double conso) {
+        this.conso = conso;
+    }
+
+    public double getMin() {
+        return min;
+    }
+
+    public void setMin(double min) {
+        this.min = min;
+    }
+
+    public double getMax() {
+        return max;
+    }
+
+    public void setMax(double max) {
+        this.max = max;
+    }
 }

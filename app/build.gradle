@@ -71,6 +71,10 @@ dependencies {
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    //opencsv
+    implementation files('libs/opencsv-5.7.0.jar')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     //ImageView arrondi
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
