@@ -1,4 +1,4 @@
-package com.astdev.ploof;
+package com.astdev.ploof.models;
 
 import com.google.android.gms.maps.model.LatLng;
 

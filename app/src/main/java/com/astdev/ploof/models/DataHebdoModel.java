@@ -1,11 +1,16 @@
-package com.astdev.ploof;
+package com.astdev.ploof.models;
 
 public class DataHebdoModel {
 
     String date;
-    double conso, min,max;
+    double conso, min, max;
 
     public DataHebdoModel() {
+    }
+
+    public DataHebdoModel(String date, double conso){
+        this.date=date;
+        this.conso=conso;
     }
 
     public DataHebdoModel(String date, double conso, double min, double max) {

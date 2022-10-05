@@ -58,10 +58,11 @@ public class FuiteDetectedFragment extends Fragment {
 
         fuitList = new ArrayList<>();
 
-        String[] date = {"Fuite détectée le 13 Juil. 2022", "Fuite détectée le 7 Août 2022",
-                                "Fuite détectée le 15 Sep. 2022", "Fuite détectée le 20 Sep. 2022"};
+        String[] date = {"Fuite détectée le 27 Sep. 2022", "Fuite détectée le 10 Sep. 2022"
+                ,"Fuite détectée le 03 Août. 2022","Fuite détectée le 15 Août. 2022"
+                ,"Fuite détectée le 07 Juin 2022","Fuite détectée le 15 Mai 2022"};
 
-        String[] statut = {"Non réparer", "Réparer", "Non réparer", "Réparer"};
+        String[] statut = {"Non réparer", "Réparer", "Non réparer", "Réparer", "Réparer","Réparer"};
 
         for (int i=0;i<statut.length;i++){
             ListFuiteModel listFuite=new ListFuiteModel(date[i],statut[i]);

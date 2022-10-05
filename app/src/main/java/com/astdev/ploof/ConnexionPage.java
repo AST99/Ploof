@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -73,10 +72,16 @@ public class ConnexionPage extends AppCompatActivity {
         binding.btnOTPContinuer.setOnClickListener(view -> {
             verificationLayout.setVisibility(View.VISIBLE);
             mainLayout.setVisibility(View.GONE);
+            phoneConnexion();
+            String strPhone = Objects.requireNonNull(binding.phoneNumber.getText()).toString().trim();
+            if (TextUtils.isEmpty(strPhone)){
+                binding.phoneNumber.setError("Votre numéro de téléphone est requis!");
+                binding.phoneNumber.requestFocus();
+            }
+            else startPhoneNumberVerification(strPhone);
         });
 
         binding.btnConnecter.setOnClickListener(view -> mailAndPassWrdConnexion());
-        binding.btnOTPContinuer.setOnClickListener(view -> phoneConnexion());
 
         binding.btnInscription.setOnClickListener(view ->{
             startActivity(new Intent(getApplicationContext(),InscriptionPage.class));
@@ -192,14 +197,6 @@ public class ConnexionPage extends AppCompatActivity {
 
             }
         };
-        binding.btnOTPContinuer.setOnClickListener(view ->{
-            String strPhone = Objects.requireNonNull(binding.phoneNumber.getText()).toString().trim();
-            if (TextUtils.isEmpty(strPhone)){
-                binding.phoneNumber.setError("Votre numéro de téléphone est requis!");
-                binding.phoneNumber.requestFocus();
-            }
-            else startPhoneNumberVerification(strPhone);
-        });
 
         binding.txtViewResendCode.setOnClickListener(view -> {
             String strPhone = Objects.requireNonNull(binding.phoneNumber.getText()).toString().trim();
@@ -235,11 +232,7 @@ public class ConnexionPage extends AppCompatActivity {
             progressDialog.dismiss();
             String phone = Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber();
 
-            UsersModel user = new UsersModel(phone);
-            FirebaseDatabase.getInstance().getReference("Users")
-                    .child(Objects.requireNonNull(FirebaseAuth.getInstance()
-                                    .getCurrentUser()).getUid()).setValue(user);
-
+            progressDialog.dismiss();
             startActivity(new Intent(getApplicationContext(), MainFragment.class));
             Toast.makeText(ConnexionPage.this,"connecté en tant que "+phone, Toast.LENGTH_SHORT).show();
             this.finish();
@@ -264,7 +257,7 @@ public class ConnexionPage extends AppCompatActivity {
         progressDialog.setMessage("Vérification du numéro de téléphone");
         progressDialog.show();
 
-        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth).setPhoneNumber("+225"+phone)
+        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth).setPhoneNumber("+226"+phone)
                 .setTimeout(60L, TimeUnit.SECONDS).setActivity(this)
                 .setCallbacks(mCallBacks).build();
         PhoneAuthProvider.verifyPhoneNumber(options);

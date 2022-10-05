@@ -86,7 +86,7 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
             case R.id.servicesFragment: fragment = new ServicesFragment();break;
             case R.id.facturesFragment: fragment = new FacturesFragment();break;
             case R.id.aboutFragment: fragment = new AboutFragment();break;
-            case R.id.profileFragment: fragment = new ProfileFragment();break;
+            case R.id.consoFragment: fragment = new ConsoFragment();break;
         }
         if (fragment == null) throw new AssertionError();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();

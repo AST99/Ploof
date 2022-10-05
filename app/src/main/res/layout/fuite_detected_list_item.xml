@@ -40,7 +40,8 @@
             android:textStyle="normal"
             android:text="Fuite détectée le 10 Sep. 2022"
             android:textAlignment="center"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/statut"
@@ -53,7 +54,8 @@
             android:text="Non réparer"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:textColor="#ff0000" />
+            android:textColor="#ff0000"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/button2"
@@ -67,7 +69,8 @@
             android:background="@drawable/contour_button"
             android:text="Appeler un plombier"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
     </RelativeLayout>
 

@@ -9,10 +9,10 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/profileFragment"
+            android:id="@+id/consoFragment"
             android:enabled="true"
-            android:icon="@drawable/ic_profil"
-            android:title="Mon compte" />
+            android:icon="@drawable/ic_home"
+            android:title="Accueil" />
 
         <item
             android:id="@+id/servicesFragment"
@@ -22,6 +22,7 @@
         <item
             android:id="@+id/facturesFragment"
             android:icon="@drawable/ic_facture"
+            android:enabled="false"
             android:title="Mes factures" />
 
         <item
@@ -55,7 +56,7 @@
             android:id="@+id/mail"
             android:icon="@drawable/ic_email"
             android:enabled="false"
-            android:title="ploof@ploof.com"/>
+            android:title="contact@ploof-bf.com"/>
 
         <item
             android:id="@+id/location"

@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="160dp"
         android:background="#5ccff9"
         android:gravity="bottom|start"
         android:orientation="vertical"
@@ -24,9 +24,10 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bonjour"
+            android:text="@string/bonjour"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/userName"
@@ -35,7 +36,8 @@
             android:text="Sidik Touré"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
     </LinearLayout>
 

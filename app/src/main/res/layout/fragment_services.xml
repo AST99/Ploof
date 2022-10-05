@@ -66,10 +66,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:background="@drawable/contour_button"
+                            android:text="Contacter un plombier"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
-                            android:background="@drawable/contour_button"
-                            android:text="Contacter un plombier" />
+                            tools:ignore="TextContrastCheck" />
 
 
                     </LinearLayout>
@@ -113,10 +114,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:background="@drawable/contour_button"
+                            android:text="Contacter un vidangeur"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
-                            android:background="@drawable/contour_button"
-                            android:text="Contacter un vidangeur" />
+                            tools:ignore="TextContrastCheck" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -140,6 +142,7 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_home"
         app:backgroundTint="@color/buttonColor"
-        app:layout_anchor="@id/bottomAppBarService" />
+        app:layout_anchor="@id/bottomAppBarService"
+        tools:ignore="ImageContrastCheck" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

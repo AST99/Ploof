@@ -1,5 +1,7 @@
 package com.astdev.ploof;
 
+import static com.astdev.ploof.ConnexionPage.mAuth;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -32,9 +34,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import com.astdev.ploof.models.DataHebdoModel;
+import com.astdev.ploof.models.UsersModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -51,11 +55,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.opencsv.CSVWriter;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -133,13 +133,33 @@ public class ConsoFragment extends Fragment{
         String strDate=date.format(calendar.getTime());
 
         ArrayList<DataHebdoModel> dataHebdoModelArrayList = new ArrayList<>();
-        if (dateTime24h.equals("00:00")){
-            dataHebdoModel = new DataHebdoModel(strDate,todayConso, 0.0,0.0);
+        if (heureFormat24h.format(calendar.getTime()).equals("11:09")){
+            dataHebdoModel = new DataHebdoModel(strDate,11.26);
             dataHebdoModelArrayList.add(dataHebdoModel);
         }
-
-
-        Toast.makeText(requireActivity(), strDate,Toast.LENGTH_SHORT).show();*/
+        if (dateTime24h.equals("11:10")){
+            dataHebdoModel = new DataHebdoModel(strDate,11.28);
+            dataHebdoModelArrayList.add(dataHebdoModel);
+        }
+        if (dateTime24h.equals("11:15")){
+            dataHebdoModel = new DataHebdoModel(strDate,11.30);
+            dataHebdoModelArrayList.add(dataHebdoModel);
+        }
+        FirebaseDatabase.getInstance().getReference("Users")
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).
+                        getUid()).child("consoData").setValue(dataHebdoModelArrayList)
+                .addOnCompleteListener(task1 -> {
+                    if(task1.isSuccessful()){
+                        Toast.makeText(requireActivity(),"Path is created ! ",
+                                Toast.LENGTH_LONG).show();
+                        mAuth.getCurrentUser();
+                    }
+                    else {
+                        Toast.makeText(requireActivity(),"Path is not created !",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+        Toast.makeText(requireActivity(), dateTime24h,Toast.LENGTH_SHORT).show();*/
         //Fin manipulation des dates
 
 

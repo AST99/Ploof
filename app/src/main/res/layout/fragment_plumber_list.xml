@@ -49,6 +49,7 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_home"
         app:backgroundTint="@color/buttonColor"
-        app:layout_anchor="@id/bottomAppBarPlumber" />
+        app:layout_anchor="@id/bottomAppBarPlumber"
+        tools:ignore="ImageContrastCheck" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

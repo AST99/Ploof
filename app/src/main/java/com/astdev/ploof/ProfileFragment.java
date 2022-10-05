@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import com.astdev.ploof.databinding.FragmentNotifsBinding;
 import com.astdev.ploof.databinding.FragmentProfileBinding;
 
+import java.util.Objects;
+
 public class ProfileFragment extends Fragment {
 
     FragmentProfileBinding binding;

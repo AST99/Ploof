@@ -16,7 +16,7 @@
         android:layout_gravity="bottom"
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="10dp"
-        app:fabCradleVerticalOffset="10dp"></com.google.android.material.bottomappbar.BottomAppBar>
+        app:fabCradleVerticalOffset="10dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabNotif"
@@ -25,13 +25,15 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_home"
         app:backgroundTint="@color/buttonColor"
-        app:layout_anchor="@id/bottomAppBarNotif" />
+        app:layout_anchor="@id/bottomAppBarNotif"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Notification" />
+        android:text="@string/aucune_notification_pour_l_instant"
+        tools:ignore="HardcodedText" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

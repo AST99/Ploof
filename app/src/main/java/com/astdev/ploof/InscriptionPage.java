@@ -5,29 +5,23 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.astdev.ploof.databinding.ActivityConnexionBinding;
 import com.astdev.ploof.databinding.ActivityInscriptionPageBinding;
+import com.astdev.ploof.models.UsersModel;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
@@ -277,7 +271,7 @@ public class InscriptionPage extends AppCompatActivity {
         progressDialog.setMessage("Vérification du numéro de téléphone");
         progressDialog.show();
 
-        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth).setPhoneNumber("+225"+phone)
+        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth).setPhoneNumber("+226"+phone)
                 .setTimeout(60L, TimeUnit.SECONDS).setActivity(this)
                 .setCallbacks(mCallBacks).build();
         PhoneAuthProvider.verifyPhoneNumber(options);

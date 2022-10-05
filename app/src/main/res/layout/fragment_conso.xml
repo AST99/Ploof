@@ -84,12 +84,12 @@
                     android:textColor="#000000" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/txtViewConso"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="6dp"
-                    android:text="30m³"
+                    android:text="50 L"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold" />
