@@ -50,6 +50,7 @@
                 app:layout_rowWeight="1">
 
                 <me.tankery.lib.circularseekbar.CircularSeekBar
+                    android:id="@+id/consoBar"
                     android:layout_width="match_parent"
                     android:layout_height="98dp"
                     android:layout_gravity="center"
@@ -66,12 +67,12 @@
                     app:cs_hide_progress_when_empty="true"
                     app:cs_lock_enabled="true"
                     app:cs_maintain_equal_circle="true"
-                    app:cs_max="300"
+                    app:cs_max="400"
                     app:cs_move_outside_circle="true"
                     app:cs_negative_enabled="false"
                     app:cs_pointer_alpha_ontouch="5"
                     app:cs_pointer_stroke_width="8dp"
-                    app:cs_progress="170"
+                    app:cs_progress="0"
                     app:cs_start_angle="370"
                     app:cs_use_custom_radii="false" />
 
@@ -89,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="6dp"
-                    android:text="50 L"
+                    android:text=""
                     android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -112,9 +113,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="10.000fcfa"
+                    android:text="Bientôt disponible"
                     android:textColor="#DCDCDC"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView

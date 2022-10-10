@@ -1,12 +1,9 @@
 package com.astdev.ploof.models;
 
-import com.google.android.gms.maps.model.LatLng;
-
 public class UsersModel {
 
-    String nomPrenom, mail, phone, passWrd, latitude, longitude,
-            numeroCompteur, image, atHome, description, quartier, nbrePersonne;
-    public LatLng position;
+    String nomPrenom, mail, phone, passWrd, numeroCompteur, image, atHome, description, quartier,
+            nbrePersonne,position, conso;
 
     public UsersModel() {
     }
@@ -16,34 +13,26 @@ public class UsersModel {
     }
 
     /********************************Refonte page d'inscription*************************************/
-    public UsersModel(String nomPrenom, String mail, String numeroTel, String passWrd, String latitude,
-                      String longitude, String atHome, String description, String quartier, String nbrePersonne){
+    public UsersModel(String nomPrenom, String mail, String numeroTel, String passWrd, String position,
+                      String atHome, String description, String quartier, String nbrePersonne, String conso){
         this.nomPrenom = nomPrenom;
         this.mail = mail;
         this.passWrd = passWrd;
         this.phone = numeroTel;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.position = position;
         this.atHome = atHome;
         this.description = description;
         this.quartier = quartier;
         this.nbrePersonne = nbrePersonne;
+        this.conso=conso;
     }
 
-    public String getLatitude() {
-        return latitude;
+    public String getConso() {
+        return conso;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
+    public void setConso(String conso) {
+        this.conso = conso;
     }
 
     public String getNumeroCompteur() {
@@ -78,11 +67,11 @@ public class UsersModel {
         this.description = description;
     }
 
-    public LatLng getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPosition(LatLng position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 

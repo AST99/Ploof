@@ -23,11 +23,11 @@ public class SplashScreen extends AppCompatActivity {
         this.setContentView(R.layout.activity_splash_screen);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        //Redirige vers l'ecran d'accueil(Home) après 5secondes
+        //Redirige vers l'ecran d'accueil(Home) après 4.5secondes
         new Thread(){
             public void run(){
                 try {
-                    sleep(5000);
+                    sleep(4500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

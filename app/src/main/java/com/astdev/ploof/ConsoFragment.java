@@ -49,6 +49,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +61,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+
+import me.tankery.lib.circularseekbar.CircularSeekBar;
 
 public class ConsoFragment extends Fragment{
 
@@ -87,6 +90,7 @@ public class ConsoFragment extends Fragment{
 
     //Pour la localisation
     FusedLocationProviderClient client;
+    String consoValue;
     public List<UsersModel> usersModelList;
     private UsersModel lieu;
     private FirebaseDatabase database;
@@ -111,14 +115,13 @@ public class ConsoFragment extends Fragment{
         return inflater.inflate(R.layout.fragment_conso, container, false);
     }
 
-    @SuppressLint("NonConstantResourceId")
+    @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         ((MainFragment) requireActivity()).setActionBarTitle("Accueil");
         position = new UsersModel();
-
         //Manipulation des dates
         /*calendar = Calendar.getInstance();
         heureFormat24h = new SimpleDateFormat("HH:mm");
@@ -202,6 +205,16 @@ public class ConsoFragment extends Fragment{
                 strAdress=String.valueOf(task.getResult().child("quartier").getValue(String.class));
                 strNbrePersonne=String.valueOf(task.getResult().child("nbrePersonne").getValue(String.class));
 
+                /*Récupère la valeur de la consommation collecter par le débimètre puis stocker sur la
+                *base de donnée afin de l'afficher dans le seekBar*/
+                consoValue=String.valueOf(task.getResult().child("conso").getValue(String.class));
+                TextView txtViewConsoValue=view.findViewById(R.id.txtViewConso);
+                txtViewConsoValue.setText(consoValue+" L");
+                CircularSeekBar circularSeekBar=view.findViewById(R.id.consoBar);
+                circularSeekBar.setEnabled(false);
+                float valueConso = Float.parseFloat(consoValue);
+                circularSeekBar.setProgress(valueConso);
+
                 if (strAdress.equals("")||strNbrePersonne.equals(""))
                     moreUsersInfo.show();
             }
@@ -228,8 +241,10 @@ public class ConsoFragment extends Fragment{
                 e.printStackTrace();
             }
         });
-
         /*Fin*/
+
+
+
 
         this.barChart = view.findViewById(R.id.barChart);
         this.exFab = sFuite.findViewById(R.id.exFab);
@@ -363,9 +378,10 @@ public class ConsoFragment extends Fragment{
                     // Check condition
                     if (location != null) {
                         // When location result is not null set latitude
-                        position.setLatitude(String.valueOf(location.getLatitude()));
-                        // set longitude
-                        position.setLongitude(String.valueOf(location.getLongitude()));
+                        String latitude = String.valueOf(location.getLatitude());
+                        String longitude = String.valueOf(location.getLongitude());
+                        position.setPosition(""+latitude+","+longitude);
+
                     } else {
                         // When location result is null initialize location request
                         LocationRequest locationRequest = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -376,9 +392,10 @@ public class ConsoFragment extends Fragment{
                             public void onLocationResult(LocationResult locationResult) {
                                 // Initialize location
                                 Location location1 = locationResult.getLastLocation();
-                                // Set latitude
-                                position.setLatitude(String.valueOf(Objects.requireNonNull(location1).getLatitude()));
-                                position.setLatitude(String.valueOf(location1.getLongitude()));
+
+                                String latitude = String.valueOf(Objects.requireNonNull(location1).getLatitude());
+                                String longitude = String.valueOf(location1.getLongitude());
+                                position.setPosition(""+latitude+","+longitude);
                             }
                         };
                         // Request location updates
@@ -511,8 +528,7 @@ public class ConsoFragment extends Fragment{
                 HashMap<String, Object> userMap = new HashMap<>();
                 userMap.put("atHome",lieu.getAtHome());
                 userMap.put("description",lieu.getDescription());
-                userMap.put("latitude",position.getLatitude());
-                userMap.put("longitude",position.getLongitude());
+                userMap.put("position",position.getPosition());
 
                 myRefPosition = database.getReference("Users");
                 myRefPosition.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).
