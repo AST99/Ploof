@@ -1,7 +1,5 @@
 package com.astdev.ploof;
 
-import static com.astdev.ploof.ConnexionPage.mAuth;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -18,6 +16,7 @@ import android.os.Environment;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +35,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
 import com.astdev.ploof.models.DataHebdoModel;
 import com.astdev.ploof.models.UsersModel;
 import com.github.mikephil.charting.charts.BarChart;
@@ -55,14 +53,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class ConsoFragment extends Fragment{
 
@@ -72,8 +69,10 @@ public class ConsoFragment extends Fragment{
     private Button btnPrendrePhoto;
     public static boolean atHome, outsideHome;
     private Dialog choixLieuFuite; //l'utilisateur choisie le lieux de la fuite (à domicile ou  dans la rue)
-    private Dialog sFuite;
+    private Dialog sFuite, moreUsersInfo;
     private Button exFab;
+
+    private String strAdress, strNbrePersonne;
 
     private ImageView photoPrise;
     private Uri afficheImage;
@@ -181,6 +180,56 @@ public class ConsoFragment extends Fragment{
         sFuite.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         sFuite.getWindow().setGravity(Gravity.CENTER);
         sFuite.setCanceledOnTouchOutside(false);
+
+        /*Affiche un popup afin que l'utilisateur remplisse les informations supplémentaires
+        *tels que son adresse et le nombre de personne vivant dans le menage*/
+        moreUsersInfo = new Dialog(getActivity());
+        moreUsersInfo.setContentView(R.layout.more_users_info_dialog);
+        moreUsersInfo.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout
+                .LayoutParams.WRAP_CONTENT);
+        moreUsersInfo.getWindow().setGravity(Gravity.CENTER);
+        moreUsersInfo.setCanceledOnTouchOutside(false);
+
+        TextInputEditText adress = moreUsersInfo.findViewById(R.id.adress);
+        TextInputEditText nbrePersonne = moreUsersInfo.findViewById(R.id.nbrePersonne);
+        Button btnSendMoreInfo = moreUsersInfo.findViewById(R.id.btnSendMoreInfo);
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful())
+                Log.e("firebase", "Error getting data", task.getException());
+            else {
+                strAdress=String.valueOf(task.getResult().child("quartier").getValue(String.class));
+                strNbrePersonne=String.valueOf(task.getResult().child("nbrePersonne").getValue(String.class));
+
+                if (strAdress.equals("")||strNbrePersonne.equals(""))
+                    moreUsersInfo.show();
+            }
+        });
+
+        btnSendMoreInfo.setOnClickListener(view1 -> {
+            try {
+                HashMap<String, Object> userMap = new HashMap<>();
+                userMap.put("quartier", Objects.requireNonNull(adress.getText()).toString().trim());
+                userMap.put("nbrePersonne",Objects.requireNonNull(nbrePersonne.getText()).toString().trim());
+
+                myRefPosition = database.getReference("Users");
+                myRefPosition.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).
+                        getUid()).updateChildren(userMap).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        moreUsersInfo.dismiss();
+                    } else{
+                        Toast.makeText(requireActivity(), "Une erreur est survenue! Veuillez réessayer",
+                                Toast.LENGTH_SHORT).show();
+                        moreUsersInfo.show();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        /*Fin*/
 
         this.barChart = view.findViewById(R.id.barChart);
         this.exFab = sFuite.findViewById(R.id.exFab);
@@ -459,7 +508,6 @@ public class ConsoFragment extends Fragment{
     public void sendOnDatabase(){
         try {
             try {
-
                 HashMap<String, Object> userMap = new HashMap<>();
                 userMap.put("atHome",lieu.getAtHome());
                 userMap.put("description",lieu.getDescription());

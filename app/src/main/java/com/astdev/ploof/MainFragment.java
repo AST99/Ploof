@@ -5,7 +5,6 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,12 +20,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.opencsv.CSVWriter;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class MainFragment extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,17 +46,16 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
 
         //Affiche les données de l'utilisateur connecté. Ici on affiche juste le nom.
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance()
-                        .getCurrentUser()).getUid()).get().addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.e("firebase", "Error getting data", task.getException());
-                    }
-                    else {
-                        TextView textView = nav_view.findViewById(R.id.userName);
-                        textView.setText(String.valueOf(task.getResult().child("nomPrenom").getValue(String.class)));
-                        //Log.d("firebase", String.valueOf(task.getResult().child("nomPrenom").getValue(String.class)));
-                    }
-                });
+        mDatabase.child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+            }
+            else {
+                TextView textView = nav_view.findViewById(R.id.userName);
+                textView.setText(String.valueOf(task.getResult().child("nomPrenom").getValue(String.class)));
+                //Log.d("firebase", String.valueOf(task.getResult().child("nomPrenom").getValue(String.class)));
+            }
+        });
 
         //Pour le menu lateral
         nav_view.bringToFront();

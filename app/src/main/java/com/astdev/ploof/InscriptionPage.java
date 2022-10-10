@@ -4,16 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.astdev.ploof.databinding.ActivityInscriptionPageBinding;
 import com.astdev.ploof.models.UsersModel;
 import com.google.android.material.tabs.TabLayout;
@@ -23,13 +20,11 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class InscriptionPage extends AppCompatActivity {
 
-    private String choix="tel";
     private FirebaseAuth mAuth;
 
     ActivityInscriptionPageBinding binding;
@@ -41,10 +36,7 @@ public class InscriptionPage extends AppCompatActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBacks;
     private String mVerificationId;
 
-    private int maxLength;
-    InputFilter[] FilterArray = new InputFilter[1];
-
-    private String nomPrenoms, phone, mail, passWrd;
+    private String nomPrenoms,mail,passWrd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +125,7 @@ public class InscriptionPage extends AppCompatActivity {
 
             mAuth.createUserWithEmailAndPassword(m,p).addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
-                    UsersModel user = new UsersModel(n, m, "",p,"","","","");
+                    UsersModel user = new UsersModel(n, m, "",p,"","","","","","");
                     FirebaseDatabase.getInstance().getReference("Users")
                             .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).
                                     getUid()).setValue(user).addOnCompleteListener(task1 -> {
@@ -242,7 +234,7 @@ public class InscriptionPage extends AppCompatActivity {
             String phone = Objects.requireNonNull(mAuth.getCurrentUser()).getPhoneNumber();
             String name = Objects.requireNonNull(binding.inscriptionPhoneName.getText()).toString().trim();
 
-            UsersModel user = new UsersModel(name,"",phone,"","","","","");
+            UsersModel user = new UsersModel(name,"",phone,"","","","","","","");
             FirebaseDatabase.getInstance().getReference("Users")
                     .child(Objects.requireNonNull(FirebaseAuth.getInstance()
                             .getCurrentUser()).getUid()).setValue(user);

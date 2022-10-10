@@ -4,7 +4,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class UsersModel {
 
-    String nomPrenom, mail, phone, passWrd, latitude, longitude, numeroCompteur, image, atHome, description;
+    String nomPrenom, mail, phone, passWrd, latitude, longitude,
+            numeroCompteur, image, atHome, description, quartier, nbrePersonne;
     public LatLng position;
 
     public UsersModel() {
@@ -15,8 +16,8 @@ public class UsersModel {
     }
 
     /********************************Refonte page d'inscription*************************************/
-    public UsersModel(String nomPrenom, String mail, String numeroTel, String passWrd,
-                      String latitude, String longitude, String atHome, String description){
+    public UsersModel(String nomPrenom, String mail, String numeroTel, String passWrd, String latitude,
+                      String longitude, String atHome, String description, String quartier, String nbrePersonne){
         this.nomPrenom = nomPrenom;
         this.mail = mail;
         this.passWrd = passWrd;
@@ -25,6 +26,8 @@ public class UsersModel {
         this.longitude = longitude;
         this.atHome = atHome;
         this.description = description;
+        this.quartier = quartier;
+        this.nbrePersonne = nbrePersonne;
     }
 
     public String getLatitude() {
@@ -113,5 +116,21 @@ public class UsersModel {
 
     public void setPassWrd(String passWrd) {
         this.passWrd = passWrd;
+    }
+
+    public String getQuartier() {
+        return quartier;
+    }
+
+    public void setQuartier(String quartier) {
+        this.quartier = quartier;
+    }
+
+    public String getNbrePersonne() {
+        return nbrePersonne;
+    }
+
+    public void setNbrePersonne(String nbrePersonne) {
+        this.nbrePersonne = nbrePersonne;
     }
 }
