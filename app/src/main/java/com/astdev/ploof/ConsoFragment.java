@@ -12,7 +12,6 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -35,7 +34,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import com.astdev.ploof.models.DataHebdoModel;
 import com.astdev.ploof.models.UsersModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -49,19 +47,15 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-
 import me.tankery.lib.circularseekbar.CircularSeekBar;
 
 public class ConsoFragment extends Fragment{
@@ -80,14 +74,6 @@ public class ConsoFragment extends Fragment{
     private ImageView photoPrise;
     private Uri afficheImage;
 
-    String csv = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/consoData.csv");
-    double todayConso; //stock la consommation du jour
-    SimpleDateFormat currentDay, currentMonth, newMonth; // currentDay=>stock le jour actuelle,
-                                                // currentMonth=>stock le mois actuelle
-    String dateTime24h, strCurrentDay;
-    Calendar calendar;
-    SimpleDateFormat heureFormat24h, heureFormat12h;
-
     //Pour la localisation
     FusedLocationProviderClient client;
     String consoValue;
@@ -98,7 +84,7 @@ public class ConsoFragment extends Fragment{
 
     private UsersModel position;
 
-    DataHebdoModel dataHebdoModel;
+    //DataHebdoModel dataHebdoModel;
 
 
     public ConsoFragment() {
@@ -122,48 +108,6 @@ public class ConsoFragment extends Fragment{
 
         ((MainFragment) requireActivity()).setActionBarTitle("Accueil");
         position = new UsersModel();
-        //Manipulation des dates
-        /*calendar = Calendar.getInstance();
-        heureFormat24h = new SimpleDateFormat("HH:mm");
-        currentDay = new SimpleDateFormat("EE");
-        newMonth = new SimpleDateFormat("dd");
-        String strNewMonth = newMonth.format(calendar.getTime());
-        strCurrentDay = currentDay.format(calendar.getTime());
-        dateTime24h = heureFormat24h.format(calendar.getTime());
-
-        SimpleDateFormat date = new SimpleDateFormat("dd-MM-yyyy");
-        String strDate=date.format(calendar.getTime());
-
-        ArrayList<DataHebdoModel> dataHebdoModelArrayList = new ArrayList<>();
-        if (heureFormat24h.format(calendar.getTime()).equals("11:09")){
-            dataHebdoModel = new DataHebdoModel(strDate,11.26);
-            dataHebdoModelArrayList.add(dataHebdoModel);
-        }
-        if (dateTime24h.equals("11:10")){
-            dataHebdoModel = new DataHebdoModel(strDate,11.28);
-            dataHebdoModelArrayList.add(dataHebdoModel);
-        }
-        if (dateTime24h.equals("11:15")){
-            dataHebdoModel = new DataHebdoModel(strDate,11.30);
-            dataHebdoModelArrayList.add(dataHebdoModel);
-        }
-        FirebaseDatabase.getInstance().getReference("Users")
-                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).
-                        getUid()).child("consoData").setValue(dataHebdoModelArrayList)
-                .addOnCompleteListener(task1 -> {
-                    if(task1.isSuccessful()){
-                        Toast.makeText(requireActivity(),"Path is created ! ",
-                                Toast.LENGTH_LONG).show();
-                        mAuth.getCurrentUser();
-                    }
-                    else {
-                        Toast.makeText(requireActivity(),"Path is not created !",
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-        Toast.makeText(requireActivity(), dateTime24h,Toast.LENGTH_SHORT).show();*/
-        //Fin manipulation des dates
-
 
         lieu = new UsersModel();
         List<String> spinnerItem = new ArrayList<>();
@@ -195,6 +139,9 @@ public class ConsoFragment extends Fragment{
 
         TextInputEditText adress = moreUsersInfo.findViewById(R.id.adress);
         TextInputEditText nbrePersonne = moreUsersInfo.findViewById(R.id.nbrePersonne);
+        TextInputEditText consoM1 = moreUsersInfo.findViewById(R.id.consoM1);
+        TextInputEditText consoM2 = moreUsersInfo.findViewById(R.id.consoM2);
+        TextInputEditText consoM3 = moreUsersInfo.findViewById(R.id.consoM3);
         Button btnSendMoreInfo = moreUsersInfo.findViewById(R.id.btnSendMoreInfo);
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -222,9 +169,21 @@ public class ConsoFragment extends Fragment{
 
         btnSendMoreInfo.setOnClickListener(view1 -> {
             try {
+
+                //Calcul de la consommation moyenne d'eau par jour et par personne
+                double consoM1value = Double.parseDouble(Objects.requireNonNull(consoM1.getText()).toString().trim())*1000;
+                double consoM2value = Double.parseDouble(Objects.requireNonNull(consoM2.getText()).toString().trim())*1000;
+                double consoM3value = Double.parseDouble(Objects.requireNonNull(consoM3.getText()).toString().trim())*1000;
+                double nbrePersonneValue=Double.parseDouble(Objects.requireNonNull(nbrePersonne.getText()).toString().trim());
+                double consoMoyenne = ((consoM1value+consoM2value+consoM3value)/30);
+                consoMoyenne = consoMoyenne/nbrePersonneValue;
+                //fin de calcule de la consommation d'eau moyenne
+                String strConsoMoy = String.valueOf(consoMoyenne).trim();
+
                 HashMap<String, Object> userMap = new HashMap<>();
                 userMap.put("quartier", Objects.requireNonNull(adress.getText()).toString().trim());
                 userMap.put("nbrePersonne",Objects.requireNonNull(nbrePersonne.getText()).toString().trim());
+                userMap.put("consoMoyenne",Objects.requireNonNull(strConsoMoy));
 
                 myRefPosition = database.getReference("Users");
                 myRefPosition.child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).

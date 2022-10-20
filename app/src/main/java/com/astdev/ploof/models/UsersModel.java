@@ -3,7 +3,7 @@ package com.astdev.ploof.models;
 public class UsersModel {
 
     String nomPrenom, mail, phone, passWrd, numeroCompteur, image, atHome, description, quartier,
-            nbrePersonne,position, conso;
+            nbrePersonne,position, conso, consoMoyenne;
 
     public UsersModel() {
     }
@@ -14,7 +14,8 @@ public class UsersModel {
 
     /********************************Refonte page d'inscription*************************************/
     public UsersModel(String nomPrenom, String mail, String numeroTel, String passWrd, String position,
-                      String atHome, String description, String quartier, String nbrePersonne, String conso){
+                      String atHome, String description, String quartier, String nbrePersonne, String conso,
+                      String consoMoyene){
         this.nomPrenom = nomPrenom;
         this.mail = mail;
         this.passWrd = passWrd;
@@ -25,10 +26,19 @@ public class UsersModel {
         this.quartier = quartier;
         this.nbrePersonne = nbrePersonne;
         this.conso=conso;
+        this.consoMoyenne = consoMoyene;
     }
 
     public String getConso() {
         return conso;
+    }
+
+    public String getConsoMoyenne() {
+        return consoMoyenne;
+    }
+
+    public void setConsoMoyenne(String consoMoyenne) {
+        this.consoMoyenne = consoMoyenne;
     }
 
     public void setConso(String conso) {

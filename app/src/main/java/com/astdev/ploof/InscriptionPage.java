@@ -126,7 +126,7 @@ public class InscriptionPage extends AppCompatActivity {
             mAuth.createUserWithEmailAndPassword(m,p).addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
                     UsersModel user = new UsersModel(n, m, "",p,"","",
-                            "","","","0");
+                            "","","","0","");
                     FirebaseDatabase.getInstance().getReference("Users")
                             .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).
                                     getUid()).setValue(user).addOnCompleteListener(task1 -> {
@@ -236,7 +236,7 @@ public class InscriptionPage extends AppCompatActivity {
             String name = Objects.requireNonNull(binding.inscriptionPhoneName.getText()).toString().trim();
 
             UsersModel user = new UsersModel(name,"",phone,"","","",
-                    "","","","0");
+                    "","","","0","");
             FirebaseDatabase.getInstance().getReference("Users")
                     .child(Objects.requireNonNull(FirebaseAuth.getInstance()
                             .getCurrentUser()).getUid()).setValue(user);
