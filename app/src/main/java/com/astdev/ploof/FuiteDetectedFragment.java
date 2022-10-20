@@ -58,7 +58,7 @@ public class FuiteDetectedFragment extends Fragment {
 
         fuitList = new ArrayList<>();
 
-        String[] date = {"Fuite détectée le 27 Sep. 2022", "Fuite détectée le 10 Sep. 2022"
+        /*String[] date = {"Fuite détectée le 27 Sep. 2022", "Fuite détectée le 10 Sep. 2022"
                 ,"Fuite détectée le 03 Août. 2022","Fuite détectée le 15 Août. 2022"
                 ,"Fuite détectée le 07 Juin 2022","Fuite détectée le 15 Mai 2022"};
 
@@ -67,7 +67,8 @@ public class FuiteDetectedFragment extends Fragment {
         for (int i=0;i<statut.length;i++){
             ListFuiteModel listFuite=new ListFuiteModel(date[i],statut[i]);
             fuitList.add(listFuite);
-        }
+        }*/
+        binding.scrollView.setVisibility(View.GONE);
 
     }
 

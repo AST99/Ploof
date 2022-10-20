@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -69,7 +70,7 @@ public class ConsoFragment extends Fragment{
     private Dialog sFuite, moreUsersInfo;
     private Button exFab;
 
-    private String strAdress, strNbrePersonne;
+    private String strAdress, strNbrePersonne, strConsoMoyenne;
 
     private ImageView photoPrise;
     private Uri afficheImage;
@@ -151,6 +152,10 @@ public class ConsoFragment extends Fragment{
             else {
                 strAdress=String.valueOf(task.getResult().child("quartier").getValue(String.class));
                 strNbrePersonne=String.valueOf(task.getResult().child("nbrePersonne").getValue(String.class));
+                strConsoMoyenne=String.valueOf(task.getResult().child("consoMoyenne").getValue(String.class));
+
+                float cM = Float.parseFloat(strConsoMoyenne); //cM=consoMoyenne
+                //Toast.makeText(getActivity(),""+cM,Toast.LENGTH_SHORT).show();
 
                 /*Récupère la valeur de la consommation collecter par le débimètre puis stocker sur la
                 *base de donnée afin de l'afficher dans le seekBar*/
@@ -160,6 +165,10 @@ public class ConsoFragment extends Fragment{
                 CircularSeekBar circularSeekBar=view.findViewById(R.id.consoBar);
                 circularSeekBar.setEnabled(false);
                 float valueConso = Float.parseFloat(consoValue);
+
+                if (valueConso>cM){
+                    circularSeekBar.setCircleProgressColor(Color.parseColor("#f00000"));
+                }
                 circularSeekBar.setProgress(valueConso);
 
                 if (strAdress.equals("")||strNbrePersonne.equals(""))
@@ -373,7 +382,7 @@ public class ConsoFragment extends Fragment{
     /************************Les graphes hebdomadaire, mensuel, annuel******************************/
     public void graphHerbdo(){
 
-        float[] yData = {10,35,80,70,20,30,50};
+        float[] yData = {0,0,0,0,0,0,0};
         final String[] jours  = {"Lun","Mar","Mer","Jeu","Ven","Sam","Dim"};
         ArrayList<String> xEntry=new ArrayList <> ();
         ArrayList<BarEntry> yEntry=new ArrayList <> ();
@@ -392,6 +401,8 @@ public class ConsoFragment extends Fragment{
         barChart.getLegend().setEnabled(false);
         barChart.getDescription().setEnabled(false);
         barChart.setTouchEnabled(false);
+        barChart.getAxisLeft().setStartAtZero(true);
+        barChart.getAxisRight().setStartAtZero(true);
         barChart.setFitBars(true);
         barChart.getXAxis().setGranularity(1f);
         barChart.getXAxis().setGranularityEnabled(true);
@@ -409,7 +420,7 @@ public class ConsoFragment extends Fragment{
 
     public void graphMensuel(){
 
-        float[] yData = {10,35,80,70,20,30,50,64,94,70,8,20};
+        float[] yData = {0,0,0,0,0,0,0,0,0,0,0,0};
         final String[] mois  = {"Janv","Févr", "Mars", "Avr", "Mai", "Juin", "Juil",
                 "Août",	"Sept", "Oct", "Nov", "Déc"};
         ArrayList<String> xEntry=new ArrayList <> ();
@@ -446,8 +457,8 @@ public class ConsoFragment extends Fragment{
 
     public void graphAnnuel(){
 
-        float[] yData = {800,90};
-        final String[] an  = {"2021","2022","","","","",""};
+        float[] yData = {0};
+        final String[] an  = {"2022","","","","","",""};
         ArrayList<String> xEntry=new ArrayList <> ();
         ArrayList<BarEntry> yEntry=new ArrayList <> ();
 

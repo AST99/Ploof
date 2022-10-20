@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:textSize="18sp"
         android:text="@string/aucune_notification_pour_l_instant"
         tools:ignore="HardcodedText" />
 

@@ -67,11 +67,11 @@
                     app:cs_hide_progress_when_empty="true"
                     app:cs_lock_enabled="true"
                     app:cs_maintain_equal_circle="true"
-                    app:cs_max="400"
+                    app:cs_max="500"
                     app:cs_move_outside_circle="true"
                     app:cs_negative_enabled="false"
                     app:cs_pointer_alpha_ontouch="5"
-                    app:cs_pointer_stroke_width="8dp"
+                    app:cs_pointer_stroke_width="5dp"
                     app:cs_progress="0"
                     app:cs_start_angle="370"
                     app:cs_use_custom_radii="false" />
