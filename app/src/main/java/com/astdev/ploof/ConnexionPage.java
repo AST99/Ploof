@@ -95,13 +95,13 @@ public class ConnexionPage extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:
-                        mail_layout.setVisibility(View.GONE);
-                        numeroLayout.setVisibility(View.VISIBLE);
+                        mail_layout.setVisibility(View.VISIBLE);
+                        numeroLayout.setVisibility(View.GONE);
                         editTxtmail.setText("");
                         break;
                     case 1:
-                        mail_layout.setVisibility(View.VISIBLE);
-                        numeroLayout.setVisibility(View.GONE);
+                        mail_layout.setVisibility(View.GONE);
+                        numeroLayout.setVisibility(View.VISIBLE);
                         editTxtmail.setText("");
                         break;
                 }

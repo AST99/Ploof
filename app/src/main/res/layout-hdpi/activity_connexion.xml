@@ -11,7 +11,7 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_180sdp"
+        android:layout_height="@dimen/_160sdp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:background="@drawable/entete"
@@ -65,7 +65,6 @@
         android:layout_gravity="center"
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
-        android:layout_marginBottom="@dimen/_50sdp"
         android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,8 +74,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="@dimen/_90sdp"
-            android:layout_height="@dimen/_90sdp"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_20sdp"
             app:srcCompat="@drawable/ic_number_validation"
@@ -90,7 +89,7 @@
             android:gravity="center"
             android:text="Vérification du numéro"
             android:textColor="@color/black"
-            android:textSize="@dimen/_21ssp"
+            android:textSize="@dimen/_20ssp"
             android:textStyle="bold" />
 
         <TextView
@@ -100,7 +99,7 @@
             android:layout_marginBottom="@dimen/_16sdp"
             android:gravity="center"
             android:text="Veuillez entrer le code de vérification qui a été envoyer au"
-            android:textSize="@dimen/_16ssp" />
+            android:textSize="@dimen/_14ssp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/numberTextInputLayout"
@@ -166,7 +165,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_3sdp"
             android:text="@string/connexion"
             android:textColor="#000000"
             android:textSize="@dimen/_25ssp"
@@ -177,12 +176,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
             android:elevation="@dimen/_4sdp"
             app:tabIndicatorColor="#5ccff9"
             app:tabTextAppearance="@style/TextTabBar">
+
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
@@ -194,7 +194,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/phone"
                 android:textAllCaps="false" />
-
         </com.google.android.material.tabs.TabLayout>
 
         <LinearLayout
@@ -210,9 +209,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_14sdp"
                 android:hint="@string/phoneNumber"
                 app:endIconDrawable="@drawable/ic_phone"
                 app:endIconMode="custom"
@@ -270,7 +269,7 @@
                     android:id="@+id/Mail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -297,9 +296,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_6sdp"
                 android:text="@string/mot_de_passe_oubli"
                 android:textColor="#1eb6c6"
                 android:textStyle="bold" />
@@ -311,12 +310,12 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
                 android:background="@drawable/contour_button"
                 android:text="@string/se_connecter"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_20ssp" />
+                android:textSize="@dimen/_15ssp" />
 
         </LinearLayout>
 
@@ -324,7 +323,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
             android:orientation="horizontal">
 
             <View
@@ -344,7 +343,7 @@
                 android:layout_gravity="center"
                 android:text="@string/creer_compte"
                 android:textColor="#000000"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
             <View
@@ -363,13 +362,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginEnd="@dimen/_4sdp"
             android:background="@drawable/contoure_button_outlined"
             android:text="@string/s_inscrire"
             android:textAllCaps="false"
             android:textColor="#1eb6c6"
-            android:textSize="@dimen/_20ssp"
+            android:textSize="@dimen/_15ssp"
             tools:ignore="TextContrastCheck" />
 
     </LinearLayout>

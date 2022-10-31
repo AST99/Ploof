@@ -60,15 +60,15 @@ public class InscriptionPage extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:
+                        binding.mailLayout.setVisibility(View.VISIBLE);
+                        binding.numeroLayoutInscription.setVisibility(View.GONE);break;
+                    case 1:
                         binding.mailLayout.setVisibility(View.GONE);
                         binding.numeroLayoutInscription.setVisibility(View.VISIBLE);
                         binding.InscriptionNomPrenom.setText("");
                         binding.mailInscription.setText("");
                         binding.passWrdInscription.setText("");
                         binding.passWrdInscriptionConfirme.setText("");break;
-                    case 1:
-                        binding.mailLayout.setVisibility(View.VISIBLE);
-                        binding.numeroLayoutInscription.setVisibility(View.GONE);break;
                 }
             }
             @Override

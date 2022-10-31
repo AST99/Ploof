@@ -1,9 +1,9 @@
 package com.astdev.ploof;
 
+import static android.app.Activity.RESULT_OK;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
@@ -73,7 +72,6 @@ public class ConsoFragment extends Fragment{
     private String strAdress, strNbrePersonne, strConsoMoyenne;
 
     private ImageView photoPrise;
-    private Uri afficheImage;
 
     //Pour la localisation
     FusedLocationProviderClient client;
@@ -280,8 +278,8 @@ public class ConsoFragment extends Fragment{
                         requireContext().checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
                     String[] tabPermission = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
                     requestPermissions(tabPermission, 100);
-                } else openCam();
-            } else openCam();
+                } else chooseImage();
+            } else chooseImage();
         });
 
         CardView fuiteDetected = view.findViewById(R.id.cvFuiteDetected);
@@ -522,31 +520,36 @@ public class ConsoFragment extends Fragment{
 
 
     /*************************************Prendre une photo****************************************/
-    private void openCam() {
-        ContentValues cv=new ContentValues();
-        cv.put(MediaStore.Images.Media.TITLE,"Titre Image");
-        cv.put(MediaStore.Images.Media.DESCRIPTION,"Description Image");
-        afficheImage= requireActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,afficheImage);
-        //startActivityForResult(cameraIntent,101);
+    private void chooseImage() {
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), 200);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if ((requestCode==100) && (grantResults.length>0 && grantResults[0]+grantResults[1]==PackageManager.PERMISSION_GRANTED)){
-           openCam();
-           getCurrentLocation();
+          chooseImage();
+          getCurrentLocation();
         }else
             Toast.makeText(getActivity(), "Permission manquante", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode==101){
-            photoPrise.setImageURI(afficheImage);
-            btnPrendrePhoto.setVisibility(View.GONE);
-        }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            if (requestCode == 200) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    photoPrise.setImageURI(selectedImageUri);
+                    btnPrendrePhoto.setVisibility(View.GONE);
+                }
+            }
+        }
     }
 }

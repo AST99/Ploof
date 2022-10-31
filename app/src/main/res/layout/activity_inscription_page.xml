@@ -183,13 +183,13 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/phone"
-                android:textAllCaps="false" />
+                android:text="@string/e_mail" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/e_mail" />
+                android:text="@string/phone"
+                android:textAllCaps="false" />
 
         </com.google.android.material.tabs.TabLayout>
 
@@ -199,7 +199,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/Nametitle"
@@ -302,7 +302,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
