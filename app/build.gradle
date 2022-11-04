@@ -11,8 +11,8 @@ android {
         applicationId "com.astdev.ploof"
         minSdk 21
         targetSdk 32
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -59,7 +59,8 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
 
     //OTP
-    implementation 'com.google.android.gms:play-services-safetynet:18.0.1'
+    //implementation 'com.google.android.gms:play-services-safetynet:18.0.1'
+    implementation 'com.google.android.play:integrity:1.0.2'
     implementation 'androidx.browser:browser:1.4.0'
 
     implementation 'com.google.android.gms:play-services-location:21.0.0'

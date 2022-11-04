@@ -64,15 +64,11 @@ public class PlumberListFragment extends Fragment {
 
         plumberList = new ArrayList<>();
 
-        int[] imgId = {R.drawable.ex1, R.drawable.ex2, R.drawable.service_plumber, R.drawable.vidange,
-                R.drawable.signaler_fuite, R.drawable.fuite_detecte,
-                R.drawable.ex1, R.drawable.ex2, R.drawable.service_plumber,};
+        int[] imgId = {R.drawable.ex1, R.drawable.ex2, R.drawable.service_plumber, R.drawable.vidange};
 
-        String[] plumberName = {"Ouedroago Amidou", "Kaboré Cedric", "Koné Mohamed", "Sawadogo Abdoul",
-                "Ouattara Ali","Jean Christoph","Diallo Amina", "Coulibaly Fanta","Gondo Junior"};
+        String[] plumberName = {"Ouedroago Amidou", "Kaboré Alice", "Koné Mohamed", "Sawadogo Abdoul"};
 
-        String[] phoneNum = {"89822505", "05362221", "58327422", "05134798", "07217745","05837850",
-                "89822505", "05362221", "58327422"};
+        String[] phoneNum = {"05654412", "61271187", "67014996", "63148056"};
 
         for (int i=0;i<imgId.length;i++){
             PlumberModel plumber =new PlumberModel(plumberName[i],phoneNum[i], imgId[i]);

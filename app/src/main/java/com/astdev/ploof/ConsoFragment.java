@@ -49,13 +49,19 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
+
 import me.tankery.lib.circularseekbar.CircularSeekBar;
 
 public class ConsoFragment extends Fragment{
@@ -66,7 +72,7 @@ public class ConsoFragment extends Fragment{
     private Button btnPrendrePhoto;
     public static boolean atHome, outsideHome;
     private Dialog choixLieuFuite; //l'utilisateur choisie le lieux de la fuite (à domicile ou  dans la rue)
-    private Dialog sFuite, moreUsersInfo;
+    private Dialog sFuite, moreUsersInfo, confimeFuiteSignaler;
     private Button exFab;
 
     private String strAdress, strNbrePersonne, strConsoMoyenne;
@@ -127,6 +133,12 @@ public class ConsoFragment extends Fragment{
         sFuite.getWindow().setGravity(Gravity.CENTER);
         sFuite.setCanceledOnTouchOutside(false);
 
+        confimeFuiteSignaler = new Dialog(getActivity());
+        confimeFuiteSignaler.setContentView(R.layout.confimer_fuite_signaler);
+        confimeFuiteSignaler.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        confimeFuiteSignaler.getWindow().setGravity(Gravity.CENTER);
+        confimeFuiteSignaler.setCanceledOnTouchOutside(false);
+
         /*Affiche un popup afin que l'utilisateur remplisse les informations supplémentaires
         *tels que son adresse et le nombre de personne vivant dans le menage*/
         moreUsersInfo = new Dialog(getActivity());
@@ -144,7 +156,8 @@ public class ConsoFragment extends Fragment{
         Button btnSendMoreInfo = moreUsersInfo.findViewById(R.id.btnSendMoreInfo);
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).get().addOnCompleteListener(task -> {
+        mDatabase.child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().
+                getCurrentUser()).getUid()).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful())
                 Log.e("firebase", "Error getting data", task.getException());
             else {
@@ -152,7 +165,12 @@ public class ConsoFragment extends Fragment{
                 strNbrePersonne=String.valueOf(task.getResult().child("nbrePersonne").getValue(String.class));
                 strConsoMoyenne=String.valueOf(task.getResult().child("consoMoyenne").getValue(String.class));
 
-                float cM = Float.parseFloat(strConsoMoyenne); //cM=consoMoyenne
+                float cM = 0; //cM=consoMoyenne
+                try {
+                    cM = Float.parseFloat(strConsoMoyenne);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
                 //Toast.makeText(getActivity(),""+cM,Toast.LENGTH_SHORT).show();
 
                 /*Récupère la valeur de la consommation collecter par le débimètre puis stocker sur la
@@ -163,10 +181,8 @@ public class ConsoFragment extends Fragment{
                 CircularSeekBar circularSeekBar=view.findViewById(R.id.consoBar);
                 circularSeekBar.setEnabled(false);
                 float valueConso = Float.parseFloat(consoValue);
-
-                if (valueConso>cM){
+                if (valueConso>cM)
                     circularSeekBar.setCircleProgressColor(Color.parseColor("#f00000"));
-                }
                 circularSeekBar.setProgress(valueConso);
 
                 if (strAdress.equals("")||strNbrePersonne.equals(""))
@@ -230,6 +246,8 @@ public class ConsoFragment extends Fragment{
                     case 0: graphHerbdo();break;
                     case 1: graphMensuel();break;
                     case 2: graphAnnuel();break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + i);
                 }
             }
             @Override
@@ -259,17 +277,16 @@ public class ConsoFragment extends Fragment{
 
         exFab.setOnClickListener(view12 ->{
             String strDesc = Objects.requireNonNull(desc.getText()).toString().trim();
+            TextView txtViewCFS = confimeFuiteSignaler.findViewById(R.id.txtViewCFS);
             lieu.setDescription(strDesc);
             sendOnDatabase();
 
             sFuite.dismiss();
             choixLieuFuite.dismiss();
-            if (atHome){
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment myFragment = new PlumberListFragment();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,
-                        myFragment).addToBackStack(null).commit();
-            }
+            if (lieu.getAtHome().equals("yes"))
+                txtViewCFS.setText("Votre fuite a bien été signaler ! Vous serez contacté par un plombier.");
+            else
+                txtViewCFS.setText("La fuite a bien été signalée. Un technicien sera envoyé sur place !");
         });
 
         btnPrendrePhoto.setOnClickListener(view1 -> {
@@ -299,12 +316,15 @@ public class ConsoFragment extends Fragment{
     @SuppressLint("SetTextI18n")
     public void signaleFuite(){
         TextView txtViewClose = choixLieuFuite.findViewById(R.id.close);
-        TextView txtViewClose2 = sFuite.findViewById(R.id.close2);
         txtViewClose.setOnClickListener(view -> choixLieuFuite.dismiss());
+        TextView txtViewClose2 = sFuite.findViewById(R.id.close2);
         txtViewClose2.setOnClickListener(view -> {
             sFuite.dismiss();
             choixLieuFuite.show();
         });
+
+        Button btnOk = confimeFuiteSignaler.findViewById(R.id.btnOk);
+        btnOk.setOnClickListener(view -> confimeFuiteSignaler.dismiss());
 
         Button btnDomicile = choixLieuFuite.findViewById(R.id.btnDomicile);
         btnDomicile.setOnClickListener(view -> {
@@ -380,15 +400,40 @@ public class ConsoFragment extends Fragment{
     /************************Les graphes hebdomadaire, mensuel, annuel******************************/
     public void graphHerbdo(){
 
+
+
+        /*Récupère les données de la consommation journalière*/
+        /*float[] yData = new float[8];
+        String strD;
+        DatabaseReference jourData = FirebaseDatabase.getInstance().getReference();
+        jourData.child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().
+                getCurrentUser()).getUid()).child("Jours").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful())
+                Log.e("firebase", "Error getting data", task.getException());
+            else {
+                for (int i=1;i<8;i++){
+                    String days = String.valueOf(i);
+                    days=String.valueOf(task.getResult().child(days).getValue(String.class));
+                    //Toast.makeText(requireActivity()," "+days, Toast.LENGTH_SHORT).show();
+
+                    for (int j=0;j<yData.length;j++){
+                        yData[j]=Float.parseFloat(days);
+                    }
+                    Log.d("Jours", days);
+                }
+
+            }});*/
+        /*Fin de la récuperation des données de la consommation journalière*/
+
         float[] yData = {0,0,0,0,0,0,0};
         final String[] jours  = {"Lun","Mar","Mer","Jeu","Ven","Sam","Dim"};
-        ArrayList<String> xEntry=new ArrayList <> ();
+        var xEntry= new AtomicReference<ArrayList<String>>(new ArrayList<>());
         ArrayList<BarEntry> yEntry=new ArrayList <> ();
 
         for (int i=0;i<yData.length;i++)
             yEntry.add(new BarEntry(i, yData[i]));
 
-        Collections.addAll(xEntry, jours);
+        Collections.addAll(xEntry.get(), jours);
         BarDataSet set1 = new BarDataSet(yEntry, "");
 
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
@@ -396,6 +441,7 @@ public class ConsoFragment extends Fragment{
         BarData data = new BarData(dataSets);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         barChart.getAxisRight().setEnabled(false);
+        barChart.getAxisLeft().setEnabled(false);
         barChart.getLegend().setEnabled(false);
         barChart.getDescription().setEnabled(false);
         barChart.setTouchEnabled(false);
@@ -421,13 +467,13 @@ public class ConsoFragment extends Fragment{
         float[] yData = {0,0,0,0,0,0,0,0,0,0,0,0};
         final String[] mois  = {"Janv","Févr", "Mars", "Avr", "Mai", "Juin", "Juil",
                 "Août",	"Sept", "Oct", "Nov", "Déc"};
-        ArrayList<String> xEntry=new ArrayList <> ();
+        var xEntry= new AtomicReference<ArrayList<String>>(new ArrayList<>());
         ArrayList<BarEntry> yEntry=new ArrayList <> ();
 
         for (int i=0;i<yData.length;i++)
             yEntry.add(new BarEntry(i, yData[i]));
 
-        Collections.addAll(xEntry, mois);
+        Collections.addAll(xEntry.get(), mois);
         BarDataSet set1 = new BarDataSet(yEntry, "");
 
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
@@ -457,13 +503,13 @@ public class ConsoFragment extends Fragment{
 
         float[] yData = {0};
         final String[] an  = {"2022","","","","","",""};
-        ArrayList<String> xEntry=new ArrayList <> ();
+        var xEntry= new AtomicReference<ArrayList<String>>(new ArrayList<>());
         ArrayList<BarEntry> yEntry=new ArrayList <> ();
 
         for (int i=0;i<yData.length;i++)
             yEntry.add(new BarEntry(i, yData[i]));
 
-        Collections.addAll(xEntry, an);
+        Collections.addAll(xEntry.get(), an);
         BarDataSet set1 = new BarDataSet(yEntry, "");
 
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
@@ -504,8 +550,7 @@ public class ConsoFragment extends Fragment{
                     if (task.isSuccessful()) {
                         sFuite.dismiss();
                         choixLieuFuite.cancel();
-                        Toast.makeText(requireActivity(), "La fuite a bien été signalée!" +
-                                "\nUn technicien sera envoyé sur place!", Toast.LENGTH_LONG).show();
+                        confimeFuiteSignaler.show();
                     } else
                         Toast.makeText(requireActivity(), "Vérifiez votre connexion internet !",
                                 Toast.LENGTH_SHORT).show();
