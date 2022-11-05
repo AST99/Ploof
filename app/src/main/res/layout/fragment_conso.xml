@@ -130,6 +130,7 @@
         </GridLayout>
 
         <LinearLayout
+            android:id="@+id/graph_layout"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

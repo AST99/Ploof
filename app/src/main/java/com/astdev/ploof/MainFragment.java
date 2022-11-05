@@ -3,10 +3,12 @@ package com.astdev.ploof;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -23,6 +25,7 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
     NavigationView nav_view;
     ActionBarDrawerToggle toggle;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint({"SimpleDateFormat", "SetTextI18n", "UseCompatLoadingForDrawables",
             "NonConstantResourceId", "SourceLockedOrientationActivity"})
     @Override
@@ -44,6 +47,7 @@ public class MainFragment extends AppCompatActivity implements NavigationView.On
         menu_Lateral.addDrawerListener(toggle);
         toggle.syncState();
     }
+
 
     @Override
     public void finish() {

@@ -5,6 +5,7 @@ import static java.lang.Float.parseFloat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -34,6 +35,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.astdev.ploof.models.UsersModel;
@@ -333,6 +336,25 @@ public class ConsoFragment extends Fragment{
         signaleFuite.setOnClickListener(view1 -> {
             choixLieuFuite.show();
             signaleFuite();
+        });
+
+
+        LinearLayout graphLayout = view.findViewById(R.id.graph_layout);
+        graphLayout.setOnClickListener(view1 -> {
+            //Notification push*************************************************************/
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(requireActivity(), "CHANNEL_ID")
+                    .setSmallIcon(R.drawable.logo_rond)
+                    .setContentTitle("Une fuite à été détectée")
+                    //.setContentText("")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    // Set the intent that will fire when the user taps the notification
+                    .setAutoCancel(true);
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(requireActivity());
+
+            // notificationId is a unique int for each notification that you must define
+            notificationManager.notify(0, builder.build());
+            //Fin notification push***************************************************************/
         });
     }
 
