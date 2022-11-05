@@ -200,8 +200,7 @@ public class ConsoFragment extends Fragment{
                         txtViewConsoValue.setText(df.format(valueConso).concat("L"));
                     }
                     @Override
-                    public void onFinish() {
-                    }
+                    public void onFinish() {}
                 };
                 if (userName.equals("test"))
                     timer.start();
