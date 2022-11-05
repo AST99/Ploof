@@ -59,92 +59,6 @@
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/verificationOTP"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="@dimen/_15sdp"
-        android:layout_marginEnd="@dimen/_15sdp"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/_20sdp"
-            app:srcCompat="@drawable/ic_number_validation"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:gravity="center"
-            android:text="Vérification du numéro"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_20ssp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtViewSendTo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_16sdp"
-            android:gravity="center"
-            android:text="Veuillez entrer le code de vérification qui a été envoyer au"
-            android:textSize="@dimen/_14ssp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/numberTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:hint="Code de vérification"
-            app:placeholderText="xxxxxx"
-            app:placeholderTextColor="#a2b5bb">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/codeVerification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_12sdp"
-                android:inputType="number"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/txtViewResendCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_15sdp"
-            android:text="@string/vous_n_avez_pas_obtenu_le_code_renvoyer" />
-
-        <Button
-            android:id="@+id/btnOTPSubmit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@drawable/contour_button"
-            android:text="Envoyer"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_21ssp" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -166,83 +80,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginBottom="@dimen/_27sdp"
             android:text="@string/connexion"
             android:textColor="#000000"
             android:textSize="@dimen/_25ssp"
             android:textStyle="bold" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_12sdp"
-            android:elevation="@dimen/_4sdp"
-            app:tabIndicatorColor="#5ccff9"
-            app:tabTextAppearance="@style/TextTabBar">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/e_mail" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/phone"
-                android:textAllCaps="false" />
-        </com.google.android.material.tabs.TabLayout>
-
-        <LinearLayout
-            android:id="@+id/numeroLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/titleEdit"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_14sdp"
-                android:hint="@string/phoneNumber"
-                app:endIconDrawable="@drawable/ic_phone"
-                app:endIconMode="custom"
-                app:placeholderText="05000000"
-                app:placeholderTextColor="#a2b5bb">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phoneNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:inputType="phone"
-                    android:maxLines="1"
-                    tools:ignore="TextContrastCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <Button
-                android:id="@+id/btnOTPContinuer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginEnd="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:background="@drawable/contour_button"
-                android:text="Continuer"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_20ssp"
-                tools:ignore="TextContrastCheck" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/mail_layout"
@@ -279,6 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:hint="@string/mot_de_passe"
                 app:endIconMode="password_toggle">
 
@@ -295,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_4sdp"
                 android:layout_marginBottom="@dimen/_6sdp"
                 android:text="@string/mot_de_passe_oubli"
@@ -310,6 +153,7 @@
                 android:layout_marginStart="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_4sdp"
                 android:layout_marginBottom="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/contour_button"
                 android:text="@string/se_connecter"
                 android:textAllCaps="false"

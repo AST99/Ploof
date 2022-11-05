@@ -54,93 +54,6 @@
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/verificationOTPInscription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="50dp"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            app:srcCompat="@drawable/ic_number_validation"
-            android:contentDescription="phone number validation image" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="Vérification du numéro"
-            android:textColor="@color/black"
-            android:textSize="21sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtViewSendTo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:text="Veuillez entrer le code de vérification qui a été envoyer au"
-            android:textSize="16sp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/numberTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:hint="Code de vérification"
-            app:placeholderText="xxxxxx"
-            app:placeholderTextColor="#a2b5bb">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/codeVerification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:inputType="number"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/txtViewResendCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:text="@string/vous_n_avez_pas_obtenu_le_code_renvoyer" />
-
-        <Button
-            android:id="@+id/btnOTPSubmit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/contour_button"
-            android:text="Envoyer"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="21sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/mainInscriptionLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -162,41 +75,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="12dp"
             android:text="@string/inscription"
             android:textColor="#000000"
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayoutInscription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="15dp"
-            app:tabIndicatorColor="#5ccff9"
-            app:tabTextAppearance="@style/TextTabBar">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/e_mail" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/phone"
-                android:textAllCaps="false" />
-
-        </com.google.android.material.tabs.TabLayout>
-
         <LinearLayout
             android:id="@+id/mail_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical"
             android:visibility="visible">
@@ -207,6 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="4dp"
                 android:hint="@string/nom_et_prenoms"
                 app:placeholderText="Ali Touré"
@@ -247,6 +137,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:hint="@string/phoneNumber"
+                app:endIconDrawable="@drawable/ic_phone"
+                app:endIconMode="custom"
+                app:placeholderText="05000000"
+                app:placeholderTextColor="#a2b5bb">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inscriptionPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    tools:ignore="TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnSuivant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/contour_button"
+                android:text="Suivant"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/passWrd_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="4dp"
                 android:hint="@string/mot_de_passe"
                 app:endIconMode="password_toggle">
@@ -293,73 +231,6 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/numeroLayoutInscription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:hint="@string/nom_et_prenoms"
-                app:placeholderText="Ali Touré"
-                app:placeholderTextColor="#a2b5bb">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inscriptionPhoneName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:inputType="textPersonName"
-                    android:maxLines="1"
-                    tools:ignore="TextContrastCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:hint="@string/phoneNumber"
-                app:endIconDrawable="@drawable/ic_phone"
-                app:endIconMode="custom"
-                app:placeholderText="05000000"
-                app:placeholderTextColor="#a2b5bb">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inscriptionPhoneNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="18dp"
-                    android:inputType="phone"
-                    android:maxLines="1"
-                    tools:ignore="TextContrastCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <Button
-                android:id="@+id/btnOTPContinuerInscription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/contour_button"
-                android:text="Continuer"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                tools:ignore="TextContrastCheck" />
 
         </LinearLayout>
 

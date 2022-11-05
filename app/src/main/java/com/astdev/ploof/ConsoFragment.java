@@ -1,6 +1,7 @@
 package com.astdev.ploof;
 
 import static android.app.Activity.RESULT_OK;
+import static java.lang.Float.parseFloat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -13,6 +14,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
@@ -49,24 +51,25 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
-
 import me.tankery.lib.circularseekbar.CircularSeekBar;
 
 public class ConsoFragment extends Fragment{
 
     BarChart barChart;
+
+    String userName="";
+    float valueConso;
+    final DecimalFormat df=new DecimalFormat();
 
     private TextView txtView;
     private Button btnPrendrePhoto;
@@ -88,9 +91,6 @@ public class ConsoFragment extends Fragment{
     private DatabaseReference myRefPosition;
 
     private UsersModel position;
-
-    //DataHebdoModel dataHebdoModel;
-
 
     public ConsoFragment() {
         // Required empty public constructor
@@ -164,10 +164,13 @@ public class ConsoFragment extends Fragment{
                 strAdress=String.valueOf(task.getResult().child("quartier").getValue(String.class));
                 strNbrePersonne=String.valueOf(task.getResult().child("nbrePersonne").getValue(String.class));
                 strConsoMoyenne=String.valueOf(task.getResult().child("consoMoyenne").getValue(String.class));
+                userName=(String.valueOf(task.getResult().child("nomPrenom").getValue(String.class)));
 
-                float cM = 0; //cM=consoMoyenne
+                float cM = 0;//cM=consoMoyenne
+
                 try {
-                    cM = Float.parseFloat(strConsoMoyenne);
+                    cM = parseFloat(strConsoMoyenne);
+                    graphHerbdo();
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
@@ -180,7 +183,31 @@ public class ConsoFragment extends Fragment{
                 txtViewConsoValue.setText(consoValue+" L");
                 CircularSeekBar circularSeekBar=view.findViewById(R.id.consoBar);
                 circularSeekBar.setEnabled(false);
-                float valueConso = Float.parseFloat(consoValue);
+                try {
+                    valueConso = parseFloat(consoValue);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+
+//Début Timer******************************************************/
+                df.setMaximumFractionDigits(2);
+                df.setMinimumFractionDigits(0);
+                CountDownTimer timer = new CountDownTimer(1000000, 1000) {
+                    @Override
+                    public void onTick(long l) {
+                        valueConso += 0.1;
+                        circularSeekBar.setProgress(valueConso);
+                        txtViewConsoValue.setText(df.format(valueConso).concat("L"));
+                    }
+                    @Override
+                    public void onFinish() {
+                    }
+                };
+                if (userName.equals("test"))
+                    timer.start();
+//Fin timer***************************************************************/
+
+
                 if (valueConso>cM)
                     circularSeekBar.setCircleProgressColor(Color.parseColor("#f00000"));
                 circularSeekBar.setProgress(valueConso);
@@ -224,9 +251,6 @@ public class ConsoFragment extends Fragment{
             }
         });
         /*Fin*/
-
-
-
 
         this.barChart = view.findViewById(R.id.barChart);
         this.exFab = sFuite.findViewById(R.id.exFab);
@@ -400,32 +424,18 @@ public class ConsoFragment extends Fragment{
     /************************Les graphes hebdomadaire, mensuel, annuel******************************/
     public void graphHerbdo(){
 
-
-
-        /*Récupère les données de la consommation journalière*/
-        /*float[] yData = new float[8];
-        String strD;
-        DatabaseReference jourData = FirebaseDatabase.getInstance().getReference();
-        jourData.child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().
-                getCurrentUser()).getUid()).child("Jours").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful())
-                Log.e("firebase", "Error getting data", task.getException());
+        float[] yData=new float[]{};
+        try {
+            if (userName.equals("test")){
+                yData= new float[]{28, 25, 30, 23, 31, 34, 0};
+            }
             else {
-                for (int i=1;i<8;i++){
-                    String days = String.valueOf(i);
-                    days=String.valueOf(task.getResult().child(days).getValue(String.class));
-                    //Toast.makeText(requireActivity()," "+days, Toast.LENGTH_SHORT).show();
+                yData = new float[]{0, 0, 0, 0, 0, 0, 0};
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-                    for (int j=0;j<yData.length;j++){
-                        yData[j]=Float.parseFloat(days);
-                    }
-                    Log.d("Jours", days);
-                }
-
-            }});*/
-        /*Fin de la récuperation des données de la consommation journalière*/
-
-        float[] yData = {0,0,0,0,0,0,0};
         final String[] jours  = {"Lun","Mar","Mer","Jeu","Ven","Sam","Dim"};
         var xEntry= new AtomicReference<ArrayList<String>>(new ArrayList<>());
         ArrayList<BarEntry> yEntry=new ArrayList <> ();
@@ -441,7 +451,6 @@ public class ConsoFragment extends Fragment{
         BarData data = new BarData(dataSets);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         barChart.getAxisRight().setEnabled(false);
-        barChart.getAxisLeft().setEnabled(false);
         barChart.getLegend().setEnabled(false);
         barChart.getDescription().setEnabled(false);
         barChart.setTouchEnabled(false);
@@ -464,7 +473,18 @@ public class ConsoFragment extends Fragment{
 
     public void graphMensuel(){
 
-        float[] yData = {0,0,0,0,0,0,0,0,0,0,0,0};
+        float[] yData=new float[]{};
+        try {
+            if (userName.equals("test")){
+                yData = new float[]{0, 0, 0, 0, 0, 0, 60, 75, 80, 20, 0, 0};
+            }
+            else {
+                yData = new float[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         final String[] mois  = {"Janv","Févr", "Mars", "Avr", "Mai", "Juin", "Juil",
                 "Août",	"Sept", "Oct", "Nov", "Déc"};
         var xEntry= new AtomicReference<ArrayList<String>>(new ArrayList<>());
@@ -501,7 +521,18 @@ public class ConsoFragment extends Fragment{
 
     public void graphAnnuel(){
 
-        float[] yData = {0};
+        float[] yData=new float[]{};
+        try {
+            if (userName.equals("test")){
+                yData = new float[]{235};
+            }
+            else {
+                yData = new float[]{0};
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         final String[] an  = {"2022","","","","","",""};
         var xEntry= new AtomicReference<ArrayList<String>>(new ArrayList<>());
         ArrayList<BarEntry> yEntry=new ArrayList <> ();
@@ -575,7 +606,7 @@ public class ConsoFragment extends Fragment{
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if ((requestCode==100) && (grantResults.length>0 && grantResults[0]+grantResults[1]==PackageManager.PERMISSION_GRANTED)){
-          chooseImage();
+          //chooseImage();
           getCurrentLocation();
         }else
             Toast.makeText(getActivity(), "Permission manquante", Toast.LENGTH_SHORT).show();
