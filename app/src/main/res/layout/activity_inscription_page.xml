@@ -108,7 +108,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="9dp"
                     android:inputType="textPersonName"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -129,7 +130,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="9dp"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -167,7 +169,8 @@
                 android:text="Suivant"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
 
         </LinearLayout>
 
@@ -195,7 +198,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="9dp"
                     android:inputType="textPassword"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -214,8 +218,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="9dp"
                     android:inputType="textPassword"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Switch
+                android:id="@+id/chooseUserType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:minHeight="48dp"
+                android:text="Je suis un(e) simple utilisateur-trice  "
+                android:textSize="@dimen/_9ssp"
+                android:theme="@style/SwitchColor" />
 
             <Button
                 android:id="@+id/btnInscrire"
@@ -230,7 +250,8 @@
                 android:text="@string/s_inscrire"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
 
         </LinearLayout>
 

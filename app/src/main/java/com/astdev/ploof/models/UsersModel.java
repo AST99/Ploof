@@ -8,10 +8,6 @@ public class UsersModel {
     public UsersModel() {
     }
 
-    public UsersModel(String phone){
-        this.phone = phone;
-    }
-
     /********************************Refonte page d'inscription*************************************/
     public UsersModel(String nomPrenom, String mail, String numeroTel, String passWrd, String position,
                       String atHome, String description, String quartier, String nbrePersonne, String conso,

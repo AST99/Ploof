@@ -133,17 +133,35 @@
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/txtViewPassOublie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginEnd="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:layout_marginBottom="@dimen/_16sdp"
-                android:text="@string/mot_de_passe_oubli"
-                android:textColor="#1eb6c6"
-                android:textStyle="bold" />
+                android:layout_marginEnd="@dimen/_4sdp">
+
+                <TextView
+                    android:id="@+id/txtViewPassOublie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:text="@string/mot_de_passe_oubli"
+                    android:textColor="#1eb6c6"/>
+
+                <Switch
+                    android:id="@+id/chooseUserTypeC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:minHeight="48dp"
+                    android:textColor="#808080"
+                    android:text="Je suis plombier"
+                    android:theme="@style/SwitchColor" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnConnecter"

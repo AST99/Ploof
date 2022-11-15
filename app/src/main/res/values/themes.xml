@@ -25,4 +25,8 @@
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
     </style>
 
+    <style name="SwitchColor" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">#1eb6c6</item>
+    </style>
+
 </resources>

@@ -11,7 +11,7 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_160sdp"
+        android:layout_height="@dimen/_130sdp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:background="@drawable/entete"
@@ -28,8 +28,8 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_70sdp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/logo"
                 app:srcCompat="@drawable/logo_rond"
@@ -41,7 +41,7 @@
                 android:layout_gravity="center"
                 android:text="@string/ploof"
                 android:textColor="#ffffff"
-                android:textSize="@dimen/_35ssp"
+                android:textSize="@dimen/_25ssp"
                 android:textStyle="bold"
                 tools:ignore="TextContrastCheck" />
 
@@ -51,7 +51,7 @@
                 android:layout_gravity="center"
                 android:text="@string/slogant"
                 android:textColor="#ffffff"
-                android:textSize="@dimen/_15ssp"
+                android:textSize="@dimen/_14ssp"
                 tools:ignore="TextContrastCheck" />
 
         </LinearLayout>
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_3sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
             android:text="@string/connexion"
             android:textColor="#000000"
             android:textSize="@dimen/_25ssp"
@@ -110,7 +110,7 @@
                     android:id="@+id/Mail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_3sdp"
                 android:hint="@string/mot_de_passe"
                 app:endIconMode="password_toggle">
 
@@ -133,17 +133,34 @@
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/txtViewPassOublie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_6sdp"
-                android:text="@string/mot_de_passe_oubli"
-                android:textColor="#1eb6c6"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtViewPassOublie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/mot_de_passe_oubli"
+                    android:textColor="#1eb6c6" />
+
+                <Switch
+                    android:id="@+id/chooseUserTypeC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:minHeight="48dp"
+                    android:text="Je suis plombier"
+                    android:textColor="#808080"
+                    android:textSize="@dimen/_11ssp"
+                    android:theme="@style/SwitchColor" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnConnecter"
@@ -153,20 +170,21 @@
                 android:layout_marginStart="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_4sdp"
                 android:layout_marginBottom="@dimen/_3sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:background="@drawable/contour_button"
                 android:text="@string/se_connecter"
                 android:textAllCaps="false"
+                android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_15ssp" />
+                android:textSize="@dimen/_14ssp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_9sdp"
+            android:layout_marginBottom="@dimen/_9sdp"
             android:orientation="horizontal">
 
             <View
@@ -186,7 +204,7 @@
                 android:layout_gravity="center"
                 android:text="@string/creer_compte"
                 android:textColor="#000000"
-                android:textSize="@dimen/_13ssp"
+                android:textSize="@dimen/_12ssp"
                 android:textStyle="bold" />
 
             <View
@@ -210,7 +228,7 @@
             android:text="@string/s_inscrire"
             android:textAllCaps="false"
             android:textColor="#1eb6c6"
-            android:textSize="@dimen/_15ssp"
+            android:textSize="@dimen/_14ssp"
             tools:ignore="TextContrastCheck" />
 
     </LinearLayout>
