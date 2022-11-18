@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.astdev.ploof.databinding.ActivityInscriptionPageBinding;
-import com.astdev.ploof.models.PlombierModel;
 import com.astdev.ploof.models.UsersModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,16 +35,6 @@ public class InscriptionPage extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
 
         inscriptionMail();
-
-       /* binding.chooseUserType.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-
-            if (isChecked){
-
-            }
-            else {
-
-            }
-        });*/
     }
 
     private void inscriptionMail(){
@@ -91,11 +80,7 @@ public class InscriptionPage extends AppCompatActivity {
            }
            else{
                passWrd = Objects.requireNonNull(binding.passWrdInscription.getText()).toString().trim();
-
-               if (binding.chooseUserType.isChecked())
-                   createSimpleUserWithMail(mail,phone,passWrd,nomPrenoms); //Inscription d'un(e) utilisatreur-trice normal
-               else
-                   createPlumberUserWithMail(mail,phone,passWrd,nomPrenoms); //Inscription Plombier et vidangeur
+               createSimpleUserWithMail(mail,phone,passWrd,nomPrenoms); //Inscription d'un(e) utilisatreur-trice normal
            }
         });
     }
@@ -131,48 +116,6 @@ public class InscriptionPage extends AppCompatActivity {
                                             progressDialog.dismiss();
                                         }
                                     });
-                }else {
-                    Toast.makeText(InscriptionPage.this,"Votre inscription n'a" +
-                            " pas été fait !\n Essayez à nouveau", Toast.LENGTH_LONG).show();
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    /**********************************Inscription plombier*******************************************/
-    //=>m: mail, p: mot de passe, n: nom/prénom
-    private void createPlumberUserWithMail(String m, String tel, String p, String n){
-        try {
-            ProgressDialog progressDialog = new ProgressDialog(InscriptionPage.this, R.style.MyAlertDialogStyle);
-            progressDialog.setMessage("Inscription en cours...!");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
-
-            mAuth.createUserWithEmailAndPassword(m,p).addOnCompleteListener(task -> {
-                if (task.isSuccessful()){
-
-                    PlombierModel plombier = new PlombierModel(n,m,p,tel);
-                    FirebaseDatabase.getInstance().getReference("Plombiers")
-                            .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).
-                                    getUid()).setValue(plombier).addOnCompleteListener(task1 -> {
-                                if(task1.isSuccessful()){
-                                    Toast.makeText(InscriptionPage.this,"Vous êtes inscrit(e) " +
-                                            "en tant que plombier !", Toast.LENGTH_LONG).show();
-                                    mAuth.getCurrentUser();
-                                    updateUI();
-                                    startActivity(new Intent(getApplicationContext(),ConnexionPage.class));
-                                    progressDialog.dismiss();
-                                }
-                                else {
-                                    Toast.makeText(InscriptionPage.this,"Votre inscription n'a" +
-                                                    " pas été fait !\n Essayez à nouveau",
-                                            Toast.LENGTH_LONG).show();
-                                    progressDialog.dismiss();
-                                }
-                            });
                 }else {
                     Toast.makeText(InscriptionPage.this,"Votre inscription n'a" +
                             " pas été fait !\n Essayez à nouveau", Toast.LENGTH_LONG).show();

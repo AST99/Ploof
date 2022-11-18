@@ -8,7 +8,6 @@
         android:topLeftRadius="6dp"
         android:topRightRadius="6dp" />
 
-
      <solid
          android:color="@color/buttonColor"/>
     <stroke

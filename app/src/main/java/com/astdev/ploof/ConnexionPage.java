@@ -30,9 +30,8 @@ public class ConnexionPage extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        if (mAuth.getCurrentUser() != null) {
+        if (mAuth.getCurrentUser() != null)
             startActivity(new Intent(ConnexionPage.this, MainFragment.class));
-        }
 
         progressDialog = new ProgressDialog(ConnexionPage.this, R.style.MyAlertDialogStyle);
         progressDialog.setCanceledOnTouchOutside(false);
@@ -80,36 +79,17 @@ public class ConnexionPage extends AppCompatActivity {
             progressDialog.setMessage("Connexion en cours...!");
             progressDialog.show();
             try {
-
-                if (binding.chooseUserTypeC.isChecked()){
-                    mAuth.signInWithEmailAndPassword(mail, passWrd).addOnSuccessListener(authResult -> {
-                        progressDialog.dismiss();
-                        //startActivity(new Intent(getApplicationContext(), MainFragment.class));
-                        Toast.makeText(ConnexionPage.this,"Vous êtes connecté en tant que plombier"
-                                , Toast.LENGTH_SHORT).show();
-                        editTxtPassWrd.setText("");
-                        editTxtmail.setText("");
-                        this.finish();
-                    }).addOnFailureListener(e -> {
-                        progressDialog.dismiss();
-                        Toast.makeText(ConnexionPage.this,"La connexion a échouer !\n Vérifiez vos" +
-                                " informations ou créez un compte !", Toast.LENGTH_LONG).show();
-                    });
-                }
-                else {
-                    mAuth.signInWithEmailAndPassword(mail, passWrd).addOnSuccessListener(authResult -> {
-                        progressDialog.dismiss();
-                        startActivity(new Intent(getApplicationContext(), MainFragment.class));
-                        editTxtPassWrd.setText("");
-                        editTxtmail.setText("");
-                        this.finish();
-                    }).addOnFailureListener(e -> {
-                        progressDialog.dismiss();
-                        Toast.makeText(ConnexionPage.this,"La connexion a échouer !\n Vérifiez vos" +
-                                " informations ou créez un compte !", Toast.LENGTH_LONG).show();
-                    });
-                }
-
+                mAuth.signInWithEmailAndPassword(mail, passWrd).addOnSuccessListener(authResult -> {
+                    progressDialog.dismiss();
+                    startActivity(new Intent(getApplicationContext(), MainFragment.class));
+                    editTxtPassWrd.setText("");
+                    editTxtmail.setText("");
+                    this.finish();
+                }).addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(ConnexionPage.this,"La connexion a échouer !\n Vérifiez vos" +
+                            " informations ou créez un compte !", Toast.LENGTH_LONG).show();
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }

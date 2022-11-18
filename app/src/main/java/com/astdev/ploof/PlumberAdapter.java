@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.astdev.ploof.models.PlumberModel;
 import com.google.android.material.imageview.ShapeableImageView;
 import java.util.ArrayList;
 
@@ -35,14 +37,14 @@ public class PlumberAdapter extends RecyclerView.Adapter<PlumberAdapter.PlumberV
     public void onBindViewHolder(@NonNull PlumberViewHolder holder, int position) {
 
         PlumberModel plumberModel = plumberArrayList.get(position);
-        holder.txtViewName.setText(plumberModel.nomPrenoms);
-        holder.imgView.setImageResource(plumberModel.imgId);
-        holder.txtViewPhone.setText(plumberModel.numeroTel);
+        holder.txtViewName.setText(plumberModel.getNomPrenoms());
+        holder.imgView.setImageResource(plumberModel.getImgId());
+        holder.txtViewPhone.setText(plumberModel.getNumeroTel());
 
         /*Lorque l'utilisateur clique sur un élément de la liste, le numéro de téléphone est
         * automatiquement copier pour émettre l'appel*/
         holder.itemView.setOnClickListener(view ->{
-            u = Uri.parse("tel:" + plumberModel.numeroTel);
+            u = Uri.parse("tel:" + plumberModel.getNumeroTel());
             try {
                 view.getContext().startActivity(new Intent(Intent.ACTION_DIAL, u));
             }

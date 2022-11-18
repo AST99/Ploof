@@ -223,20 +223,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <Switch
-                android:id="@+id/chooseUserType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginEnd="@dimen/_4sdp"
-                android:layout_weight="1"
-                android:checked="true"
-                android:minHeight="48dp"
-                android:text="Je suis un(e) simple utilisateur-trice  "
-                android:textSize="@dimen/_9ssp"
-                android:theme="@style/SwitchColor" />
-
             <Button
                 android:id="@+id/btnInscrire"
                 android:layout_width="match_parent"
